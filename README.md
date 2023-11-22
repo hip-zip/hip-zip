@@ -1,36 +1,12 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# hip_zip
 
-## Getting Started
+## 서론
 
-First, run the development server:
+힙합을 좋아하는 사람이라면 한 번 즈음 들어 보셨을 법한 힙합 어워즈라는 시상식이 있습니다. 진정한 힙합 리스너들은 연말이 되면 올해 나온 앨범들을 쭈욱 되돌아보며, 누가 올해의 앨범을 받게 될 지에 대해서 토론을 하곤 합니다. 하지만 힙합의 스펙트럼이 넓어지게 되면서 올해 나온 앨범들을 한 번에 볼 수 없는 곳을 찾기가 힘들어졌고, 이를 해소하기 위해 사이트를 만들어 각 년도에 나온 힙합 앨범들을 보여주는 사이트를 만들면 좋을 것 같다는 생각이 들었습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 기술 스택
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `Next.js`
+- `Typescript`
+- `Supabase DB`
+- `TailwindCSS`
