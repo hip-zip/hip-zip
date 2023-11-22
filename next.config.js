@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   trailingSlash: true,
   env: {
     supabaseUrl: process.env.supabaseUrl,
     supabaseKey: process.env.supabaseKey,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",

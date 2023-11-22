@@ -13,7 +13,8 @@ const useFetch = async (): Promise<AlbumListType[]> => {
 
   const { data: albumList, error } = await supabase
     .from("hiphopAlbumList")
-    .select();
+    .select()
+    .order("album_release_date", { ascending: false });
 
   if (error) {
     throw new Error(`Error fetching data: ${error.message}`);
