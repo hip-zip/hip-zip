@@ -10,3 +10,34 @@
 - `Typescript`
 - `Supabase DB`
 - `TailwindCSS`
+-  `PWA (예정)`
+
+## UI
+### 인트로
+![img_1.png](img_1.png)
+
+### 리스트
+![img.png](img.png)
+
+### 앨범 추가
+![img_2.png](img_2.png)
+
+## 기능
+- `Supabase`를 사용하여 앨범을 `Fetch`하는 기능
+- `Subabase`를 사용하여 앨범을 `Post`하는 기능
+
+## 추가 예정 기능
+- 아티스트 이름을 통해 앨범을 검색하는 기능
+- 앨범 클릭 시 `detail` 페이지로 넘어가서 자세한 정보를 볼 수 있는 기능
+
+### 앨범 리스트 스키마
+
+- `id: number`
+- `album_name: string`
+- `album_description: string`
+- `album_image: string`
+- `album_tracks: string[] - 각 트랙들 제목을 배열 형식으로 받을 예정`
+- `album_release_date: string - '2020-10-10'와 같은 형태로 작성하여야 함`
+- `music_video - iframe(embeded) 형식으로 유튜브로부터 가져올 예정`
+- `artist_name: string`
+- `artist_image: string`

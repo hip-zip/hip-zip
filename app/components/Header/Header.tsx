@@ -1,3 +1,3 @@
 export default function Header() {
-  return <div style={{ height: "300px" }}></div>;
+  return <div className={"flex justify-center items-center h-20"}>hip_zip</div>;
 }

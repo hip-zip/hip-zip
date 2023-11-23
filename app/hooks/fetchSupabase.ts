@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { AlbumListType } from "@/app/main/AlbumList";
 
-const useFetch = async (): Promise<AlbumListType[]> => {
+const fetchSupabase = async (): Promise<AlbumListType[]> => {
   if (!process.env.supabaseUrl || !process.env.supabaseKey) {
     throw new Error("Database Auth Error Occurred");
   }
@@ -23,4 +23,4 @@ const useFetch = async (): Promise<AlbumListType[]> => {
   return albumList || [];
 };
 
-export default useFetch;
+export default fetchSupabase;
