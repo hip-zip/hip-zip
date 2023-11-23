@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html>
       <body className={inter.className}>
-        <div className="h-screen p-5 gap-10 flex flex-col items-center justify-center text-white font-bold text-4xl bg-gradient-to-r from-blue-900 to-gray-900 animate-gradient">
+        <div className="h-screen p-5 gap-10 flex flex-col items-center justify-center text-white font-bold text-4xl bg-gradient-to-r from-black to-gray-900 animate-gradient">
           {children}
         </div>
       </body>

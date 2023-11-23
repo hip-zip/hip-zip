@@ -44,7 +44,7 @@ const AlbumList: React.FC = () => {
               alt={`개발자에게 얼른 사진 넣어라고 전해주세요`}
               width={250}
               height={250}
-              className="rounded-md hover:filter hover:brightness-75"
+              className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
               title={`${item.album_name} - ${item.artist_name}`}
             />
           </div>
