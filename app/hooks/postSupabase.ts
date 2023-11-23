@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { AlbumListProps } from "@/app/main/AlbumList";
+import { AlbumListProps } from "@/app/main/page";
 
 const postSupabase = async (paramObj: any): Promise<AlbumListProps[]> => {
   if (!process.env.supabaseUrl || !process.env.supabaseKey) {

@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { AlbumListType } from "@/app/main/AlbumList";
+import { AlbumListType } from "@/app/main/page";
 
 const fetchSupabase = async (): Promise<AlbumListType[]> => {
   if (!process.env.supabaseUrl || !process.env.supabaseKey) {

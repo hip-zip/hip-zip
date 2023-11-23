@@ -1,38 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import fetchSupabase from "@/app/hooks/fetchSupabase";
+import React from "react";
+import { useRouter } from "next/navigation";
+import { AlbumListProps } from "@/app/main/page";
 
-export const revalidate = 100;
-
-export interface AlbumListType {
-  id: number;
-  album_name: string;
-  album_description: string;
-  album_image: string;
-  album_tracks: string[];
-  album_release_date: string;
-  music_video: string;
-  artist_name: string;
-  artist_image: string;
-}
-
-export interface AlbumListProps {
-  albumList: AlbumListType[];
-}
-
-const AlbumList: React.FC = () => {
-  const [albumList, setAlbumList] = useState<AlbumListType[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const albums: AlbumListType[] = await fetchSupabase();
-      setAlbumList(albums);
-    };
-
-    fetchData();
-  }, []); // Empty dependency array means this effect will run once when the component mounts.
+const AlbumList = ({ albumList }: AlbumListProps) => {
+  const router = useRouter();
 
   return (
     <div className="flex justify-center items-center h-screen overflow-hidden">
@@ -46,6 +20,9 @@ const AlbumList: React.FC = () => {
               height={250}
               className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
               title={`${item.album_name} - ${item.artist_name}`}
+              onClick={() => {
+                router.push(`/detail/${item.id}`);
+              }}
             />
           </div>
         ))}
