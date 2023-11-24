@@ -23,10 +23,10 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
               onClick={() => {
                 if (document?.startViewTransition) {
                   document.startViewTransition(() => {
-                    router.push(`/detail/${item.id}`);
+                    router.push(`/main/detail/${item.id}`);
                   });
                 } else {
-                  router.push(`/detail/${item.id}`);
+                  router.push(`/main/detail/${item.id}`);
                 }
               }}
             />

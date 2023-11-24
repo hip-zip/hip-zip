@@ -50,7 +50,7 @@ export default function Page() {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md h-screen flex justify-center items-center">
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* 각 입력 필드 */}
         <div>
