@@ -17,7 +17,6 @@ const fetchDetailSupabase = async (id: string): Promise<AlbumListType[]> => {
     .eq("id", parseInt(id));
 
   if (error) {
-    throw new Error(`Error fetching data: ${error.message}`);
   }
 
   return albumList || [];

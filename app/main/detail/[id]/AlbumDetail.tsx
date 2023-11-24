@@ -68,9 +68,9 @@ const AlbumDetail = ({ detail }: any) => {
           <defs>
             <mask id="cd-mask" x="0" y="0" width="100%" height="100%">
               <circle
-                cx={cdVector.cx}
-                cy={cdVector.cy}
-                r={cdVector.r}
+                cx={cdVector.cx ? cdVector.cx : "50%"}
+                cy={cdVector.cy ? cdVector.cy : "50%"}
+                r={cdVector.r ? cdVector.r : "15%"}
                 fill={cdVector.fill}
               />
             </mask>
@@ -95,7 +95,7 @@ const AlbumDetail = ({ detail }: any) => {
       <div
         style={{
           position: "relative",
-          width: "80%",
+          width: "90%",
           paddingBottom: "56.25%" /* 16:9 비율 */,
         }}
       >

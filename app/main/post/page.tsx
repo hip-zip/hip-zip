@@ -52,7 +52,6 @@ export default function Page() {
   return (
     <div className="max-w-md h-screen flex justify-center items-center">
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* 각 입력 필드 */}
         <div>
           <label
             htmlFor="album_name"
@@ -103,23 +102,6 @@ export default function Page() {
             className="mt-1 p-2 w-full border rounded-md text-black text-xl"
           />
         </div>
-
-        {/*<div>*/}
-        {/*  <label*/}
-        {/*    htmlFor="albumTracks"*/}
-        {/*    className="block text-base font-medium text-white-700"*/}
-        {/*  >*/}
-        {/*    앨범 트랙*/}
-        {/*  </label>*/}
-        {/*  <input*/}
-        {/*    type="text"*/}
-        {/*    id="albumTracks"*/}
-        {/*    name="albumTracks"*/}
-        {/*    value={formValues.albumTracks}*/}
-        {/*    onChange={handleChange}*/}
-        {/*    className="mt-1 p-2 w-full border rounded-md text-black text-xl"*/}
-        {/*  />*/}
-        {/*</div>*/}
 
         <div>
           <label
