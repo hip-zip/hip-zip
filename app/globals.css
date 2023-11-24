@@ -32,19 +32,14 @@
   animation: spin-slow 12s linear infinite;
 }
 
-.cd-image {
-  cx: 50%;
-  cy: 50%;
-  r: 15%;
-  fill: #fff;
-}
+/* Apply specific durations to all animations */
 
-/* mobile case */
-@media (max-width: 600px) {
-  .cd-image {
-    cx: 64.5%;
-    cy: 64.5%;
-    r: 15%;
-    fill: #fff;
-  }
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(page-header),
+::view-transition-new(page-header),
+::view-transition-old(page-content),
+::view-transition-new(page-content) {
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.5s; /* Adjust the duration as needed (in seconds) */
 }

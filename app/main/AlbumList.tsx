@@ -21,7 +21,13 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
               className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
               title={`${item.album_name} - ${item.artist_name}`}
               onClick={() => {
-                router.push(`/detail/${item.id}`);
+                if (document?.startViewTransition) {
+                  document.startViewTransition(() => {
+                    router.push(`/detail/${item.id}`);
+                  });
+                } else {
+                  router.push(`/detail/${item.id}`);
+                }
               }}
             />
           </div>

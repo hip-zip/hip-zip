@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const AlbumDetail = ({ detail }: any) => {
   const [isiPhone, setIsiPhone] = useState(false);
@@ -11,10 +12,24 @@ const AlbumDetail = ({ detail }: any) => {
     r: "",
     fill: "#fff",
   });
+  const router = useRouter();
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
     const iPhoneRegex = /iphone/i;
+
+    window.addEventListener("popstate", function (event) {
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      if (document?.startViewTransition) {
+        document.startViewTransition(() => {
+          router.push(`/main`);
+        });
+      } else {
+        router.push(`/main`);
+      }
+    });
 
     setIsiPhone(iPhoneRegex.test(userAgent));
 
@@ -44,9 +59,6 @@ const AlbumDetail = ({ detail }: any) => {
           width={350}
           height={350}
           className="rounded-full transition-transform hover:scale-95 hover:brightness-95 animate-spin-slow cd-image sd-md sd-white shadow-lg shadow-amber-800"
-          onClick={() => {
-            alert(isiPhone);
-          }}
         />
         <svg
           className="absolute inset-0 rounded-full"
