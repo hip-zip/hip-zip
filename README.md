@@ -14,13 +14,13 @@
 
 ## UI
 ### 인트로
-![img_1.png](img_1.png)
+![](public/README/img.png)
 
 ### 리스트
-![img.png](img.png)
+![](public/README/img_1.png)
 
-### 앨범 추가
-![img_2.png](img_2.png)
+### 앨범 상세
+![](public/README/img_2.png)
 
 ## 기능
 - `Supabase`를 사용하여 앨범을 `Fetch`하는 기능
