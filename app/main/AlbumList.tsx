@@ -9,7 +9,7 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-center items-center h-screen overflow-hidden">
+    <div className="h-full flex justify-center items-center overflow-hidden">
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 overflow-auto max-h-full">
         {albumList?.map((item, index) => (
           <div key={item.id} className="flex justify-center items-center">
