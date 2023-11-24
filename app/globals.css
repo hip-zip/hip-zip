@@ -31,3 +31,20 @@
 .animate-spin-slow {
   animation: spin-slow 12s linear infinite;
 }
+
+.cd-image {
+  cx: 50%;
+  cy: 50%;
+  r: 15%;
+  fill: #fff;
+}
+
+/* mobile case */
+@media (max-width: 600px) {
+  .cd-image {
+    cx: 64.5%;
+    cy: 64.5%;
+    r: 15%;
+    fill: #fff;
+  }
+}

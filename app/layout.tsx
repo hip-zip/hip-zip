@@ -16,6 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <body className={`${inter.className} h-full`}>
         <div className="h-full p-3 gap-10 flex flex-col items-center justify-center text-white font-bold text-4xl bg-gradient-to-r from-black to-gray-900 animate-gradient">
           {children}

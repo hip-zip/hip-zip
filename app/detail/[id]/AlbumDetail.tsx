@@ -1,13 +1,39 @@
 "use client";
 
 import Image from "next/image";
-import { AlbumListType } from "@/app/main/page";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const AlbumDetail = ({ detail }: any) => {
-  const musicVideoRef = useRef(null);
+  const [isiPhone, setIsiPhone] = useState(false);
+  const [cdVector, setCdVector] = useState({
+    cx: "",
+    cy: "",
+    r: "",
+    fill: "#fff",
+  });
 
-  useEffect(() => {});
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const iPhoneRegex = /iphone/i;
+
+    setIsiPhone(iPhoneRegex.test(userAgent));
+
+    if (!iPhoneRegex.test(userAgent)) {
+      setCdVector((prev) => ({
+        ...prev,
+        cx: "50%",
+        cy: "50%",
+        r: "15%",
+      }));
+    } else {
+      setCdVector((prev) => ({
+        ...prev,
+        cx: "64%",
+        cy: "64%",
+        r: "15%",
+      }));
+    }
+  }, []);
 
   return (
     <div className={"w-full flex flex-col justify-center items-center"}>
@@ -18,6 +44,9 @@ const AlbumDetail = ({ detail }: any) => {
           width={350}
           height={350}
           className="rounded-full transition-transform hover:scale-95 hover:brightness-95 animate-spin-slow cd-image sd-md sd-white shadow-lg shadow-amber-800"
+          onClick={() => {
+            alert(isiPhone);
+          }}
         />
         <svg
           className="absolute inset-0 rounded-full"
@@ -26,7 +55,12 @@ const AlbumDetail = ({ detail }: any) => {
         >
           <defs>
             <mask id="cd-mask" x="0" y="0" width="100%" height="100%">
-              <circle cx="50" cy="50" r="15" fill="#fff" />
+              <circle
+                cx={cdVector.cx}
+                cy={cdVector.cy}
+                r={cdVector.r}
+                fill={cdVector.fill}
+              />
             </mask>
           </defs>
           <rect
@@ -39,24 +73,13 @@ const AlbumDetail = ({ detail }: any) => {
           />
         </svg>
       </div>
-      <div className="p-5 text-8xl text-amber-400 text-center">
+      <div className="p-5 text-4xl text-amber-400 text-center">
         {detail.album_name}
       </div>
-
-      {/*<div className="text-xl">{detail.album_release_date}</div>*/}
-      {/*<div className="text-sm">{detail.album_description}</div>*/}
-      <div className="p-5 text-8xl text-center">BY</div>
-      <div className="p-5 text-8xl text-amber-400 text-center">
+      <div className="p-5 text-4xl text-center">BY</div>
+      <div className="p-5 text-4xl text-amber-400 text-center">
         {detail.artist_name}
       </div>
-      {/*<Image*/}
-      {/*  src={`${detail.artist_image}`}*/}
-      {/*  alt={`개발자에게 얼른 사진 넣어라고 전해주세요`}*/}
-      {/*  width={250}*/}
-      {/*  height={250}*/}
-      {/*  className="rounded-md transition-transform hover:scale-95 hover:brightness-95 rounded-full"*/}
-      {/*/>*/}
-      {/*<div className="text-2xl">{detail.artist_name}</div>*/}
       <div
         style={{
           position: "relative",
