@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Cdd from "../../../public/static/cddProfile.jpeg";
-import Ion from "../../../public/static/ionProfile.jpeg";
-import Vincent from "../../../public/static/vincentProfile.png";
+import Cdd from "@/public/static/cddProfile.jpeg";
+import Ion from "@/public/static/ionProfile.jpeg";
+import Vincent from "@/public/static/vincentProfile.png";
 import Link from "next/link";
 
 export default function Page() {

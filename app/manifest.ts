@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "hip_zip",
     short_name: "hip_zip",
     description: "Hip-Hop Album List",
-    start_url: "/public",
+    start_url: "/",
     display: "fullscreen",
     background_color: "#fff",
     theme_color: "#fff",

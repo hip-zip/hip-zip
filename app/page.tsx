@@ -1,6 +1,6 @@
 import Image from "next/image";
 import RedirectButton from "@/app/components/Buttons/RedirectButton";
-import Logo from "../public/static/logo.png";
+import Logo from "@/public/static/logo.png";
 
 export default function Home() {
   return (
