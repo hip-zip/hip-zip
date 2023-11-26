@@ -1,14 +1,20 @@
 /** @type {import('next').NextConfig} */
 
+const withPWA = require("next-pwa")({
+  dest: "/public",
+});
+
+const isProduction = process.env.NODE_ENV === "production";
+
 const nextConfig = {
-  output: "export",
+  // output: "export",
   trailingSlash: true,
   env: {
     supabaseUrl: process.env.supabaseUrl,
     supabaseKey: process.env.supabaseKey,
   },
   images: {
-    unoptimized: true,
+    // unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -19,4 +25,5 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+// module.exports = isProduction ? withPWA(nextConfig) : nextConfig;
+module.exports = isProduction ? withPWA(nextConfig) : withPWA(nextConfig);

@@ -17,6 +17,58 @@ export default function RootLayout({
   return (
     <html>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="apple-touch-icon" href="/icon-192x192.png"></link>
+      <meta name="theme-color" content="#1c1c2e" />
+      <link
+        href="/public/splashscreens/iphone5_splash.png"
+        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/iphone6_splash.png"
+        media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/iphoneplus_splash.png"
+        media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/iphonex_splash.png"
+        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/iphonexr_splash.png"
+        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/iphonexsmax_splash.png"
+        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/ipad_splash.png"
+        media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/ipadpro1_splash.png"
+        media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/ipadpro3_splash.png"
+        media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image"
+      />
+      <link
+        href="/public/splashscreens/ipadpro2_splash.png"
+        media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image"
+      />
       <body className={`${inter.className} h-full`}>
         <div className="h-full p-3 gap-10 flex flex-col items-center justify-center text-white font-bold text-4xl bg-gradient-to-r from-black to-gray-900 animate-gradient">
           {children}

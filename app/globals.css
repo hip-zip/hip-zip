@@ -31,6 +31,19 @@
 .animate-spin-slow {
   animation: spin-slow 12s linear infinite;
 }
+/* 600px 이상인 경우 기본 값인 56.25%로 설정 */
+.mv-container {
+  width: 70%;
+  padding-bottom: 45%;
+}
+
+/* 600px 이하인 경우 70%로 설정 */
+@media (max-width: 600px) {
+  .mv-container {
+    width: 90%;
+    padding-bottom: 70%;
+  }
+}
 
 /* Apply specific durations to all animations */
 

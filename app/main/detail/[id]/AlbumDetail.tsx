@@ -52,7 +52,7 @@ const AlbumDetail = ({ detail }: any) => {
 
   return (
     <div className={"w-full flex flex-col justify-center items-center"}>
-      <div className="relative p-10">
+      <div className="relative p-10 overflow-hidden">
         <Image
           src={`${detail.album_image}`}
           alt={`개발자에게 얼른 사진 넣어라고 전해주세요`}
@@ -93,10 +93,12 @@ const AlbumDetail = ({ detail }: any) => {
         {detail.artist_name}
       </div>
       <div
+        className={"mv-container"}
         style={{
           position: "relative",
-          width: "90%",
-          paddingBottom: "56.25%" /* 16:9 비율 */,
+          // width: "70%",
+          // paddingBottom: "45%" /* 16:9 비율 */,
+          // paddingBottom: "70%",
         }}
       >
         <iframe
@@ -114,6 +116,7 @@ const AlbumDetail = ({ detail }: any) => {
           className={"pt-10"}
         ></iframe>
       </div>
+      <div className={"h-48"} />
     </div>
   );
 };
