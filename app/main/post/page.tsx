@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import postSupabase from "@/app/hooks/postSupabase";
+import extractYoutubeEmbedLink from "@/app/common/extractYoutubeEmbedLink";
 
 export interface AlbumFormType {
   album_name: string;
@@ -41,11 +42,14 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    let paramObj = formValues;
+    paramObj.music_video = extractYoutubeEmbedLink(paramObj.music_video);
+
     try {
-      await postSupabase(formValues);
+      await postSupabase(paramObj);
       router.push("/main");
     } catch (e) {
-      console.log("DD Console Check > ", e);
+      alert("양식을 다시 확인해주세요 !");
     }
   };
 
@@ -114,6 +118,7 @@ export default function Page() {
             type="text"
             id="album_release_date"
             name="album_release_date"
+            placeholder={"2020-01-01"}
             value={formValues.album_release_date}
             onChange={handleChange}
             className="mt-1 p-2 w-full border rounded-md text-black text-xl"
@@ -132,6 +137,7 @@ export default function Page() {
             id="music_video"
             name="music_video"
             value={formValues.music_video}
+            placeholder={"유튜브(앱,웹)에서 링크 복사"}
             onChange={handleChange}
             className="mt-1 p-2 w-full border rounded-md text-black text-xl"
           />
