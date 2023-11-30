@@ -21,9 +21,7 @@ export default function Page() {
         />
       </Link>
       <div className={"border-2 border-sky-500 p-5"}>
-        <p className={"font-mono text-xl text-center"}>
-          CDD (Front-End Developer)
-        </p>
+        <p className={"text-xl text-center"}>CDD (Front-End Developer)</p>
         <p className={"font-mono text-xl text-center"}>DB structure,</p>
         <p className={"font-mono text-xl text-center"}>Service Planning</p>
       </div>
@@ -31,6 +29,21 @@ export default function Page() {
         Contribute
       </p>
       <div className={"grid grid-cols-1 lg:grid-cols-2 gap-10"}>
+        <div>
+          <Link href={"https://www.instagram.com/neo_viincent/"}>
+            <Image
+              src={Vincent}
+              alt={"개발자한테 사진 넣으라고 말해주세요"}
+              className={"rounded-full m-10 cursor-pointer"}
+              width={300}
+              height={300}
+            />
+          </Link>
+          <div className={"mt-10 border-2 border-sky-500 p-5"}>
+            <p className={"font-mono text-xl text-center"}>Neo Vincent</p>
+            <p className={"font-mono text-xl text-center"}>Icon Designer</p>
+          </div>
+        </div>
         <div>
           <Link href={"https://www.instagram.com/ion0323/"}>
             <Image
@@ -44,24 +57,7 @@ export default function Page() {
           <div className={"mt-10 border-2 border-sky-500 p-5"}>
             <p className={"font-mono text-xl text-center"}>ION</p>
             <p className={"font-mono text-xl text-center"}>
-              Initial Data Providing
-            </p>
-          </div>
-        </div>
-        <div>
-          <Link href={"https://www.instagram.com/neo_viincent/"}>
-            <Image
-              src={Vincent}
-              alt={"개발자한테 사진 넣으라고 말해주세요"}
-              className={"rounded-full m-10 cursor-pointer"}
-              width={300}
-              height={300}
-            />
-          </Link>
-          <div className={"mt-10 border-2 border-sky-500 p-5"}>
-            <p className={"font-mono text-xl text-center"}>Neo Vicnent</p>
-            <p className={"font-mono text-xl text-center"}>
-              Icon Design Provider
+              Initial Data Provider
             </p>
           </div>
         </div>
