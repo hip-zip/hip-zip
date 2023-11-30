@@ -26,4 +26,4 @@ const nextConfig = {
 };
 
 // module.exports = isProduction ? withPWA(nextConfig) : nextConfig;
-module.exports = isProduction ? withPWA(nextConfig) : withPWA(nextConfig);
+module.exports = isProduction ? withPWA(nextConfig) : nextConfig;
