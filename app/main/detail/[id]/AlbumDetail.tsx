@@ -19,9 +19,6 @@ const AlbumDetail = ({ detail }: any) => {
     const iPhoneRegex = /iphone/i;
 
     window.addEventListener("popstate", function (event) {
-      if ("scrollRestoration" in history) {
-        history.scrollRestoration = "manual";
-      }
       if (document?.startViewTransition) {
         document.startViewTransition(() => {
           router.push(`/main`);
@@ -58,7 +55,8 @@ const AlbumDetail = ({ detail }: any) => {
           alt={`개발자에게 얼른 사진 넣어라고 전해주세요`}
           width={350}
           height={350}
-          className="rounded-full transition-transform hover:scale-95 hover:brightness-95 animate-spin-slow cd-image sd-md sd-white shadow-lg shadow-amber-800"
+          className="rounded-full transition-transform hover:scale-95 hover:brightness-95 animate-spin-slow cd-image"
+          // sd-md sd-white shadow-lg shadow-amber-800
         />
         <svg
           className="absolute inset-0 rounded-full"

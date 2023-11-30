@@ -5,12 +5,18 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AlbumListProps, AlbumListType } from "@/app/main/page";
 import getYearAlbumSupabase from "@/app/hooks/getYearAlbumSupabase";
+import { useSessionStorage } from "usehooks-ts";
 
 const AlbumList = ({ albumList }: AlbumListProps) => {
   const router = useRouter();
   const [filterAlbumList, setFilterAlbumList] =
     useState<AlbumListType[]>(albumList);
   const [yearArray] = useState([2023, 2022, 2021, 2020]);
+  const [scrollLocation, setScrollLocation] = useSessionStorage("scroll", 0);
+
+  useEffect(() => {
+    window.scrollTo(0, scrollLocation);
+  }, []);
 
   return (
     <>
@@ -38,7 +44,7 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
               <div key={item.id} className="flex justify-center items-center">
                 <Image
                   src={`${item.album_image}`}
-                  alt={`개발자에게 얼른 사진 넣어라고 전해주세요`}
+                  alt={"개발자한테 사진 넣으라고 전해주세요"}
                   width={250}
                   height={250}
                   className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
@@ -46,9 +52,11 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
                   onClick={() => {
                     if (document?.startViewTransition) {
                       document.startViewTransition(() => {
+                        setScrollLocation(window.scrollY);
                         router.push(`/main/detail/${item.id}`);
                       });
                     } else {
+                      setScrollLocation(window.scrollY);
                       router.push(`/main/detail/${item.id}`);
                     }
                   }}
