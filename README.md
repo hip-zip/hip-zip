@@ -6,6 +6,7 @@
 
 ### 기술 스택
 
+- `AWS`
 - `Next.js`
 - `Typescript`
 - `Supabase DB`
