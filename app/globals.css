@@ -18,6 +18,10 @@
   animation: gradientAnimation 5s infinite;
 }
 
+.cd-image {
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+}
+
 @keyframes spin-slow {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
