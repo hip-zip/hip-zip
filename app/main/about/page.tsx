@@ -57,7 +57,7 @@ export default function Page() {
           <div className={"mt-10 border-2 border-sky-500 p-5"}>
             <p className={"font-mono text-xl text-center"}>ION</p>
             <p className={"font-mono text-xl text-center"}>
-              Initial Data Provider
+              Mock Data Provider
             </p>
           </div>
         </div>
