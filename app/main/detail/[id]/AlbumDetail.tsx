@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import LikeDislike from "@/app/main/detail/[id]/LikeDislike";
 
 const AlbumDetail = ({ detail }: any) => {
   const [isiPhone, setIsiPhone] = useState(false);
@@ -88,13 +89,12 @@ const AlbumDetail = ({ detail }: any) => {
       <div className="p-5 text-4xl text-amber-400 text-center">
         {detail.artist_name}
       </div>
+      <LikeDislike onClick={() => alert("기능 개발 예정")} />
+
       <div
         className={"mv-container"}
         style={{
           position: "relative",
-          // width: "70%",
-          // paddingBottom: "45%" /* 16:9 비율 */,
-          // paddingBottom: "70%",
         }}
       >
         <iframe
