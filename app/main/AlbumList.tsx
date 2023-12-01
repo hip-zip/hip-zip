@@ -14,6 +14,8 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
   const [scrollLocation, setScrollLocation] = useSessionStorage("scroll", 0);
   const yearParams = useSearchParams();
 
+  useEffect(() => setScrollLocation(0), []);
+
   useEffect(() => {
     const year = yearParams.get("year");
     if (year !== null) {

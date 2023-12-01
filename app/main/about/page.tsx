@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <div className={"h-full overflow-auto max-h-fit"}>
-      <p className={"font-mono text-4xl text-center"}>Developer</p>
+      <p className={"text-4xl text-center"}>Developer</p>
       <Link
         href={"https://github.com/devcdd/hip_zip"}
         className={"flex justify-center"}
@@ -41,7 +41,6 @@ export default function Page() {
           </Link>
           <div className={"mt-10 border-2 border-sky-500 p-5"}>
             <p className={"font-mono text-xl text-center"}>Neo Vincent</p>
-            <p className={"font-mono text-xl text-center"}>Icon Designer</p>
           </div>
         </div>
         <div>
@@ -56,9 +55,6 @@ export default function Page() {
           </Link>
           <div className={"mt-10 border-2 border-sky-500 p-5"}>
             <p className={"font-mono text-xl text-center"}>ION</p>
-            <p className={"font-mono text-xl text-center"}>
-              Mock Data Provider
-            </p>
           </div>
         </div>
       </div>
