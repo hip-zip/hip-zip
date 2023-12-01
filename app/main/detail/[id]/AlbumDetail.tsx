@@ -20,9 +20,7 @@ const AlbumDetail = ({ detail }: any) => {
 
     window.addEventListener("popstate", function (event) {
       if (document?.startViewTransition) {
-        document.startViewTransition(() => {
-          router.push(`/main`);
-        });
+        document.startViewTransition(() => {});
       } else {
         router.push(`/main`);
       }

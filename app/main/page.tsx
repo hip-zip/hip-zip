@@ -25,5 +25,9 @@ export default async function Page() {
   const albumList = await fetchSupabase();
   const yearArray = [2023, 2022, 2021, 2020];
 
-  return <AlbumList albumList={albumList} />;
+  return (
+    <Suspense>
+      <AlbumList albumList={albumList} />
+    </Suspense>
+  );
 }
