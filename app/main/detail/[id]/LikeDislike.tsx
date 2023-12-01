@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 
 const LikeDislike = (props: { onClick: () => void }) => {
@@ -19,7 +21,7 @@ const LikeDislike = (props: { onClick: () => void }) => {
       <span
         className={`cursor-pointer flex justify-center items-center w-16 h-16 rounded-full border border-gray-500 bg-opacity-0 
                   ${likeClickState ? "bg-slate-900 scale-125" : ""} 
-                  transform transition-all duration-300 ease-in-out`}
+                  transform transition-all duration-200 ease-in-out`}
         onClick={() => handleButtonClick("like")}
       >
         🔥
@@ -27,7 +29,7 @@ const LikeDislike = (props: { onClick: () => void }) => {
       <span
         className={`cursor-pointer flex justify-center items-center w-16 h-16 rounded-full border border-gray-500 bg-opacity-0 
                   ${dislikeClickState ? "bg-slate-900 scale-125" : ""} 
-                  transform transition-all duration-300 ease-in-out`}
+                  transform transition-all duration-200 ease-in-out`}
         onClick={() => handleButtonClick("dislike")}
       >
         💀
