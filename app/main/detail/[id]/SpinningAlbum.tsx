@@ -1,10 +1,38 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const SpinningAlbum = (props: {
-  albumImage: string;
-  cdVector: { r: string; cx: string; cy: string; fill: string };
-}) => {
+const SpinningAlbum = (props: { albumImage: string }) => {
+  const [iphoneState, setIphoneState] = useState(false);
+  const [cdVector, setCdVector] = useState({
+    cx: "",
+    cy: "",
+    r: "",
+    fill: "#fff",
+  });
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+    const iPhoneRegex = /iphone/i;
+
+    setIphoneState(iPhoneRegex.test(userAgent));
+
+    if (!iPhoneRegex.test(userAgent)) {
+      setCdVector((prev) => ({
+        ...prev,
+        cx: "50%",
+        cy: "50%",
+        r: "15%",
+      }));
+    } else {
+      setCdVector((prev) => ({
+        ...prev,
+        cx: "64%",
+        cy: "64%",
+        r: "15%",
+      }));
+    }
+  }, []);
+
   return (
     <div className="relative p-10 overflow-hidden">
       <Image
@@ -23,10 +51,10 @@ const SpinningAlbum = (props: {
         <defs>
           <mask id="cd-mask" x="0" y="0" width="100%" height="100%">
             <circle
-              cx={props.cdVector.cx ? props.cdVector.cx : "50%"}
-              cy={props.cdVector.cy ? props.cdVector.cy : "50%"}
-              r={props.cdVector.r ? props.cdVector.r : "15%"}
-              fill={props.cdVector.fill}
+              cx={cdVector.cx ? cdVector.cx : "50%"}
+              cy={cdVector.cy ? cdVector.cy : "50%"}
+              r={cdVector.r ? cdVector.r : "15%"}
+              fill={cdVector.fill}
             />
           </mask>
         </defs>
