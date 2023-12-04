@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import AlbumList from "@/app/main/AlbumList";
 import fetchSupabase from "@/app/hooks/fetchSupabase";
-import getYearAlbumSupabase from "@/app/hooks/getYearAlbumSupabase";
 
 export const revalidate = 10;
 
@@ -22,12 +21,12 @@ export interface AlbumListProps {
 }
 
 export default async function Page() {
-  const albumList = await fetchSupabase();
+  const albumList = await fetchSupabase(0);
   const yearArray = [2023, 2022, 2021, 2020];
 
   return (
     <Suspense>
-      <AlbumList albumList={albumList} />{" "}
+      <AlbumList albumList={albumList} />
     </Suspense>
   );
 } // server -> client

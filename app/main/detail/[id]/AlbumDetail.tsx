@@ -1,12 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import MusicVideoContainer from "@/app/main/detail/[id]/MusicVideoContainer";
 import AlbumLabelContainer from "@/app/main/detail/[id]/AlbumLabelContainer";
 import SpinningAlbum from "@/app/main/detail/[id]/SpinningAlbum";
-import LikeDislike from "@/app/main/detail/[id]/LikeDislike";
 
 const AlbumDetail = ({ detail }: any) => {
   const router = useRouter();
@@ -15,8 +13,6 @@ const AlbumDetail = ({ detail }: any) => {
     window.addEventListener("popstate", function (event) {
       if (document?.startViewTransition) {
         document.startViewTransition(() => {});
-      } else {
-        router.push(`/main`);
       } // startViewTransition 적용
     });
   }, []);

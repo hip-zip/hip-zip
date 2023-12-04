@@ -3,15 +3,14 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { AlbumListProps, AlbumListType } from "@/app/main/page";
+import { AlbumListProps } from "@/app/main/page";
 import { useSessionStorage } from "usehooks-ts";
 import YearSelection from "@/app/main/YearSelection";
 import AlbumListContainer from "@/app/main/AlbumListContainer";
 
-const AlbumList = ({ albumList }: AlbumListProps) => {
+const AlbumList = (props: { albumList: AlbumListProps }) => {
   const router = useRouter();
-  const [filterAlbumList, setFilterAlbumList] =
-    useState<AlbumListType[]>(albumList);
+  const [albumList, setAlbumList] = useState<AlbumListProps>(props.albumList);
   const [yearArray] = useState([2023, 2022, 2021, 2020]);
   const [scrollLocation, setScrollLocation] = useSessionStorage("scroll", 0);
   const yearParams = useSearchParams();
@@ -23,19 +22,19 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
     if (year !== null) {
       getAlbumListByYear(parseInt(year));
     } else {
-      setFilterAlbumList(albumList);
+      setAlbumList(albumList);
     }
     window.scrollTo(0, scrollLocation);
   }, [yearParams]);
 
   const getAlbumListByYear = async (year: number) => {
     try {
-      const response = await fetch(`/api/album/?year=${year}`);
+      const response = await fetch(`/api/album/?page=1&year=${year}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const fetchData = await response.json();
-      setFilterAlbumList((prev: AlbumListType[]) => fetchData.data);
+      setAlbumList((prev: AlbumListProps) => fetchData.data);
     } catch (error: any) {
       alert(error.message);
     }
@@ -45,7 +44,8 @@ const AlbumList = ({ albumList }: AlbumListProps) => {
     <>
       <YearSelection setScrollLocation={setScrollLocation} />
       <AlbumListContainer
-        albumList={filterAlbumList}
+        albumList={albumList}
+        setAlbumList={setAlbumList}
         setScrollLocation={setScrollLocation}
       />
     </>

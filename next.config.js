@@ -23,6 +23,7 @@ const nextConfig = {
       },
     ],
   },
+  reactStrictMode: false,
 };
 
 // module.exports = isProduction ? withPWA(nextConfig) : nextConfig;
