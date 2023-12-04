@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const year = searchParams?.get("year");
-  const page = searchParams?.get("page");
+  const page = parseInt(searchParams?.get("page") || "1", 10); // Parse and provide a default value
 
   if (!process.env.supabaseUrl || !process.env.supabaseKey) {
     throw new Error("Database Auth Error Occurred");

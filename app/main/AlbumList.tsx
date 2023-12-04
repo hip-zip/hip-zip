@@ -3,14 +3,14 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { AlbumListProps } from "@/app/main/page";
+import { AlbumListProps, AlbumListType } from "@/app/main/page";
 import { useSessionStorage } from "usehooks-ts";
 import YearSelection from "@/app/main/YearSelection";
 import AlbumListContainer from "@/app/main/AlbumListContainer";
 
-const AlbumList = (props: { albumList: AlbumListProps }) => {
+const AlbumList = (props: { albumList: AlbumListType[] }) => {
   const router = useRouter();
-  const [albumList, setAlbumList] = useState<AlbumListProps>(props.albumList);
+  const [albumList, setAlbumList] = useState<AlbumListType[]>(props.albumList);
   const [yearArray] = useState([2023, 2022, 2021, 2020]);
   const [scrollLocation, setScrollLocation] = useSessionStorage("scroll", 0);
   const yearParams = useSearchParams();
@@ -25,6 +25,7 @@ const AlbumList = (props: { albumList: AlbumListProps }) => {
       setAlbumList(albumList);
     }
     window.scrollTo(0, scrollLocation);
+    window.message = "hello world";
   }, [yearParams]);
 
   const getAlbumListByYear = async (year: number) => {
@@ -34,7 +35,7 @@ const AlbumList = (props: { albumList: AlbumListProps }) => {
         throw new Error(`Network response was not ok: ${response.statusText}`);
       }
       const fetchData = await response.json();
-      setAlbumList((prev: AlbumListProps) => fetchData.data);
+      setAlbumList((prev: AlbumListType[]) => fetchData.data);
     } catch (error: any) {
       alert(error.message);
     }

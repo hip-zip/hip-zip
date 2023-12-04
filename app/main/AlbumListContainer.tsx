@@ -8,17 +8,21 @@ import { useRouter, useSearchParams } from "next/navigation";
 import fetchSupabase from "@/app/hooks/fetchSupabase";
 
 const AlbumListContainer = (props: {
-  albumList: AlbumListProps;
+  albumList: AlbumListType[];
   setAlbumList: Function;
   setScrollLocation: Function;
 }) => {
   const router = useRouter();
-  const observeElement = useRef<HTMLDivElement | undefined>(undefined);
+  const observeElement = useRef<HTMLDivElement | undefined>(
+    undefined,
+  ) as React.RefObject<HTMLDivElement>;
   const [pagination, setPagination] = useState<number>(2);
   const param = useSearchParams();
   const [total, setTotal] = useState<number>();
 
   useEffect(() => {
+    setPagination(2);
+
     const fetchTotal = async () => {
       const year = param.get("year");
       const response = await fetch(`/api/album/total?year=${year}`);
@@ -39,10 +43,12 @@ const AlbumListContainer = (props: {
               `/api/album/?page=${pagination}&year=${year}`,
             );
             const fetchData = await response.json();
-            props.setAlbumList((prev) => [...prev, ...fetchData.data]);
+            props.setAlbumList((prev: AlbumListType[]) => [
+              ...prev,
+              ...fetchData.data,
+            ]);
             setPagination((prev) => prev + 1);
           } else {
-            console.log("DD CONSOLE CHECK > finish");
           }
         }
       },
@@ -59,7 +65,7 @@ const AlbumListContainer = (props: {
         intersectionObserver.unobserve(observeElement.current);
       }
     };
-  }, [props.albumList]);
+  }, [props, total, pagination, param]);
 
   return (
     <>
