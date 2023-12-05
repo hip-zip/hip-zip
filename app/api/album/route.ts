@@ -16,16 +16,26 @@ export async function GET(request: NextRequest) {
   );
 
   if (year === null || year === "null") {
+    let nextCursor;
+
     const { data: albumList, error } = await supabase
       .from("hiphopAlbumList")
       .select()
       .order("album_release_date", { ascending: false })
       .range(40 * page - 40, 40 * page - 1);
 
-    return Response.json({ data: albumList });
+    if (albumList.length === 0) {
+      nextCursor = undefined;
+    } else {
+      nextCursor = page + 1;
+    }
+
+    return Response.json({ data: albumList, nextCursor: nextCursor });
   } else {
     const startDate = new Date(parseInt(year), 0, 1); // 해당 년도의 1월 1일
     const endDate = new Date(parseInt(year), 11, 31); // 해당 년도의 12월 31일
+
+    let nextCursor;
 
     const { data: albumList, error } = await supabase
       .from("hiphopAlbumList")
@@ -35,6 +45,12 @@ export async function GET(request: NextRequest) {
       .order("album_release_date", { ascending: false })
       .range(40 * page - 40, 40 * page - 1);
 
-    return Response.json({ data: albumList });
+    if (albumList.length === 0) {
+      nextCursor = undefined;
+    } else {
+      nextCursor = page + 1;
+    }
+
+    return Response.json({ data: albumList, nextCursor: nextCursor });
   }
 }

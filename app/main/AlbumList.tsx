@@ -25,7 +25,6 @@ const AlbumList = (props: { albumList: AlbumListType[] }) => {
       setAlbumList(albumList);
     }
     window.scrollTo(0, scrollLocation);
-    window.message = "hello world";
   }, [yearParams]);
 
   const getAlbumListByYear = async (year: number) => {
