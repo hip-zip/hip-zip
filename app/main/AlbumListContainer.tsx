@@ -15,13 +15,14 @@ const AlbumListContainer = (props: {
   const param = useSearchParams();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery<AlbumListType[], Error>({
+    useInfiniteQuery<AlbumListProps, Error>({
       queryKey: ["albums", param.get("year")],
       queryFn: ({ pageParam = 1 }) =>
         fetch(`/api/album/?page=${pageParam}&year=${param.get("year")}`).then(
           (res) => res.json(),
         ),
       getNextPageParam: (lastPage) => lastPage.nextCursor,
+      initialPageParam: 1, // Add this line to specify the initialPageParam
     });
 
   const observeElement = useRef<HTMLDivElement | null>(null);

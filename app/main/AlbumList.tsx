@@ -44,7 +44,6 @@ const AlbumList = (props: { albumList: AlbumListType[] }) => {
     <>
       <YearSelection setScrollLocation={setScrollLocation} />
       <AlbumListContainer
-        albumList={albumList}
         setAlbumList={setAlbumList}
         setScrollLocation={setScrollLocation}
       />

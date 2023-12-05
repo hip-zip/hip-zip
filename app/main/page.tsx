@@ -17,7 +17,8 @@ export interface AlbumListType {
 }
 
 export interface AlbumListProps {
-  albumList: AlbumListType[];
+  data: AlbumListType[];
+  nextCursor: number;
 }
 
 export default async function Page() {

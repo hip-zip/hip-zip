@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
       .order("album_release_date", { ascending: false })
       .range(40 * page - 40, 40 * page - 1);
 
-    if (albumList.length === 0) {
+    if (albumList?.length === 0) {
       nextCursor = undefined;
     } else {
       nextCursor = page + 1;
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       .order("album_release_date", { ascending: false })
       .range(40 * page - 40, 40 * page - 1);
 
-    if (albumList.length === 0) {
+    if (albumList?.length === 0) {
       nextCursor = undefined;
     } else {
       nextCursor = page + 1;
