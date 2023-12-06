@@ -22,7 +22,7 @@ export interface AlbumListProps {
 }
 
 export default async function Page() {
-  const albumList = await fetchSupabase(0);
+  const albumList = await fetchSupabase(0); // no use - planning to delete
   const yearArray = [2023, 2022, 2021, 2020];
 
   return (

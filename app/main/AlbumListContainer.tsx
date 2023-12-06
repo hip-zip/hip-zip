@@ -2,15 +2,12 @@
 
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
-import { AlbumListProps, AlbumListType } from "@/app/main/page";
+import { AlbumListProps } from "@/app/main/page";
 import CDD from "@/public/static/cddProfile.jpeg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const AlbumListContainer = (props: {
-  setAlbumList: Function;
-  setScrollLocation: Function;
-}) => {
+const AlbumListContainer = (props: { setScrollLocation: Function }) => {
   const router = useRouter();
   const param = useSearchParams();
 
@@ -26,12 +23,6 @@ const AlbumListContainer = (props: {
     });
 
   const observeElement = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (data) {
-      props.setAlbumList(data.pages.flatMap((page) => page.data));
-    }
-  }, [data, props.setAlbumList]);
 
   useEffect(() => {
     const intersectionObserver = new IntersectionObserver(
