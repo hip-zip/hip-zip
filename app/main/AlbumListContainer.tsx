@@ -60,7 +60,7 @@ const AlbumListContainer = (props: { setScrollLocation: Function }) => {
             .map((item) => (
               <div key={item.id} className="flex justify-center items-center">
                 <Image
-                  src={item.album_image ?? CDD}
+                  src={item.album_image}
                   alt={"개발자한테 사진 넣으라고 전해주세요"}
                   width={250}
                   height={250}

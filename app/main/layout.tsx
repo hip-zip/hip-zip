@@ -9,7 +9,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <Header />
-      <div className={"w-full flex flex-col gap-2"}>{children}</div>
+      <div className={"w-full flex flex-col justify-center items-center gap-2"}>
+        {children}
+      </div>
     </QueryClientProvider>
   );
 }

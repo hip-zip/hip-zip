@@ -9,7 +9,6 @@ import AlbumListContainer from "@/app/main/AlbumListContainer";
 
 const AlbumList = (props: { albumList: AlbumListType[] }) => {
   // const [albumList, setAlbumList] = useState<AlbumListType[]>(props.albumList);
-  const [yearArray] = useState([2023, 2022, 2021, 2020]);
   const [scrollLocation, setScrollLocation] = useSessionStorage("scroll", 0);
 
   useEffect(() => {
