@@ -70,7 +70,7 @@ export default function RootLayout({
         rel="apple-touch-startup-image"
       />
       <body className={`${inter.className} h-full`}>
-        <div className="h-full p-3 gap-10 flex flex-col items-center justify-center text-white font-bold text-4xl bg-gradient-to-r from-black to-gray-900 animate-gradient">
+        <div className="h-full min-h-screen p-3 text-white font-bold text-4xl bg-gradient-to-r from-black to-gray-900 animate-gradient">
           {children}
         </div>
       </body>

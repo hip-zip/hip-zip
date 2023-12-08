@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import { AlbumListProps } from "@/app/main/page";
-import CDD from "@/public/static/cddProfile.jpeg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
@@ -82,7 +81,7 @@ const AlbumListContainer = (props: { setScrollLocation: Function }) => {
             ))}
         </div>
       </div>
-      <div ref={(el) => (observeElement.current = el)} className={"h-48"} />
+      <div ref={(el) => (observeElement.current = el)} className={"h-2.5"} />
     </>
   );
 };

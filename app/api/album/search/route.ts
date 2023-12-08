@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     .ilike("album_name", `%${search}%`)
     .order("album_release_date", { ascending: false });
 
-  let result = [];
+  let result: any = [];
 
   if (!errorAlbumList && !errorAdditionalList) {
     result = [
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
   }
 
   // 결과 배열 정렬
-  const sortedResult = result.sort((a, b) => {
+  const sortedResult = result.sort((a: any, b: any) => {
     const dateA = new Date(a.album_release_date).getTime();
     const dateB = new Date(b.album_release_date).getTime();
 
