@@ -30,7 +30,10 @@ export default function Page() {
       </p>
       <div className={"grid grid-cols-1 lg:grid-cols-2 gap-10"}>
         <div>
-          <Link href={"https://www.instagram.com/neo_viincent/"}>
+          <Link
+            href={"https://www.instagram.com/neo_viincent/"}
+            className={"flex justify-center items-center"}
+          >
             <Image
               src={Vincent}
               alt={"개발자한테 사진 넣으라고 말해주세요"}
@@ -44,7 +47,10 @@ export default function Page() {
           </div>
         </div>
         <div>
-          <Link href={"https://www.instagram.com/ion0323/"}>
+          <Link
+            href={"https://www.instagram.com/ion0323/"}
+            className={"flex justify-center items-center"}
+          >
             <Image
               src={Ion}
               alt={"개발자한테 사진 넣으라고 말해주세요"}
@@ -63,7 +69,9 @@ export default function Page() {
           "flex justify-center items-center m-10 p-10 text-amber-500 border-2 border-orange-700 rounded-lg"
         }
       >
-        <Link href={"/main/post"}>앨범 입력 도와주기 - Click</Link>
+        <Link href={"/main/post"} className={"text-xl"}>
+          앨범 입력 도와주기 - Click
+        </Link>
       </div>
       <p className={"font-mono font-sans text-4xl text-center"}>Contact</p>
       <div className={"mt-10 border-2 border-sky-500 p-5"}>
