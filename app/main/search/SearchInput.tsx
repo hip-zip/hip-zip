@@ -37,11 +37,12 @@ const SearchInput = (props: { searchQuery: Function }) => {
 
   return (
     <>
-      <div className={"text-2xl md:text-3xl xl:text-4xl pb-8"}>
-        앨범, 아티스트 이름으로 검색해보세요!
+      <div className={"text-2xl md:text-3xl xl:text-4xl text-center p-10"}>
+        <p>앨범, 아티스트</p>
+        <p>이름으로 검색해보세요!</p>
       </div>
       <input
-        className="placeholder:text-gray-300 w-9/12 text-center bg-transparent border border-slate-300 rounded-md p-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm xl:text-xl"
+        className="placeholder:text-gray-300 w-9/12 text-center bg-transparent border border-slate-300 rounded-md p-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1"
         placeholder=""
         defaultValue={searchSession}
         type="text"
