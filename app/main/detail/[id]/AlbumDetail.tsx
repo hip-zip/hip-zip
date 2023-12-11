@@ -18,7 +18,11 @@ const AlbumDetail = ({ detail }: any) => {
   }, []);
 
   return (
-    <div className={"w-full flex flex-col justify-center items-center"}>
+    <div
+      className={
+        "w-full flex flex-col justify-center items-center border rounded border-slate-800"
+      }
+    >
       <SpinningAlbum albumImage={detail.album_image} />
       <AlbumLabelContainer
         albumName={detail.album_name}

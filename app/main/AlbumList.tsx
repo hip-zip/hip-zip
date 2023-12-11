@@ -16,10 +16,10 @@ const AlbumList = (props: { albumList: AlbumListType[] }) => {
   }, []);
 
   return (
-    <>
+    <div className={"w-full h-full border border-slate-800 rounded"}>
       <YearSelection setScrollLocation={setScrollLocation} />
       <AlbumListContainer setScrollLocation={setScrollLocation} />
-    </>
+    </div>
   );
 };
 

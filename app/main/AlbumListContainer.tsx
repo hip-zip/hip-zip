@@ -52,7 +52,7 @@ const AlbumListContainer = (props: { setScrollLocation: Function }) => {
 
   return (
     <>
-      <div className="h-full flex justify-center items-center overflow-hidden">
+      <div className="p-2 h-full flex justify-center items-center overflow-hidden">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 overflow-auto max-h-full">
           {data?.pages
             .flatMap((page) => page.data)
