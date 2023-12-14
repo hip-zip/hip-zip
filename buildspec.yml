@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  build:
+    commands:
+      - echo Build Starting on `date`
+      - ./gradlew build
+artifacts:
+  files:
+    - build/libs/*.jar
+  discard-paths: yes
+cache:
+  paths:
+    - '/root/.gradle/caches/**/*'
