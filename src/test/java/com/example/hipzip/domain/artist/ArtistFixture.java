@@ -1,35 +1,72 @@
 package com.example.hipzip.domain.artist;
 
+import com.example.hipzip.application.dto.ArtistListRequest;
+import com.example.hipzip.application.dto.ArtistSaveRequest;
+import java.util.List;
+
 public class ArtistFixture {
 
-    public static Artist IVE(){
-        return Artist.create("IVE",
-                "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/146/3055146_20231013113531_500.jpg",
-                ArtistType.GROUP
-        );
+    public static Artist IVE() {
+        return Artist.builder()
+                .name("IVE")
+                .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/146/3055146_20231013113531_500.jpg")
+                .artistType(ArtistType.GROUP)
+                .artistTags(List.of(
+                        new ArtistTag("아이브"),
+                        new ArtistTag("IVE"),
+                        new ArtistTag("ive")
+                ))
+                .build();
     }
 
-    public static Artist 르세라핌(){
-        return Artist.create(
-                "르세라핌",
-                "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/92/950/3092950_20231027105934_500.jpg",
-                ArtistType.GROUP
-        );
+    public static Artist 르세라핌() {
+        return Artist.builder()
+                .name("르세라핌")
+                .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/92/950/3092950_20231027105934_500.jpg")
+                .artistType(ArtistType.GROUP)
+                .artistTags(List.of(new ArtistTag("LE SSERAFIM")))
+                .build();
     }
 
-    public static Artist 장원영(){
-        return Artist.create(
-                "장원영",
-                "https://cdnimg.melon.co.kr/cm2/artistcrop/images/023/99/717/2399717_20231013113853_500.jpg",
-                ArtistType.SOLO
-        );
+    public static Artist 장원영() {
+        return Artist.builder().name("장원영")
+                .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/023/99/717/2399717_20231013113853_500.jpg")
+                .artistType(ArtistType.SOLO)
+                .artistTags(List.of(
+                        new ArtistTag("JANG WONYOUNG"),
+                        new ArtistTag("아이브"),
+                        new ArtistTag("IVE"),
+                        new ArtistTag("ive")
+                ))
+                .build();
     }
 
-    public static Artist 이서(){
-        return Artist.create(
+    public static Artist 이서() {
+        return Artist.builder()
+                .name("이서")
+                .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/172/3055172_20231013114039_500.jpg")
+                .artistType(ArtistType.SOLO)
+                .artistTags(List.of(
+                        new ArtistTag("LEESEO"),
+                        new ArtistTag("아이브"),
+                        new ArtistTag("IVE"),
+                        new ArtistTag("ive")
+                ))
+                .build();
+    }
+
+    public static ArtistSaveRequest 이서_저장_요청() {
+        return new ArtistSaveRequest(
                 "이서",
                 "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/172/3055172_20231013114039_500.jpg",
-                ArtistType.SOLO
+                ArtistType.SOLO,
+                List.of("LEESEO")
+        );
+    }
+
+    public static ArtistListRequest 아이브_조회_요청() {
+        return new ArtistListRequest(
+                "아이브"
         );
     }
 }

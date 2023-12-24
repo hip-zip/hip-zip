@@ -1,6 +1,7 @@
 package com.example.hipzip.domain.artist;
 
 import com.example.hipzip.BaseEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,6 +11,7 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,21 +29,26 @@ public class Artist extends BaseEntity {
     private Artist group;
     @OneToMany(mappedBy = "group")
     private List<Artist> members = new ArrayList<>();
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    private List<ArtistTag> artistTags = new ArrayList<>();
 
-    private Artist(
+    @Builder
+    public Artist(
             final String name,
             final String image,
             final ArtistType artistType,
-            final Artist group
+            final Artist group,
+            final List<ArtistTag> artistTags
     ) {
         this.name = name;
         this.image = image;
         this.artistType = artistType;
         this.group = group;
-    }
+        this.artistTags = artistTags;
 
-    public static Artist create(final String name, final String image, final ArtistType artistType) {
-        return new Artist(name, image, artistType, null);
+        for (ArtistTag artistTag : artistTags) {
+            artistTag.setArtist(this);
+        }
     }
 
     public void modifyGroup(final Artist group) {
