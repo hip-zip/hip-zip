@@ -1,6 +1,5 @@
 package com.example.hipzip.domain.artist;
 
-import com.example.hipzip.application.dto.ArtistListRequest;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
 import java.util.List;
 
@@ -61,12 +60,6 @@ public class ArtistFixture {
                 "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/172/3055172_20231013114039_500.jpg",
                 ArtistType.SOLO,
                 List.of("LEESEO")
-        );
-    }
-
-    public static ArtistListRequest 아이브_조회_요청() {
-        return new ArtistListRequest(
-                "아이브"
         );
     }
 }

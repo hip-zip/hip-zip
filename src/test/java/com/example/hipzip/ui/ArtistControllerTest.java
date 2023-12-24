@@ -47,8 +47,7 @@ class ArtistControllerTest {
 
         RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
-                .body(ArtistFixture.아이브_조회_요청())
-                .when().get("/artists")
+                .when().get("/artists?name=아이브")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value());
     }
