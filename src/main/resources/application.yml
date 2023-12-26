@@ -1,0 +1,7 @@
+server:
+  port: 5000
+springdoc:
+  swagger-ui:
+    path: /docs
+  api-docs:
+    path: /docs
