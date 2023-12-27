@@ -9,3 +9,5 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: none
+server:
+  port: ${SERVER_PORT}

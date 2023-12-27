@@ -1,5 +1,6 @@
-server:
-  port: ${SERVER_PORT}
+spring:
+  profiles:
+    active: local
 springdoc:
   swagger-ui:
     path: /docs
