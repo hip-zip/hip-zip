@@ -73,6 +73,15 @@ export default function Page() {
           앨범 입력 도와주기 - Click
         </Link>
       </div>
+      <div
+        className={
+          "flex justify-center items-center m-10 p-10 text-amber-500 border-2 border-orange-700 rounded-lg"
+        }
+      >
+        <Link href={"/main/post/album"} className={"text-xl"}>
+          아티스트 입력 도와주기 - Click
+        </Link>
+      </div>
       <p className={"font-mono text-4xl text-center"}>Contact</p>
       <div className={"mt-10 border-2 border-sky-500 p-5"}>
         <p className={"font-mono text-xl text-center"}>E-Mail</p>

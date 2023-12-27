@@ -12,6 +12,7 @@ const nextConfig = {
   env: {
     supabaseUrl: process.env.supabaseUrl,
     supabaseKey: process.env.supabaseKey,
+    baseURL: process.env.baseURL,
   },
   images: {
     // unoptimized: true,
