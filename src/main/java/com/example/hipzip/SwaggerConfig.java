@@ -17,6 +17,7 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("API Docs");
+                .title("Api Documentation")
+                .description("Api Documentation");
     }
 }
