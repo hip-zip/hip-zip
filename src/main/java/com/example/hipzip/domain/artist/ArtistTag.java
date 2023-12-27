@@ -1,6 +1,6 @@
 package com.example.hipzip.domain.artist;
 
-import com.example.hipzip.BaseEntity;
+import com.example.hipzip.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;

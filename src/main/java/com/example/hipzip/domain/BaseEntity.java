@@ -1,4 +1,4 @@
-package com.example.hipzip;
+package com.example.hipzip.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

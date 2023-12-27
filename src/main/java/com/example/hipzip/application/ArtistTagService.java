@@ -16,7 +16,7 @@ public class ArtistTagService {
     private final ArtistTagRepository artistTagRepository;
 
     public List<ArtistListResponse> findArtistTag(String name) {
-        List<ArtistTag> artistTags = artistTagRepository.findByName(name);
+        List<ArtistTag> artistTags = artistTagRepository.findByNameLike(name);
         return artistTags.stream()
                 .map(ArtistTag::getArtist)
                 .map(ArtistListResponse::from)
