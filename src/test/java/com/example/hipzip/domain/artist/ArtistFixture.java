@@ -1,5 +1,6 @@
 package com.example.hipzip.domain.artist;
 
+import com.example.hipzip.application.dto.ArtistModifyRequest;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
 import java.util.List;
 
@@ -10,11 +11,6 @@ public class ArtistFixture {
                 .name("IVE")
                 .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/146/3055146_20231013113531_500.jpg")
                 .artistType(ArtistType.GROUP)
-                .artistTags(List.of(
-                        new ArtistTag("아이브"),
-                        new ArtistTag("IVE"),
-                        new ArtistTag("ive")
-                ))
                 .build();
     }
 
@@ -23,7 +19,6 @@ public class ArtistFixture {
                 .name("르세라핌")
                 .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/92/950/3092950_20231027105934_500.jpg")
                 .artistType(ArtistType.GROUP)
-                .artistTags(List.of(new ArtistTag("LE SSERAFIM")))
                 .build();
     }
 
@@ -31,12 +26,6 @@ public class ArtistFixture {
         return Artist.builder().name("장원영")
                 .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/023/99/717/2399717_20231013113853_500.jpg")
                 .artistType(ArtistType.SOLO)
-                .artistTags(List.of(
-                        new ArtistTag("JANG WONYOUNG"),
-                        new ArtistTag("아이브"),
-                        new ArtistTag("IVE"),
-                        new ArtistTag("ive")
-                ))
                 .build();
     }
 
@@ -45,12 +34,6 @@ public class ArtistFixture {
                 .name("이서")
                 .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/172/3055172_20231013114039_500.jpg")
                 .artistType(ArtistType.SOLO)
-                .artistTags(List.of(
-                        new ArtistTag("LEESEO"),
-                        new ArtistTag("아이브"),
-                        new ArtistTag("IVE"),
-                        new ArtistTag("ive")
-                ))
                 .build();
     }
 
@@ -59,7 +42,26 @@ public class ArtistFixture {
                 "이서",
                 "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/172/3055172_20231013114039_500.jpg",
                 ArtistType.SOLO,
-                List.of("LEESEO")
+                List.of("LEESEO", "이서", "아이브")
+        );
+    }
+
+    public static ArtistSaveRequest 아이브_저장_요청() {
+        return new ArtistSaveRequest(
+                "ive",
+                "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/146/3055146_20231013113531_500.jpg",
+                ArtistType.GROUP,
+                List.of("아이브", "ive")
+        );
+    }
+
+    public static ArtistModifyRequest 아이브_수정_요청() {
+        return new ArtistModifyRequest(
+                2L,
+                "IVE",
+                "https://image.blip.kr/v1/file/f17114ade66730456e304bef23258bb6",
+                List.of("아이브", "ive", "IVE"),
+                List.of(1L)
         );
     }
 }

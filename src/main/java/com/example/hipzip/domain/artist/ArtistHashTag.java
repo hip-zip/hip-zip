@@ -6,19 +6,21 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
 @Getter
-@Setter
+@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ArtistTag extends BaseEntity {
+public class ArtistHashTag extends BaseEntity {
 
-    private String name;
     @ManyToOne
     private Artist artist;
+    @ManyToOne
+    private HashTag hashTag;
 
-    public ArtistTag(final String name) {
-        this.name = name;
+    public ArtistHashTag(final Artist artist, final HashTag hashTag) {
+        this.artist = artist;
+        this.hashTag = hashTag;
+
+        hashTag.addArtist(this);
     }
 }

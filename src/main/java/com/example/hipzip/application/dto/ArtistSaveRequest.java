@@ -1,7 +1,6 @@
 package com.example.hipzip.application.dto;
 
 import com.example.hipzip.domain.artist.Artist;
-import com.example.hipzip.domain.artist.ArtistTag;
 import com.example.hipzip.domain.artist.ArtistType;
 import java.util.List;
 
@@ -12,17 +11,11 @@ public record ArtistSaveRequest(
         List<String> artistTags
 ) {
 
-    public Artist toEntity() {
-        List<ArtistTag> tags = artistTags
-                .stream()
-                .map(ArtistTag::new)
-                .toList();
-
+    public Artist toArtist() {
         return Artist.builder()
                 .name(name)
                 .image(image)
                 .artistType(artistType)
-                .artistTags(tags)
                 .build();
     }
 }

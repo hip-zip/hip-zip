@@ -2,6 +2,7 @@ package com.example.hipzip.domain.artist;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ class ArtistTest {
         Artist IVE = ArtistFixture.IVE();
         Artist 장원영 = ArtistFixture.장원영();
 
-        IVE.addGroupMember(장원영);
+        IVE.modifyGroupMember(List.of(장원영));
 
         Assertions.assertThat(IVE.getMembers()).contains(장원영);
     }
@@ -22,7 +23,7 @@ class ArtistTest {
         Artist 장원영 = ArtistFixture.장원영();
         Artist 이서 = ArtistFixture.이서();
 
-        assertThatThrownBy(() -> 장원영.addGroupMember(이서))
+        assertThatThrownBy(() -> 장원영.modifyGroupMember(List.of(이서)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("솔로 아티스트는 멤버를 추가할 수 없습니다.");
     }
@@ -32,7 +33,7 @@ class ArtistTest {
         Artist IVE = ArtistFixture.IVE();
         Artist 르세라핌 = ArtistFixture.르세라핌();
 
-        assertThatThrownBy(() -> IVE.addGroupMember(르세라핌))
+        assertThatThrownBy(() -> IVE.modifyGroupMember(List.of(르세라핌)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("그룹 아티스트를 멤버로 추가할 수 없습니다.");
     }
