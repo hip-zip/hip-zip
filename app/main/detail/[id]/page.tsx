@@ -9,9 +9,5 @@ export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
   const detail = await fetchDetailSupabase(id);
 
-  return (
-    <div className={"h-full w-full"}>
-      <AlbumDetail detail={detail[0]} />
-    </div>
-  ); // Server Component Fetching
+  return <AlbumDetail data={detail[0]} />; // Server Component Fetching
 }

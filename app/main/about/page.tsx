@@ -78,7 +78,7 @@ export default function Page() {
           "flex justify-center items-center m-10 p-10 text-amber-500 border-2 border-orange-700 rounded-lg"
         }
       >
-        <Link href={"/main/post/album"} className={"text-xl"}>
+        <Link href={"/main/post/solo"} className={"text-xl"}>
           아티스트 입력 도와주기 - Click
         </Link>
       </div>

@@ -1,6 +1,10 @@
 import React from "react";
 
-const MusicVideoContainer = (props: { src: string }) => {
+interface YoutubeEmbededVideoProps {
+  src: string;
+}
+
+const YoutubeEmbededVideo = (props: YoutubeEmbededVideoProps) => {
   return (
     <div
       className={"mv-container"}
@@ -26,4 +30,4 @@ const MusicVideoContainer = (props: { src: string }) => {
   );
 };
 
-export default MusicVideoContainer;
+export default YoutubeEmbededVideo;

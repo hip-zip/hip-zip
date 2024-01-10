@@ -2,7 +2,11 @@
 
 import React, { useState } from "react";
 
-const LikeDislike = (props: { onClick: () => void }) => {
+interface LikeDislikeProps {
+  onClick: () => void;
+}
+
+const LikeDislike = (props: LikeDislikeProps) => {
   const [likeClickState, setLikeClickState] = useState<Boolean>(false);
   const [dislikeClickState, setDislikeClickState] = useState<Boolean>(false); // 모바일 용 EVENT 처리
 

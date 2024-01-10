@@ -7,7 +7,7 @@ interface RedirectButtonProps {
   redirectUrl: string;
 }
 
-const RedirectButton: React.FC<RedirectButtonProps> = ({ redirectUrl }) => {
+const RedirectButton = (props: RedirectButtonProps) => {
   const router = useRouter();
 
   return (
@@ -16,10 +16,10 @@ const RedirectButton: React.FC<RedirectButtonProps> = ({ redirectUrl }) => {
       onClick={() => {
         if (document?.startViewTransition) {
           document.startViewTransition(() => {
-            router.push(`/${redirectUrl}`);
+            router.push(`/${props.redirectUrl}`);
           });
         } else {
-          router.push(`/${redirectUrl}`);
+          router.push(`/${props.redirectUrl}`);
         }
       }}
     >

@@ -2,11 +2,16 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import MusicVideoContainer from "@/app/main/detail/[id]/MusicVideoContainer";
-import AlbumLabelContainer from "@/app/main/detail/[id]/AlbumLabelContainer";
-import SpinningAlbum from "@/app/main/detail/[id]/SpinningAlbum";
+import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/YoutubeEmbededVideo";
+import AlbumInformation from "@/app/components/molecule/AlbumInformation/AlbumInformation";
+import SpinningAlbum from "@/app/components/atom/SpinningAlbum/SpinningAlbum";
+import LikeDislike from "@/app/components/molecule/LikeDislike/LikeDislike";
 
-const AlbumDetail = ({ detail }: any) => {
+interface AlbumDetailProps {
+  detail: any; // 정의 예정
+}
+
+const AlbumDetail = ({ data }: any) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -23,12 +28,13 @@ const AlbumDetail = ({ detail }: any) => {
         "w-full flex flex-col justify-center items-center border rounded border-slate-800"
       }
     >
-      <SpinningAlbum albumImage={detail.album_image} />
-      <AlbumLabelContainer
-        albumName={detail.album_name}
-        artistName={detail.artist_name}
+      <SpinningAlbum albumImage={data.album_image} />
+      <AlbumInformation
+        albumName={data.album_name}
+        artistName={data.artist_name}
       />
-      <MusicVideoContainer src={detail.music_video} />
+      <LikeDislike onClick={() => alert("기능 개발 예정")} />
+      <MusicVideoContainer src={data.music_video} />
       <div className={"h-48"} />
     </div>
   );

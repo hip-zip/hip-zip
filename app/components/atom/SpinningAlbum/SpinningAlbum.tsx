@@ -1,7 +1,10 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-const SpinningAlbum = (props: { albumImage: string }) => {
+interface SpinningAlbumProps {
+  albumImage: string;
+}
+const SpinningAlbum = (props: SpinningAlbumProps) => {
   const [iphoneState, setIphoneState] = useState(false);
   const [cdVector, setCdVector] = useState({
     cx: "",
