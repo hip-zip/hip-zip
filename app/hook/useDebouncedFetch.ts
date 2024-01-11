@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { searchArtist } from "@/app/hook/util";
 
-const useDebouncedFetch = (url: string, delay: number) => {
-  const [data, setData] = useState<any>(null); // response type은 호출함수에서 정의
+const useDebouncedFetch = <Data>(url: string, delay: number) => {
+  const [data, setData] = useState<Data>(); // response type은 호출함수에서 정의
   const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(
     null,
   );

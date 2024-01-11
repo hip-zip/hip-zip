@@ -10,7 +10,10 @@ interface ManagementProps {
 }
 
 const Management = (props: ManagementProps) => {
-  const [data, onSearchQueryChange] = useDebouncedFetch("/artists", 300);
+  const [data, onSearchQueryChange] = useDebouncedFetch<ArtistType>(
+    "/artists",
+    300,
+  );
 
   return (
     <>
