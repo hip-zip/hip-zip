@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import AlbumList from "@/app/main/AlbumList";
-import fetchSupabase from "@/app/hooks/fetchSupabase";
+import fetchSupabase from "@/app/hook/fetchSupabase";
 
 export const revalidate = 10;
 

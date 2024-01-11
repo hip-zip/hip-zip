@@ -30,4 +30,4 @@ const YoutubeEmbededVideo = (props: YoutubeEmbededVideoProps) => {
   );
 };
 
-export default YoutubeEmbededVideo;
+export default React.memo(YoutubeEmbededVideo);

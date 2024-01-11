@@ -74,4 +74,4 @@ const SpinningAlbum = (props: SpinningAlbumProps) => {
   );
 };
 
-export default SpinningAlbum;
+export default React.memo(SpinningAlbum);

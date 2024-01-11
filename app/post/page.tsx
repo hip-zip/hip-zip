@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import postSupabase from "@/app/hooks/postSupabase";
+import postSupabase from "@/app/hook/postSupabase";
 
 export interface AlbumFormType {
   album_name: string;

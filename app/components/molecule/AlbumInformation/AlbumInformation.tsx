@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/YoutubeEmbededVideo";
 import LikeDislike from "@/app/components/molecule/LikeDislike/LikeDislike";
+import Label from "@/app/components/atom/Label/Label";
 
 interface AlbumInformationProps {
   albumName: string;
@@ -14,13 +15,9 @@ interface AlbumInformationProps {
 const AlbumInformation = (props: AlbumInformationProps) => {
   return (
     <>
-      <div className="p-5 text-4xl text-amber-400 text-center">
-        {props.albumName}
-      </div>
-      <div className="p-5 text-4xl text-center">BY</div>
-      <div className="p-5 text-4xl text-amber-400 text-center">
-        {props.artistName}
-      </div>
+      <Label className={"text-hipzip-amber p-5"} message={props.albumName} />
+      <Label className={"text-hipzip-white p-5"} message={"By"} />
+      <Label className={"text-hipzip-amber p-5"} message={props.artistName} />
     </>
   );
 };

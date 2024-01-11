@@ -4,7 +4,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import postSupabase from "@/app/hooks/postSupabase";
+import postSupabase from "@/app/hook/postSupabase";
 import extractYoutubeEmbedLink from "@/app/common/extractYoutubeEmbedLink";
 
 // Existing interface and export statement
