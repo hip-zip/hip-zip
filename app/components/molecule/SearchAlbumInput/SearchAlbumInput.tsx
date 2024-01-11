@@ -2,14 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { useSessionStorage } from "usehooks-ts";
+import Input from "@/app/components/atom/Input/Input";
+import Label from "@/app/components/atom/Label/Label";
 
-const SearchInput = (props: { searchQuery: Function }) => {
+const SearchAlbumInput = (props: { searchQuery: Function }) => {
   const [searchSession, setSearchSession] = useSessionStorage("search", "");
   const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(
     null,
   );
 
-  const handleSearchInputChange = (event: any) => {
+  const onSearchQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setSearchSession(inputValue);
 
@@ -37,20 +39,20 @@ const SearchInput = (props: { searchQuery: Function }) => {
 
   return (
     <>
-      <div className={"text-3xl md:text-4xl xl:text-4xl text-center p-5"}>
-        <p>앨범, 아티스트</p>
-        <p>이름으로 검색해보세요!</p>
-      </div>
-      <input
-        className="placeholder:text-gray-300 w-9/12 text-center bg-transparent border border-slate-300 rounded-md p-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 mb-4"
-        placeholder=""
-        defaultValue={searchSession}
+      <Label
+        className={"text-xl text-hipzip-white p-2"}
+        message={"아티스트, 앨범의 이름으로 앨범을 검색해보세요 !"}
+      />
+      <Input
+        className={"text-base"}
         type="text"
+        placeholder="Ex) 창모 or UNDERGROUND ROCKSTAR"
+        defaultValue={searchSession}
         name="search"
-        onChange={handleSearchInputChange}
+        onChange={onSearchQueryChange}
       />
     </>
   );
 };
 
-export default SearchInput;
+export default SearchAlbumInput;

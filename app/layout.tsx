@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Script from "next/script";
+import "@/public/css/globals.css";
+import "@/public/css/font.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -70,8 +70,8 @@ export default function RootLayout({
         media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
         rel="apple-touch-startup-image"
       />
-      <body className={`${inter.className} h-full`}>
-        <div className="h-full min-h-screen text-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
+      <body className={`${inter.className}`}>
+        <div className="h-full min-h-screen text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
           {children}
         </div>
       </body>

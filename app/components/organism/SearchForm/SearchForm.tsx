@@ -1,4 +1,4 @@
-import SearchInput from "@/app/components/molecule/SearchInput/SearchInput";
+import SearchAlbumInput from "@/app/components/molecule/SearchAlbumInput/SearchAlbumInput";
 import ResultAlbumList from "@/app/main/search/ResultAlbumList";
 import { AlbumListType } from "@/app/main/page";
 
@@ -10,7 +10,7 @@ interface SearchFormProps {
 export const SearchForm = (props: SearchFormProps) => {
   return (
     <>
-      <SearchInput searchQuery={props.searchQuery} />
+      <SearchAlbumInput searchQuery={props.searchQuery} />
       <ResultAlbumList albumList={props.albumList} />
     </>
   );

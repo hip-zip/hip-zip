@@ -13,7 +13,7 @@ export default function Header() {
     <div className={"p-2"}>
       <div
         className={
-          "s-core-bold w-full flex justify-evenly items-center gap-12 h-20 text-lg border rounded border-slate-800"
+          "street w-full flex justify-evenly items-center gap-12 h-20 text-lg border rounded border-slate-800"
         }
       >
         <Link href={"/main/about"}>

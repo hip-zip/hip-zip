@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { Album } from "@/app/components/atom/Album/Album";
+import { Album } from "@/app/components/atom/Images/Album";
 
 interface AlbumType {
   id: number;
