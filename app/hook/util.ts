@@ -30,12 +30,15 @@ const customFetch = async (method, url, obj: any) => {
   }
 };
 
-export const searchArtist = async (name: string) => {
-  return (await getFetch(`/artists?name=${name}`)) as ArtistType[];
+export const searchArtist = async (url: string) => {
+  const response = (await getFetch(url)) as ArtistType[];
+  console.log("GET: /artists => ", response);
+  return response;
 };
 
 export const postArtist = async (obj: any) => {
-  return await customFetch("POST", "/artists", obj);
+  const response = await customFetch("POST", "/artists", obj);
+  return response;
 };
 
 export const putArtist = async (obj: any) => {

@@ -1,6 +1,6 @@
 import React from "react";
 
-interface InputProps {
+export interface InputProps {
   className?: string;
   type?: string;
   placeholder?: string;
@@ -17,7 +17,7 @@ const Input = (props: InputProps) => {
       }
       placeholder={props.placeholder}
       defaultValue={props.defaultValue}
-      type={"text"}
+      type={props.type || "text"}
       name={"search"}
       onChange={props.onChange}
     />
