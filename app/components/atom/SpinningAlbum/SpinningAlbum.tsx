@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 interface SpinningAlbumProps {
-  albumImage: string;
+  image: string;
 }
 const SpinningAlbum = (props: SpinningAlbumProps) => {
   const [iphoneState, setIphoneState] = useState(false);
@@ -39,7 +39,7 @@ const SpinningAlbum = (props: SpinningAlbumProps) => {
   return (
     <div className="relative p-10 overflow-hidden">
       <Image
-        src={`${props.albumImage}`}
+        src={`${props.image}`}
         alt={`개발자에게 얼른 사진 넣어라고 전해주세요`}
         width={350}
         height={350}

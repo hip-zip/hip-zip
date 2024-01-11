@@ -3,8 +3,7 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 
-interface AlbumProps {
-  key: number;
+export interface AlbumType {
   item: {
     id: number;
     album_name: string;
@@ -16,6 +15,10 @@ interface AlbumProps {
     artist_name: string;
     artist_image: string;
   };
+}
+
+interface AlbumProps extends AlbumType {
+  key: number;
   setScrollLocation: React.Dispatch<React.SetStateAction<number>>;
 }
 

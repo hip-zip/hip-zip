@@ -28,7 +28,7 @@ const AlbumDetail = ({ data }: any) => {
         "w-full flex flex-col justify-center items-center border rounded border-slate-800"
       }
     >
-      <SpinningAlbum albumImage={data.album_image} />
+      <SpinningAlbum image={data.album_image} />
       <AlbumInformation
         albumName={data.album_name}
         artistName={data.artist_name}
