@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface LabelProps {
   message: string;
   className?: string;
@@ -5,7 +7,7 @@ interface LabelProps {
 
 const Label = (props: LabelProps) => {
   return (
-    <div className={"text-4xl text-center " + props.className}>
+    <div className={cn("text-4xl text-center", props.className || "")}>
       {props.message}
     </div>
   );

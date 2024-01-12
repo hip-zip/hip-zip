@@ -25,4 +25,4 @@ const YearSelection = (props: { setScrollLocation: Function }) => {
   );
 };
 
-export default YearSelection;
+export default YearSelection; // Refactor 필요

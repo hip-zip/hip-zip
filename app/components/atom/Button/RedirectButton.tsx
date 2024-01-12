@@ -16,7 +16,8 @@ const RedirectButton = (props: RedirectButtonProps) => {
     <Button
       className=""
       type={"button"}
-      onClick={() => {
+      message={props.message}
+      handleButtonClick={() => {
         if (document?.startViewTransition) {
           document.startViewTransition(() => {
             router.push(`/${props.redirectUrl}`);
@@ -25,9 +26,7 @@ const RedirectButton = (props: RedirectButtonProps) => {
           router.push(`/${props.redirectUrl}`);
         }
       }}
-    >
-      {props.message}
-    </Button>
+    />
   );
 };
 

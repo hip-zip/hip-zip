@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/YoutubeEmbededVideo";
 import AlbumInformation from "@/app/components/molecule/AlbumInformation/AlbumInformation";
-import SpinningAlbum from "@/app/components/atom/SpinningAlbum/SpinningAlbum";
+import SpinningAlbum from "@/app/components/atom/Images/SpinningAlbum";
 import LikeDislike from "@/app/components/molecule/LikeDislike/LikeDislike";
 
 interface AlbumDetailProps {
@@ -23,11 +23,7 @@ const AlbumDetail = ({ data }: any) => {
   }, []);
 
   return (
-    <div
-      className={
-        "w-full flex flex-col justify-center items-center border rounded border-slate-800"
-      }
-    >
+    <div className={"w-full flex flex-col justify-center items-center"}>
       <SpinningAlbum image={data.album_image} />
       <AlbumInformation
         albumName={data.album_name}

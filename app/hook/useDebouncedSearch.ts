@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const useDebouncedFetch = <T>(
+const useDebouncedSearch = <T>(
   method: (query: string) => Promise<T>,
   delay: number,
 ): [T | null, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
@@ -27,4 +27,4 @@ const useDebouncedFetch = <T>(
   return [data, onSearchQueryChange];
 };
 
-export default useDebouncedFetch;
+export default useDebouncedSearch;

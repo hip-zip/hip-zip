@@ -34,19 +34,19 @@ const customFetch = async <T>(method: string, url: string, obj: T) => {
 };
 
 export const searchArtist = async (query: string) => {
-  const obj = {
+  const params = {
     name: query,
   };
 
-  const response = (await getFetch("/artists", obj)) as ArtistType[];
+  const response = (await getFetch("/artists", params)) as ArtistType[];
   return response;
 };
 
-export const postArtist = async <T>(obj: T) => {
-  const response = await customFetch("POST", "/artists", obj);
+export const postArtist = async <T>(params: T) => {
+  const response = await customFetch("POST", "/artists", response);
   return response;
 };
 
-export const putArtist = async <T>(obj: T) => {
-  return await customFetch("PUT", "/artists", obj);
+export const putArtist = async <T>(params: T) => {
+  return await customFetch("PUT", "/artists", params);
 };

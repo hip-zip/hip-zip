@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { ArtistType } from "@/app/components/atom/Images/Artist";
 import Input from "@/app/components/atom/Input/Input";
-import useDebouncedFetch from "@/app/hook/useDebouncedFetch";
+import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { searchArtist } from "@/app/hook/util";
 import Button from "@/app/components/atom/Button/Button";
+import ArtistModal from "@/app/components/organism/Modal/ArtistModal";
 
 interface ManagementProps {
   type: "artists" | "albums";
@@ -16,10 +17,11 @@ type SearchParamsType = {
 };
 
 const Management = (props: ManagementProps) => {
-  const [data, onSearchQueryChange] = useDebouncedFetch<ArtistType[]>(
+  const [data, onSearchQueryChange] = useDebouncedSearch<ArtistType[]>(
     (query: string): Promise<ArtistType[]> => searchArtist(query),
     300,
   );
+
   // const [searchQuery, setSearchQuery] = useState("");
   // const data = useFetch<ArtistType>(() => searchArtist, searchQuery);
 
@@ -31,7 +33,8 @@ const Management = (props: ManagementProps) => {
         placeholder={"아티스트를 입력하세요"}
         onChange={onSearchQueryChange}
       />
-      <Button className={"fixed bottom-10 right-10"} message={"등록하기"} />
+
+      <ArtistModal open={open} />
     </>
   );
 };
