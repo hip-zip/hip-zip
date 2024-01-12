@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Button from "@/app/components/atom/Button/Button";
 
 interface RedirectButtonProps {
   redirectUrl: string;
@@ -12,8 +13,9 @@ const RedirectButton = (props: RedirectButtonProps) => {
   const router = useRouter();
 
   return (
-    <button
-      className="px-4 py-2 border border-sky-500 text-hipzip-white text-sm bg-transparent rounded-md hover:bg-sky-500 hover:text-gray-800 transition-all"
+    <Button
+      className=""
+      type={"button"}
       onClick={() => {
         if (document?.startViewTransition) {
           document.startViewTransition(() => {
@@ -25,7 +27,7 @@ const RedirectButton = (props: RedirectButtonProps) => {
       }}
     >
       {props.message}
-    </button>
+    </Button>
   );
 };
 

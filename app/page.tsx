@@ -1,5 +1,5 @@
 import Image from "next/image";
-import RedirectButton from "@/app/components/atom/RedirectButton/RedirectButton";
+import RedirectButton from "@/app/components/atom/Button/RedirectButton";
 import Logo from "@/public/static/logo.png";
 import Label from "@/app/components/atom/Label/Label";
 

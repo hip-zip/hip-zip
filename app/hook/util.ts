@@ -1,10 +1,13 @@
 import { ArtistType } from "@/app/components/atom/Images/Artist";
 
-const getFetch = async (url: string) => {
+const getFetch = async <T>(endPoint: string, obj: T) => {
+  const queryString = new URLSearchParams(obj).toString();
+  const url = `${endPoint}?${queryString}`;
+
   try {
     const response = await fetch(process.env.baseURL + url);
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      throw new Error("Backend Response Error");
     }
     return await response.json();
   } catch (e) {
@@ -12,7 +15,7 @@ const getFetch = async (url: string) => {
   }
 };
 
-const customFetch = async (method, url, obj: any) => {
+const customFetch = async <T>(method: string, url: string, obj: T) => {
   try {
     const response = await fetch(process.env.baseURL + url, {
       method: `${method}`,
@@ -30,17 +33,20 @@ const customFetch = async (method, url, obj: any) => {
   }
 };
 
-export const searchArtist = async (url: string) => {
-  const response = (await getFetch(url)) as ArtistType[];
-  console.log("GET: /artists => ", response);
+export const searchArtist = async (query: string) => {
+  const obj = {
+    name: query,
+  };
+
+  const response = (await getFetch("/artists", obj)) as ArtistType[];
   return response;
 };
 
-export const postArtist = async (obj: any) => {
+export const postArtist = async <T>(obj: T) => {
   const response = await customFetch("POST", "/artists", obj);
   return response;
 };
 
-export const putArtist = async (obj: any) => {
+export const putArtist = async <T>(obj: T) => {
   return await customFetch("PUT", "/artists", obj);
 };

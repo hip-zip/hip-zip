@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { searchArtist } from "@/app/hook/util";
+import React, { useState } from "react";
 
-const useDebouncedFetch = <Data>(url: string, delay: number) => {
-  const [data, setData] = useState<Data>(); // response type은 호출함수에서 정의
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(
-    null,
-  );
+const useDebouncedFetch = <T>(
+  method: (query: string) => Promise<T>,
+  delay: number,
+): [T | null, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
+  const [inputTimeout, setInputTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [data, setData] = useState<T | null>(null);
 
-  const onSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
+  const onSearchQueryChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (inputTimeout) {
+      clearTimeout(inputTimeout);
     }
 
-    setSearchTimeout(
+    setInputTimeout(
       setTimeout(async () => {
-        if (e.target.value.length >= 1) {
-          switch (url) {
-            case "/artists":
-              const response = await searchArtist(
-                url + `?name=${e.target.value}`,
-              );
-              setData(response);
-              break;
-          }
+        const inputValue = e.target.value;
+        if (inputValue.length >= 1) {
+          return await method(inputValue);
         }
       }, delay),
     );
