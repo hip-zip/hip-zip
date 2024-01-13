@@ -2,6 +2,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { cn } from "@/lib/utils";
+import DropDown from "@/app/components/atom/DropDown/DropDown";
 
 interface InputFieldProps {
   label: string;
@@ -14,14 +15,7 @@ const InputField = (props: InputFieldProps) => {
   return (
     <div className={"flex justify-between items-center"}>
       <Label className="text-right w-24">{props.label}</Label>
-      <Input
-        className={cn(
-          "col-span-3 text-hipzip-black text-base w-[75%] focus:outline-none focus:ring-none",
-          props.className,
-        )}
-        onChange={props.onChange}
-        placeholder={props.placeholder || ""}
-      />
+      <DropDown />
     </div>
   );
 };

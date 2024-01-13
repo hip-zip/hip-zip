@@ -27,7 +27,7 @@ const customFetch = async <T>(method: string, url: string, obj: T) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return await response.json();
+    return response;
   } catch (e) {
     throw e;
   }
@@ -43,7 +43,8 @@ export const searchArtist = async (query: string) => {
 };
 
 export const postArtist = async <T>(params: T) => {
-  const response = await customFetch("POST", "/artists", response);
+  const response = await customFetch("POST", "/artists", params);
+  console.log("DD Console Check > ", response);
   return response;
 };
 

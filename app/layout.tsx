@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/public/css/globals.css";
 import "@/public/css/font.css";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0 maximum-scale=1"
+      />
       <link rel="apple-touch-icon" href="/icon-192x192.png"></link>
       <meta name="theme-color" content="#1c1c2e" />
       <link

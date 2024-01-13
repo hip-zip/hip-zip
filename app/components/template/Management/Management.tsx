@@ -7,6 +7,7 @@ import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { searchArtist } from "@/app/hook/util";
 import Button from "@/app/components/atom/Button/Button";
 import ArtistModal from "@/app/components/organism/Modal/ArtistModal";
+import AlbumModal from "../../organism/Modal/AlbumModal";
 
 interface ManagementProps {
   type: "artists" | "albums";
@@ -28,13 +29,13 @@ const Management = (props: ManagementProps) => {
   return (
     <>
       <Input
-        className={"text-center"}
+        className={"text-center text-base"}
         type={"text"}
         placeholder={"아티스트를 입력하세요"}
         onChange={onSearchQueryChange}
       />
-
-      <ArtistModal open={open} />
+      {/*<AlbumModal></AlbumModal>*/}
+      <ArtistModal />
     </>
   );
 };

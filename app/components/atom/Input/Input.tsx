@@ -6,21 +6,27 @@ export interface InputProps {
   type?: string;
   placeholder?: string;
   defaultValue?: string;
+  value?: string;
+  maxLength?: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const Input = (props: InputProps) => {
   return (
     <input
       className={cn(
-        "placeholder:text-gray-300 w-full text-center bg-transparent border border-slate-300 rounded-md p-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 mb-4",
+        "placeholder:text-gray-300 w-full bg-transparent border border-slate-300 rounded-md p-4 shadow-sm focus:outline-none focus:ring-none",
         props.className || "",
       )}
       placeholder={props.placeholder}
       defaultValue={props.defaultValue}
       type={props.type || "text"}
+      value={props.value ? props.value : undefined}
+      maxLength={props.maxLength ? props.maxLength : undefined}
       name={"search"}
       onChange={props.onChange}
+      onKeyDown={props.onKeyDown}
     />
   );
 };

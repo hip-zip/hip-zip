@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { RocketIcon } from "@radix-ui/react-icons";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Dialog,
   DialogContent,
@@ -12,20 +16,74 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import InputField from "@/app/components/molecule/InputField/InputField";
+import TagInputField from "@/app/components/molecule/InputField/TagInputField";
+import useFormInput from "@/app/hook/useFormInput";
+import useInput from "@/app/hook/useInput";
+import useContinualInput from "@/app/hook/useContinualInput";
+import InputDropDownField from "@/app/components/molecule/InputField/InputDropDownField";
+import { postArtist } from "@/app/hook/util";
+import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
 interface ArtistModalProps {}
 
+export interface ArtistFormType {
+  name: string;
+  image: string;
+  artistType: string;
+  artistTags: Array<string>;
+}
+
 const ArtistModal = (props: ArtistModalProps) => {
-  const [open, setOpen] = useState(false);
+  const [formValue, setFormValue] = useState<ArtistFormType>({
+    name: "",
+    image: "",
+    artistType: "SOLO",
+    artistTags: [],
+  });
+  const [handleNameChange] = useFormInput<ArtistFormType>(setFormValue, "name");
+  const [handleImageChange] = useFormInput<ArtistFormType>(
+    setFormValue,
+    "image",
+  );
+  const [tag, handleTagChange, handleTagInputKeyDown] =
+    useContinualInput<ArtistFormType>(
+      formValue.artistTags,
+      setFormValue,
+      "artistTags",
+    );
+
+  const [open, setOpen] = useState<boolean>(false);
+  const handleArtistSubmit = async () => {
+    try {
+      const response = await postArtist<ArtistFormType>(formValue);
+
+      if (response.ok) {
+        setFormValue({
+          name: "",
+          image: "",
+          artistType: "SOLO",
+          artistTags: [],
+        });
+        setOpen(false);
+        // return (
+        //   <Alert>
+        //     <RocketIcon className="h-4 w-4" />
+        //     <AlertTitle>Heads up!</AlertTitle>
+        //     <AlertDescription>
+        //       You can add components to your app using the cli.
+        //     </AlertDescription>
+        //   </Alert>
+        // );
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <>
-      <Dialog open={true} onOpenChange={setOpen}>
-        <DialogTrigger>
-          <Button
-            className={"p-3 fixed bottom-10 right-10"}
-            message={"등록하기"}
-            handleButtonClick={() => setOpen(true)}
-          />
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger className={"p-3 fixed bottom-10 right-10 text-sm"}>
+          아티스트 등록하기
         </DialogTrigger>
         <DialogContent className={"bg-hipzip-black text-hipzip-white"}>
           <DialogHeader>
@@ -44,22 +102,28 @@ const ArtistModal = (props: ArtistModalProps) => {
               입력하시면 됩니다.
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <InputField label={"아티스트 이름"} />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <InputField label={"아티스트 이미지"} />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <InputField
-                label={"검색 힌트"}
-                placeholder={"최대 5개까지 입력 가능"}
-              />
-            </div>
+          <div className={"flex flex-col gap-3"}>
+            <InputField label={"아티스트 이름"} onChange={handleNameChange} />
+            <InputField
+              label={"아티스트 이미지"}
+              onChange={handleImageChange}
+            />
+            {/*<InputDropDownField*/}
+            {/*  // label={"솔로/그룹 구분"}*/}
+            {/*  // onChange={handleImageChange}*/}
+            {/*/>*/}
+            <TagInputField
+              label={"검색 힌트"}
+              placeholder={"지코, ZICO, 우지호"}
+              className={"m-0"}
+              onChange={handleTagChange}
+              onKeyDown={handleTagInputKeyDown}
+              tagList={formValue.artistTags}
+            />
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            {/*<Button onClick={handleArtistSubmit}>등록하기</Button>*/}
+            <ConfirmDialog ok={handleArtistSubmit} />
           </DialogFooter>
         </DialogContent>
       </Dialog>
