@@ -16,7 +16,7 @@ const InputField = (props: InputFieldProps) => {
       <Label className="text-right w-24">{props.label}</Label>
       <Input
         className={cn(
-          "col-span-3 text-hipzip-black text-base w-[75%] focus:outline-none focus:ring-none",
+          "col-span-3 text-hipzip-black text-base w-[70%] focus:outline-none focus:ring-none",
           props.className,
         )}
         onChange={props.onChange}

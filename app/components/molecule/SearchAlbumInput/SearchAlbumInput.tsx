@@ -48,7 +48,6 @@ const SearchAlbumInput = (props: { searchQuery: Function }) => {
         type="text"
         placeholder="Ex) 창모 or UNDERGROUND ROCKSTAR"
         defaultValue={searchSession}
-        name="search"
         onChange={onSearchQueryChange}
       />
     </>

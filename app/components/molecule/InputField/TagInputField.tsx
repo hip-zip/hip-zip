@@ -22,9 +22,7 @@ const TagInputField = (props: TagInputFieldProps) => {
     <div className={"flex justify-between items-center"}>
       <Label className="text-right w-24">{props.label}</Label>
       <span
-        className={
-          "w-[74.8%] h-48 bg-hipzip-white rounded-md p-2 overflow-auto"
-        }
+        className={"w-[70%] h-48 bg-hipzip-white rounded-md p-2 overflow-auto"}
       >
         {props.tagList?.map((tag, index) => (
           <span className={"pl-0.5"} key={index}>

@@ -19,6 +19,7 @@ export interface AlbumType {
 
 interface AlbumProps extends AlbumType {
   key: number;
+  item: AlbumType["item"];
   setScrollLocation: React.Dispatch<React.SetStateAction<number>>;
 }
 

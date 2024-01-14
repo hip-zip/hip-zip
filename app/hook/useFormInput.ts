@@ -6,7 +6,6 @@ const useFormInput = <T>(
   key: string,
 ): [(e: React.ChangeEvent<HTMLInputElement>) => void] => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("DD Console Check > ", e.target.value);
     setFormValue((prev) => ({
       ...prev,
       [key]: e.target.value,

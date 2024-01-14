@@ -108,10 +108,7 @@ const ArtistModal = (props: ArtistModalProps) => {
               label={"아티스트 이미지"}
               onChange={handleImageChange}
             />
-            {/*<InputDropDownField*/}
-            {/*  // label={"솔로/그룹 구분"}*/}
-            {/*  // onChange={handleImageChange}*/}
-            {/*/>*/}
+            <InputDropDownField label={"솔로/그룹 구분"} onChange={() => {}} />
             <TagInputField
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}

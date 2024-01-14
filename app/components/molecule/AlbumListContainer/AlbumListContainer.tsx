@@ -18,11 +18,15 @@ interface AlbumType {
 }
 
 interface AlbumFetchType {
-  album: AlbumType[];
+  data: AlbumType[];
   nextCursor: number;
 }
 
-const AlbumListContainer = (props: { setScrollLocation: Function }) => {
+interface AlbumListContainerProps {
+  setScrollLocation: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const AlbumListContainer = (props: AlbumListContainerProps) => {
   const router = useRouter();
   const param = useSearchParams();
 

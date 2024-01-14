@@ -1,6 +1,6 @@
 import { ArtistType } from "@/app/components/atom/Images/Artist";
 
-const getFetch = async <T>(endPoint: string, obj: T) => {
+const getFetch = async <T>(endPoint: string, obj: Record<string, string>) => {
   const queryString = new URLSearchParams(obj).toString();
   const url = `${endPoint}?${queryString}`;
 
@@ -9,7 +9,7 @@ const getFetch = async <T>(endPoint: string, obj: T) => {
     if (!response.ok) {
       throw new Error("Backend Response Error");
     }
-    return await response.json();
+    return (await response.json()) as T;
   } catch (e) {
     throw e;
   }
