@@ -1,3 +1,5 @@
+"use client";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/public/css/globals.css";
@@ -5,6 +7,8 @@ import "@/public/css/font.css";
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/app/components/organism/Header/Header";
+import { QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +22,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const queryClient = new QueryClient();
+
   return (
     <html>
       <meta
@@ -77,11 +83,13 @@ export default function RootLayout({
         rel="apple-touch-startup-image"
       />
       <body className={`${inter.className}`}>
-        <div className="h-full min-h-screen text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
-          <Header />
-          {children}
-          <Toaster />
-        </div>
+        <QueryClientProvider client={queryClient}>
+          <div className="h-full min-h-screen text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
+            <Header />
+            {children}
+            <Toaster />
+          </div>
+        </QueryClientProvider>
       </body>
     </html>
   );

@@ -10,24 +10,34 @@ import ArtistModal from "@/app/components/organism/Modal/ArtistModal";
 import AlbumModal from "../../organism/Modal/AlbumModal";
 import { AlbumType } from "@/app/components/atom/Images/Album";
 import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface ManagementProps {
   type: "artists" | "albums";
 }
 
-export type ImageGridElementType = {
+export type ArtistGridType = {
   id: number;
   name: string;
   image: string;
 };
 
 const Management = (props: ManagementProps) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<
-    ImageGridElementType[]
-  >(
-    (query: string): Promise<ImageGridElementType[]> => searchArtist(query),
+  const [response, onSearchQueryChange] = useDebouncedSearch<ArtistGridType[]>(
+    (query: string): Promise<ArtistGridType[]> => searchArtist(query),
     300,
   );
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useInfiniteQuery<ArtistGridType, Error>({
+      queryKey: ["artists", "name"],
+      queryFn: ({ pageParam = 1 }) =>
+        fetch(`/api/artist/?page=${pageParam}&name=${"name"}`).then((res) =>
+          res.json(),
+        ),
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+      initialPageParam: 1,
+    });
 
   const handleImageClick = (id: number) => {}; // Detail API 부르고 해당 정보 받아서 모달에 띄울 예정
 
