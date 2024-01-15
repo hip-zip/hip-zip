@@ -41,7 +41,7 @@ public class ArtistFixture {
         return new ArtistSaveRequest(
                 "이서",
                 "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/172/3055172_20231013114039_500.jpg",
-                ArtistType.SOLO,
+                ArtistType.SOLO.name(),
                 List.of("LEESEO", "이서", "아이브")
         );
     }
@@ -50,7 +50,7 @@ public class ArtistFixture {
         return new ArtistSaveRequest(
                 "ive",
                 "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/146/3055146_20231013113531_500.jpg",
-                ArtistType.GROUP,
+                ArtistType.GROUP.name(),
                 List.of("아이브", "ive")
         );
     }

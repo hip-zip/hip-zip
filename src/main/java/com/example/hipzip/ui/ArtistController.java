@@ -4,6 +4,7 @@ import com.example.hipzip.application.ArtistService;
 import com.example.hipzip.application.dto.ArtistListResponse;
 import com.example.hipzip.application.dto.ArtistModifyRequest;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @PostMapping("/artists")
-    public ResponseEntity<Void> artistSave(@RequestBody ArtistSaveRequest request) {
+    public ResponseEntity<Void> artistSave(@RequestBody @Valid ArtistSaveRequest request) {
         artistService.saveArtist(request);
         return ResponseEntity.ok().build();
     }
@@ -34,7 +35,7 @@ public class ArtistController {
     }
 
     @PutMapping("/artists")
-    public ResponseEntity<Void> artistModify(@RequestBody ArtistModifyRequest request) {
+    public ResponseEntity<Void> artistModify(@RequestBody @Valid ArtistModifyRequest request) {
         artistService.editArtist(request);
         return ResponseEntity.ok().build();
     }
