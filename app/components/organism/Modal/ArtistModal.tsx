@@ -24,7 +24,7 @@ export interface ArtistFormType {
   name: string;
   image: string;
   artistType: string;
-  artistTags: Array<string>;
+  hashtag: Array<string>;
 }
 
 const ArtistModal = (props: ArtistModalProps) => {
@@ -34,7 +34,7 @@ const ArtistModal = (props: ArtistModalProps) => {
     name: "",
     image: "",
     artistType: "SOLO",
-    artistTags: [],
+    hashtag: [],
   });
   const [handleNameChange] = useFormInput<ArtistFormType>(setFormValue, "name");
   const [handleImageChange] = useFormInput<ArtistFormType>(
@@ -43,9 +43,9 @@ const ArtistModal = (props: ArtistModalProps) => {
   );
   const [tag, handleTagChange, handleTagInputKeyDown] =
     useContinualInput<ArtistFormType>(
-      formValue.artistTags,
+      formValue.hashtag,
       setFormValue,
-      "artistTags",
+      "hashtag",
     );
 
   const [artistType, setArtistType] = useState<string>("SOLO");
@@ -121,7 +121,7 @@ const ArtistModal = (props: ArtistModalProps) => {
               className={"m-0"}
               onChange={handleTagChange}
               onKeyDown={handleTagInputKeyDown}
-              tagList={formValue.artistTags}
+              tagList={formValue.hashtag}
             />
           </div>
           <DialogFooter>

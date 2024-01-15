@@ -5,7 +5,13 @@ import {
 } from "@/app/components/template/Management/Management";
 
 const getFetch = async <T>(endPoint: string, obj: Record<string, string>) => {
-  const queryString = new URLSearchParams(obj).toString();
+  const params = Object.fromEntries(
+    Object.entries(obj).filter(
+      ([key, value]) => value !== "" && value !== null && value !== undefined,
+    ),
+  );
+
+  const queryString = new URLSearchParams(params).toString();
   const url = `${endPoint}?${queryString}`;
 
   try {
@@ -35,6 +41,10 @@ const customFetch = async <T>(method: string, url: string, obj: T) => {
   } catch (e) {
     throw e;
   }
+};
+
+export const getArtist = async () => {
+  return await getFetch("/artists", {});
 };
 
 export const searchArtist = async (query: string) => {

@@ -28,17 +28,6 @@ const Management = (props: ManagementProps) => {
     300,
   );
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useInfiniteQuery<ArtistGridType, Error>({
-      queryKey: ["artists", "name"],
-      queryFn: ({ pageParam = 1 }) =>
-        fetch(`/api/artist/?page=${pageParam}&name=${"name"}`).then((res) =>
-          res.json(),
-        ),
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-      initialPageParam: 1,
-    });
-
   const handleImageClick = (id: number) => {}; // Detail API 부르고 해당 정보 받아서 모달에 띄울 예정
 
   return (
@@ -47,9 +36,7 @@ const Management = (props: ManagementProps) => {
         className={"text-center text-base"}
         type={"text"}
         placeholder={"아티스트를 입력하세요"}
-        onChange={(e) => {
-          onSearchQueryChange(e);
-        }}
+        onChange={onSearchQueryChange}
       />
       <ImageGrid data={response} handleImageClick={handleImageClick} />
       {props.type === "artists" && <ArtistModal />}

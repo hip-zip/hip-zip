@@ -15,7 +15,7 @@ export interface ArtistFormType {
   artistTags: Array<string>;
 }
 
-export default function OldPage() {
+export default function Trash() {
   // Existing state and router
   const [formValues, setFormValues] = useState<ArtistFormType>({
     name: "",

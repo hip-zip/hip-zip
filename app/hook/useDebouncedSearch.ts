@@ -17,11 +17,8 @@ const useDebouncedSearch = <T>(
     setInputTimeout(
       setTimeout(async () => {
         const inputValue = e.target.value;
-        if (inputValue.length >= 1) {
-          const response = await method(inputValue);
-          setData(response);
-          return;
-        }
+        const response = await method(inputValue);
+        setData(response);
       }, delay),
     );
   };

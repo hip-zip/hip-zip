@@ -6,12 +6,12 @@ const AdminSection = () => {
       <Section
         className={"w-[50%]"}
         message={"아티스트 관리"}
-        redirectURL={"/post/artist"}
+        redirectURL={"/admin/artist"}
       />
       <Section
         className={"w-[50%]"}
         message={"앨범 관리"}
-        redirectURL={"/post/album"}
+        redirectURL={"/admin/album"}
       />
     </div>
   );
