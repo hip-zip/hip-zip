@@ -31,7 +31,7 @@ public class ArtistController {
 
     @GetMapping("/artists")
     public ResponseEntity<List<ArtistListResponse>> artistList(
-            @RequestParam(value = "name") String name,
+            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size
     ) {
