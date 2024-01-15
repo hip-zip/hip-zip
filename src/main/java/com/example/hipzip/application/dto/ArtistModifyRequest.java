@@ -16,7 +16,7 @@ public record ArtistModifyRequest(
         @URL(message = "올바른 URL이어야 합니다")
         String image,
         @Size(max = 10, message = "태그는 최대 10개까지 등록할 수 있습니다")
-        List<String> artistTags,
+        List<String> hashtag,
         List<Long> artistGroupMemberIds
 ) {
 }

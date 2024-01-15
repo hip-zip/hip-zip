@@ -3,12 +3,12 @@ package com.example.hipzip.ui;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.example.hipzip.application.ArtistService;
-import com.example.hipzip.application.dto.ArtistListResponse;
+import com.example.hipzip.application.dto.ArtistResponse;
 import com.example.hipzip.application.dto.ArtistModifyRequest;
 import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistFixture;
 import com.example.hipzip.domain.artist.ArtistRepository;
-import com.example.hipzip.domain.artist.HashTagRepository;
+import com.example.hipzip.domain.artist.HashtagRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import java.util.List;
@@ -27,7 +27,7 @@ class ArtistControllerTest {
     @Autowired
     public ArtistService artistService;
     @Autowired
-    public HashTagRepository hashTagRepository;
+    public HashtagRepository hashTagRepository;
     @Autowired
     public ArtistRepository artistRepository;
 
@@ -59,13 +59,13 @@ class ArtistControllerTest {
     void 아티스트를_조회할_수_있다() {
         artistService.saveArtist(ArtistFixture.이서_저장_요청());
 
-        ArtistListResponse[] responses = RestAssured.given().log().all()
+        ArtistResponse[] responses = RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
                 .when().get("/artists?name=아이브")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
                 .extract()
-                .as(ArtistListResponse[].class);
+                .as(ArtistResponse[].class);
 
         Assertions.assertThat(responses.length).isEqualTo(1);
     }

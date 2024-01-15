@@ -2,7 +2,7 @@ package com.example.hipzip.ui;
 
 import com.example.hipzip.application.ArtistService;
 import com.example.hipzip.application.dto.ArtistDetailResponse;
-import com.example.hipzip.application.dto.ArtistListResponse;
+import com.example.hipzip.application.dto.ArtistResponse;
 import com.example.hipzip.application.dto.ArtistModifyRequest;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
 import jakarta.validation.Valid;
@@ -30,12 +30,12 @@ public class ArtistController {
     }
 
     @GetMapping("/artists")
-    public ResponseEntity<List<ArtistListResponse>> artistList(
+    public ResponseEntity<List<ArtistResponse>> artistList(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size
     ) {
-        List<ArtistListResponse> artistTag = artistService.findArtist(name, page, size);
+        List<ArtistResponse> artistTag = artistService.findArtist(name, page, size);
         return ResponseEntity.ok(artistTag);
     }
 

@@ -16,7 +16,7 @@ public record ArtistSaveRequest(
         @EnumValue(enumClass = ArtistType.class, message = "유효하지 않은 아티스트 타입입니다", ignoreCase = true)
         String artistType,
         @Size(max = 10, message = "태그는 최대 10개까지 등록할 수 있습니다")
-        List<String> artistTags
+        List<String> hashtag
 ) {
 
     public Artist toArtist() {

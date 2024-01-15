@@ -16,17 +16,17 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class HashTag extends BaseEntity {
+public class Hashtag extends BaseEntity {
 
     private String name;
     @OneToMany(mappedBy = "hashTag")
-    private List<ArtistHashTag> artistHashTags = new ArrayList<>();
+    private List<ArtistHashtag> artistHashtags = new ArrayList<>();
 
-    public HashTag(final String name) {
+    public Hashtag(final String name) {
         this.name = name;
     }
 
-    public void addArtist(final ArtistHashTag artistHashTag) {
-        artistHashTags.add(artistHashTag);
+    public void addArtist(final ArtistHashtag artistHashTag) {
+        artistHashtags.add(artistHashTag);
     }
 }

@@ -8,8 +8,8 @@ public record ArtistDetailResponse(
         String name,
         String image,
         String artistType,
-        ArtistListResponse group,
-        List<String> artistTags
+        ArtistResponse group,
+        List<String> hashtag
 ) {
     public static ArtistDetailResponse from(Artist artist, List<String> hashtags) {
         return new ArtistDetailResponse(
@@ -17,7 +17,7 @@ public record ArtistDetailResponse(
                 artist.getName(),
                 artist.getImage(),
                 artist.getArtistType().name(),
-                artist.getGroup() == null ? null : ArtistListResponse.from(artist.getGroup()),
+                artist.getGroup() == null ? null : ArtistResponse.from(artist.getGroup()),
                 hashtags
         );
     }

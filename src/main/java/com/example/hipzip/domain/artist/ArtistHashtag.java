@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ArtistHashTag extends BaseEntity {
+public class ArtistHashtag extends BaseEntity {
 
     @ManyToOne
     private Artist artist;
     @ManyToOne
-    private HashTag hashTag;
+    private Hashtag hashTag;
 
-    public ArtistHashTag(final Artist artist, final HashTag hashTag) {
+    public ArtistHashtag(final Artist artist, final Hashtag hashTag) {
         this.artist = artist;
         this.hashTag = hashTag;
 
