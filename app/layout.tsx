@@ -4,6 +4,7 @@ import "@/public/css/globals.css";
 import "@/public/css/font.css";
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
+import Header from "@/app/components/organism/Header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -77,6 +78,7 @@ export default function RootLayout({
       />
       <body className={`${inter.className}`}>
         <div className="h-full min-h-screen text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
+          <Header />
           {children}
           <Toaster />
         </div>

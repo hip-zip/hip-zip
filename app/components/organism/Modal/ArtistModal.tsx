@@ -84,7 +84,7 @@ const ArtistModal = (props: ArtistModalProps) => {
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className={"p-3 fixed bottom-10 right-10 text-sm"}>
+        <DialogTrigger className={"p-3 fixed bottom-10 left-10 text-sm"}>
           아티스트 등록하기
         </DialogTrigger>
         <DialogContent className={"bg-hipzip-black text-hipzip-white"}>

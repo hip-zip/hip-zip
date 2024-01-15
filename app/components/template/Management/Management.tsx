@@ -29,8 +29,7 @@ const Management = (props: ManagementProps) => {
     300,
   );
 
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const data = useFetch<ArtistType>(() => searchArtist, searchQuery);
+  const handleImageClick = (id: number) => {}; // Detail API 부르고 해당 정보 받아서 모달에 띄울 예정
 
   return (
     <>
@@ -42,7 +41,7 @@ const Management = (props: ManagementProps) => {
           onSearchQueryChange(e);
         }}
       />
-      <ImageGrid data={response} />
+      <ImageGrid data={response} handleImageClick={handleImageClick} />
       {props.type === "artists" && <ArtistModal />}
       {props.type === "albums" && <AlbumModal />}
     </>

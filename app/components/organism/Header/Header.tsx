@@ -7,6 +7,8 @@ import { AboutIcon } from "@/app/components/atom/Icon/AboutIcon";
 import { SearchIcon } from "@/app/components/atom/Icon/SearchIcon";
 import BellIcon from "@/app/components/atom/Icon/BellIcon";
 import UserIcon from "@/app/components/atom/Icon/UserIcon";
+import IdentificationIcon from "@/app/components/atom/Icon/IdentificationIcon";
+import { useEffect } from "react";
 
 export default function Header() {
   const [scrollLocation, setScrollLocation] = useSessionStorage("scroll", 0);
@@ -23,7 +25,7 @@ export default function Header() {
         </Link>
         <div className={"flex gap-5"}>
           <Link href={"/main/search"}>
-            <BellIcon />
+            <UserIcon />
           </Link>
           <Link href={"/main/about"}>
             <AboutIcon />

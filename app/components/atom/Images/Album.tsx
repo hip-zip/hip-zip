@@ -15,9 +15,11 @@ export interface AlbumType {
     artist_name: string;
     artist_image: string;
   };
-}
+} // 변경될 스키마
 
 interface AlbumProps extends AlbumType {
+  // onClick도 props로 받아서 진행해야 할 것 같음
+  // 재사용성 향상 목적
   key: number;
   item: AlbumType["item"];
   setScrollLocation: React.Dispatch<React.SetStateAction<number>>;

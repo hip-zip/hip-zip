@@ -6,8 +6,8 @@ const BellIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      height={30}
-      width={30}
+      height={25}
+      width={25}
     >
       <path
         strokeLinecap="round"

@@ -15,7 +15,7 @@ export interface ArtistFormType {
   artistTags: Array<string>;
 }
 
-export default function PageBackUp() {
+export default function OldPage() {
   // Existing state and router
   const [formValues, setFormValues] = useState<ArtistFormType>({
     name: "",

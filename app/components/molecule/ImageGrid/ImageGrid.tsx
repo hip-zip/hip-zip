@@ -11,6 +11,7 @@ interface ImageGridProps {
         image: string;
       }[]
     | null;
+  handleImageClick: (id: number) => void;
 }
 
 const ImageGrid = (props: ImageGridProps) => {
@@ -21,7 +22,11 @@ const ImageGrid = (props: ImageGridProps) => {
       }
     >
       {props.data?.map((item) => (
-        <Artist key={item.id} item={item} handleArtistClick={() => {}} />
+        <Artist
+          key={item.id}
+          item={item}
+          handleArtistClick={props.handleImageClick}
+        />
       ))}
     </div>
   );
