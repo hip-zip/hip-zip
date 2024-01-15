@@ -19,14 +19,14 @@ import lombok.ToString;
 public class Hashtag extends BaseEntity {
 
     private String name;
-    @OneToMany(mappedBy = "hashTag")
+    @OneToMany(mappedBy = "hashtag")
     private List<ArtistHashtag> artistHashtags = new ArrayList<>();
 
     public Hashtag(final String name) {
         this.name = name;
     }
 
-    public void addArtist(final ArtistHashtag artistHashTag) {
-        artistHashtags.add(artistHashTag);
+    public void addArtist(final ArtistHashtag artistHashtag) {
+        artistHashtags.add(artistHashtag);
     }
 }

@@ -15,12 +15,12 @@ public class ArtistHashtag extends BaseEntity {
     @ManyToOne
     private Artist artist;
     @ManyToOne
-    private Hashtag hashTag;
+    private Hashtag hashtag;
 
-    public ArtistHashtag(final Artist artist, final Hashtag hashTag) {
+    public ArtistHashtag(final Artist artist, final Hashtag hashtag) {
         this.artist = artist;
-        this.hashTag = hashTag;
+        this.hashtag = hashtag;
 
-        hashTag.addArtist(this);
+        hashtag.addArtist(this);
     }
 }

@@ -29,17 +29,17 @@ public class ArtistService {
 
     private final ArtistRepository artistRepository;
     private final HashtagRepository hashTagRepository;
-    private final ArtistHashtagRepository artistHashTagRepository;
+    private final ArtistHashtagRepository artistHashtagRepository;
 
     public Long saveArtist(ArtistSaveRequest request) {
         Artist artist = artistRepository.save(request.toArtist());
 
-        addHashTag(request.hashtag(), artist);
+        addHashtag(request.hashtag(), artist);
         return artist.getId();
     }
 
-    private Hashtag findHashTag(final String name) {
-        Hashtag hashTag = hashTagRepository.findByName(name);
+    private Hashtag findHashtag(final String name) {
+        Hashtag hashTag = hashTagRepository.findByNameStartsWith(name);
         if (hashTag != null) {
             return hashTag;
         }
@@ -51,7 +51,7 @@ public class ArtistService {
             return findAll(page, size);
         }
 
-        Hashtag hashTag = hashTagRepository.findByName(name);
+        Hashtag hashTag = hashTagRepository.findByNameStartsWith(name);
 
         if (hashTag == null) {
             return new ArrayList<>();
@@ -76,9 +76,9 @@ public class ArtistService {
     public ArtistDetailResponse findArtistDetail(Long id) {
         Artist artist = artistRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
-        List<ArtistHashtag> artistHashtags = artistHashTagRepository.findByArtist_Id(id);
+        List<ArtistHashtag> artistHashtags = artistHashtagRepository.findByArtist_Id(id);
         List<String> hashtag = artistHashtags.stream()
-                .map(it -> it.getHashTag().getName())
+                .map(it -> it.getHashtag().getName())
                 .collect(Collectors.toList());
 
         return ArtistDetailResponse.from(artist, hashtag);
@@ -103,19 +103,19 @@ public class ArtistService {
             artist.modifyGroupMember(artists);
         }
 
-        artistHashTagRepository.deleteAllByArtist_Id(artist.getId());
-        addHashTag(request.hashtag(), artist);
+        artistHashtagRepository.deleteAllByArtist_Id(artist.getId());
+        addHashtag(request.hashtag(), artist);
     }
 
-    private void addHashTag(final List<String> request, final Artist artist) {
+    private void addHashtag(final List<String> request, final Artist artist) {
         List<Hashtag> hashtags = request
                 .stream()
-                .map(this::findHashTag)
+                .map(this::findHashtag)
                 .collect(Collectors.toList());
 
         for (Hashtag hashTag : hashtags) {
-            ArtistHashtag artistHashTag = new ArtistHashtag(artist, hashTag);
-            artistHashTagRepository.save(artistHashTag);
+            ArtistHashtag artistHashtag = new ArtistHashtag(artist, hashTag);
+            artistHashtagRepository.save(artistHashtag);
         }
     }
 }
