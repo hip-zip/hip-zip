@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const frameworks = [
+const artistType = [
   {
     value: "SOLO",
     label: "솔로 아티스트",
@@ -29,7 +29,11 @@ const frameworks = [
   },
 ];
 
-const DropDown = () => {
+interface ComboBoxProps {
+  onSelect: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ComboBox = (props: ComboBoxProps) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -43,30 +47,32 @@ const DropDown = () => {
           className="w-[70%] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
+            ? artistType.find((type) => type.value === value)?.label
             : "아티스트 유형 선택"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0 bg-hipzip-black text-hipzip-white">
+      <PopoverContent className="p-1 bg-hipzip-black text-hipzip-white">
         <Command>
           <CommandGroup>
-            {frameworks.map((framework) => (
+            {artistType.map((type) => (
               <CommandItem
-                key={framework.value}
-                value={framework.value}
+                key={type.value}
+                value={type.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
+                  const current = currentValue.toUpperCase();
+                  setValue(current);
+                  props.onSelect(current);
                   setOpen(false);
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4 text-hipzip-white",
-                    value === framework.value ? "opacity-100" : "opacity-0",
+                    value === type.value ? "opacity-100" : "opacity-0",
                   )}
                 />
-                {framework.label}
+                {type.label}
               </CommandItem>
             ))}
           </CommandGroup>
@@ -76,4 +82,4 @@ const DropDown = () => {
   );
 };
 
-export default DropDown;
+export default ComboBox;

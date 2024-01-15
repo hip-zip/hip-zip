@@ -2,22 +2,23 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import React from "react";
 import { cn } from "@/lib/utils";
-import DropDown from "@/app/components/atom/DropDown/DropDown";
+import ComboBox from "@/app/components/atom/DropDown/ComboBox";
 
-interface InputFieldProps {
+interface InputComboBoxFieldProps {
   label: string;
   placeholder?: string;
   className?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  key?: string;
+  onSelect: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const InputField = (props: InputFieldProps) => {
+const InputComboBoxField = (props: InputComboBoxFieldProps) => {
   return (
     <div className={"flex justify-between items-center"}>
       <Label className="text-right w-24">{props.label}</Label>
-      <DropDown />
+      <ComboBox onSelect={props.onSelect} />
     </div>
   );
 };
 
-export default InputField;
+export default InputComboBoxField;

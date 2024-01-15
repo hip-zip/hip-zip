@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/public/css/globals.css";
 import "@/public/css/font.css";
 import React from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -77,6 +78,7 @@ export default function RootLayout({
       <body className={`${inter.className}`}>
         <div className="h-full min-h-screen text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
           {children}
+          <Toaster />
         </div>
       </body>
     </html>

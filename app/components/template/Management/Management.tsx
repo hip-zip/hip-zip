@@ -8,18 +8,24 @@ import { searchArtist } from "@/app/hook/util";
 import Button from "@/app/components/atom/Button/Button";
 import ArtistModal from "@/app/components/organism/Modal/ArtistModal";
 import AlbumModal from "../../organism/Modal/AlbumModal";
+import { AlbumType } from "@/app/components/atom/Images/Album";
+import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
 
 interface ManagementProps {
   type: "artists" | "albums";
 }
 
-type SearchParamsType = {
+export type ImageGridElementType = {
+  id: number;
   name: string;
+  image: string;
 };
 
 const Management = (props: ManagementProps) => {
-  const [data, onSearchQueryChange] = useDebouncedSearch<ArtistType[]>(
-    (query: string): Promise<ArtistType[]> => searchArtist(query),
+  const [response, onSearchQueryChange] = useDebouncedSearch<
+    ImageGridElementType[]
+  >(
+    (query: string): Promise<ImageGridElementType[]> => searchArtist(query),
     300,
   );
 
@@ -32,10 +38,13 @@ const Management = (props: ManagementProps) => {
         className={"text-center text-base"}
         type={"text"}
         placeholder={"아티스트를 입력하세요"}
-        onChange={onSearchQueryChange}
+        onChange={(e) => {
+          onSearchQueryChange(e);
+        }}
       />
-      {/*<AlbumModal></AlbumModal>*/}
-      <ArtistModal />
+      <ImageGrid data={response} />
+      {props.type === "artists" && <ArtistModal />}
+      {props.type === "albums" && <AlbumModal />}
     </>
   );
 };

@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { RocketIcon } from "@radix-ui/react-icons";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,17 +10,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import InputField from "@/app/components/molecule/InputField/InputField";
 import TagInputField from "@/app/components/molecule/InputField/TagInputField";
 import useFormInput from "@/app/hook/useFormInput";
-import useInput from "@/app/hook/useInput";
 import useContinualInput from "@/app/hook/useContinualInput";
-import InputDropDownField from "@/app/components/molecule/InputField/InputDropDownField";
 import { postArtist } from "@/app/hook/util";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
+import { useToast } from "@/components/ui/use-toast";
+import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";
 interface ArtistModalProps {}
 
 export interface ArtistFormType {
@@ -33,6 +28,8 @@ export interface ArtistFormType {
 }
 
 const ArtistModal = (props: ArtistModalProps) => {
+  const { toast } = useToast();
+
   const [formValue, setFormValue] = useState<ArtistFormType>({
     name: "",
     image: "",
@@ -51,28 +48,33 @@ const ArtistModal = (props: ArtistModalProps) => {
       "artistTags",
     );
 
+  const [artistType, setArtistType] = useState<string>("SOLO");
   const [open, setOpen] = useState<boolean>(false);
+
   const handleArtistSubmit = async () => {
     try {
-      const response = await postArtist<ArtistFormType>(formValue);
+      const params = {
+        ...formValue,
+        artistType,
+      };
+
+      const response = await postArtist<ArtistFormType>(params);
 
       if (response.ok) {
+        toast({
+          variant: "success",
+          title: "아티스트 등록 성공",
+          description: `${formValue.name} 아티스트가 등록되었습니다.`,
+        });
+
         setFormValue({
           name: "",
           image: "",
           artistType: "SOLO",
           artistTags: [],
         });
+
         setOpen(false);
-        // return (
-        //   <Alert>
-        //     <RocketIcon className="h-4 w-4" />
-        //     <AlertTitle>Heads up!</AlertTitle>
-        //     <AlertDescription>
-        //       You can add components to your app using the cli.
-        //     </AlertDescription>
-        //   </Alert>
-        // );
       }
     } catch (e) {
       console.log(e);
@@ -89,17 +91,17 @@ const ArtistModal = (props: ArtistModalProps) => {
           <DialogHeader>
             <DialogTitle className={"mb-3"}>아티스트 등록하기</DialogTitle>
             <DialogDescription>
-              - 아티스트의 이름 입력시 활동명으로 작성해주세요. 재키와이보다는
-              Jvcki Wai 🔥
+              - 아티스트의 이름 입력시 본명이 아닌 A.K.A(활동명)으로
+              작성해주세요.
             </DialogDescription>
             <DialogDescription>
-              - 아티스트의 이미지 입력시 URL을 입력하셔야 합니다. 이미지 업로드
-              기능을 추가 할 예정입니다.
+              - 아티스트의 이미지 입력시 URL을 입력하셔야 합니다.
             </DialogDescription>
             <DialogDescription>
-              - 검색 힌트 입력시 단어를 입력 후 엔터를 치시면 됩니다. 검색용
-              태그로 활용되며, 키드밀리를 예로 들면 KID MILLI, 최원재 등으로
-              입력하시면 됩니다.
+              - 검색 힌트 입력시 단어를 입력 후 엔터를 치시면 됩니다.
+            </DialogDescription>
+            <DialogDescription>
+              - 키드밀리를 예로 들면 KID MILLI, 최원재 등으로 입력하시면 됩니다.
             </DialogDescription>
           </DialogHeader>
           <div className={"flex flex-col gap-3"}>
@@ -108,7 +110,11 @@ const ArtistModal = (props: ArtistModalProps) => {
               label={"아티스트 이미지"}
               onChange={handleImageChange}
             />
-            <InputDropDownField label={"솔로/그룹 구분"} onChange={() => {}} />
+            <InputComboBoxField
+              label={"솔로/그룹 구분"}
+              key={"artistType"}
+              onSelect={setArtistType}
+            />
             <TagInputField
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}
@@ -119,7 +125,6 @@ const ArtistModal = (props: ArtistModalProps) => {
             />
           </div>
           <DialogFooter>
-            {/*<Button onClick={handleArtistSubmit}>등록하기</Button>*/}
             <ConfirmDialog ok={handleArtistSubmit} />
           </DialogFooter>
         </DialogContent>

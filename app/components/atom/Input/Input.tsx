@@ -16,7 +16,7 @@ const Input = (props: InputProps) => {
   return (
     <input
       className={cn(
-        "placeholder:text-gray-300 w-full bg-transparent border border-slate-300 rounded-md p-4 shadow-sm focus:outline-none focus:ring-none",
+        "placeholder:text-gray-300 w-full bg-transparent border border-slate-300 rounded-md p-4 shadow-sm focus:outline-none focus:ring-none text-hipzip-black",
         props.className || "",
       )}
       placeholder={props.placeholder}

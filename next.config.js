@@ -22,6 +22,11 @@ const nextConfig = {
         hostname: "cdnimg.melon.co.kr",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "buffer.com",
+        port: "",
+      },
     ],
   },
   reactStrictMode: false,

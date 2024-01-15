@@ -1,4 +1,8 @@
 import { ArtistType } from "@/app/components/atom/Images/Artist";
+import {
+  ImageGridElementType,
+  ItemType,
+} from "@/app/components/template/Management/Management";
 
 const getFetch = async <T>(endPoint: string, obj: Record<string, string>) => {
   const queryString = new URLSearchParams(obj).toString();
@@ -38,7 +42,11 @@ export const searchArtist = async (query: string) => {
     name: query,
   };
 
-  const response = (await getFetch("/artists", params)) as ArtistType[];
+  const response = (await getFetch(
+    "/artists",
+    params,
+  )) as ImageGridElementType[];
+  console.log("searchArtist > ", response);
   return response;
 };
 
