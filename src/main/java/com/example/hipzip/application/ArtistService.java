@@ -1,8 +1,8 @@
 package com.example.hipzip.application;
 
 import com.example.hipzip.application.dto.ArtistDetailResponse;
-import com.example.hipzip.application.dto.ArtistResponse;
 import com.example.hipzip.application.dto.ArtistModifyRequest;
+import com.example.hipzip.application.dto.ArtistResponse;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
 import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistHashtag;
@@ -13,7 +13,6 @@ import com.example.hipzip.domain.artist.Hashtag;
 import com.example.hipzip.domain.artist.HashtagRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,7 +61,7 @@ public class ArtistService {
         return artistHashtags.stream()
                 .map(ArtistHashtag::getArtist)
                 .map(ArtistResponse::from)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private List<ArtistResponse> findAll(int page, int size) {
@@ -70,7 +69,7 @@ public class ArtistService {
         Page<Artist> artists = artistRepository.findAll(pageRequest);
 
         return artists.stream().map(ArtistResponse::from)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ArtistDetailResponse findArtistDetail(Long id) {
@@ -79,9 +78,9 @@ public class ArtistService {
         List<ArtistHashtag> artistHashtags = artistHashtagRepository.findByArtist_Id(id);
         List<String> hashtag = artistHashtags.stream()
                 .map(it -> it.getHashtag().getName())
-                .collect(Collectors.toList());
+                .toList();
 
-        return ArtistDetailResponse.from(artist, hashtag);
+        return ArtistDetailResponse.from(artist, artist.getMembers(), hashtag);
     }
 
     public void editArtist(ArtistModifyRequest request) {
@@ -98,7 +97,7 @@ public class ArtistService {
                             id -> artistRepository.findById(id)
                                     .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."))
                     )
-                    .collect(Collectors.toList());
+                    .toList();
 
             artist.modifyGroupMember(artists);
         }
@@ -111,7 +110,7 @@ public class ArtistService {
         List<Hashtag> hashtags = request
                 .stream()
                 .map(this::findHashtag)
-                .collect(Collectors.toList());
+                .toList();
 
         for (Hashtag hashTag : hashtags) {
             ArtistHashtag artistHashtag = new ArtistHashtag(artist, hashTag);
