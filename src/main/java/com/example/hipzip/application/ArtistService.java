@@ -1,5 +1,6 @@
 package com.example.hipzip.application;
 
+import com.example.hipzip.application.dto.ArtistDetailResponse;
 import com.example.hipzip.application.dto.ArtistListResponse;
 import com.example.hipzip.application.dto.ArtistModifyRequest;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
@@ -14,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +46,11 @@ public class ArtistService {
         return hashTagRepository.save(new HashTag(name));
     }
 
-    public List<ArtistListResponse> findArtist(String name) {
+    public List<ArtistListResponse> findArtist(String name, int page, int size) {
+        if (name == null) {
+            return findAll(page, size);
+        }
+
         HashTag hashTag = hashTagRepository.findByName(name);
 
         if (hashTag == null) {
@@ -54,6 +63,25 @@ public class ArtistService {
                 .map(ArtistHashTag::getArtist)
                 .map(ArtistListResponse::from)
                 .collect(Collectors.toList());
+    }
+
+    private List<ArtistListResponse> findAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Direction.DESC, "id"));
+        Page<Artist> artists = artistRepository.findAll(pageRequest);
+
+        return artists.stream().map(ArtistListResponse::from)
+                .collect(Collectors.toList());
+    }
+
+    public ArtistDetailResponse findArtistDetail(Long id) {
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
+        List<ArtistHashTag> artistHashTags = artistHashTagRepository.findByArtist_Id(id);
+        List<String> hashtag = artistHashTags.stream()
+                .map(it -> it.getHashTag().getName())
+                .collect(Collectors.toList());
+
+        return ArtistDetailResponse.from(artist, hashtag);
     }
 
     public void editArtist(ArtistModifyRequest request) {

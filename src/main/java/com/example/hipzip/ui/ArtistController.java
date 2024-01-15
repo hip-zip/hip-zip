@@ -1,6 +1,7 @@
 package com.example.hipzip.ui;
 
 import com.example.hipzip.application.ArtistService;
+import com.example.hipzip.application.dto.ArtistDetailResponse;
 import com.example.hipzip.application.dto.ArtistListResponse;
 import com.example.hipzip.application.dto.ArtistModifyRequest;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
@@ -9,6 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,11 +29,22 @@ public class ArtistController {
         return ResponseEntity.ok().build();
     }
 
-    //todo    검색,디테일 분리 필요
     @GetMapping("/artists")
-    public ResponseEntity<List<ArtistListResponse>> artistList(@RequestParam("name") String name) {
-        List<ArtistListResponse> artistTag = artistService.findArtist(name);
+    public ResponseEntity<List<ArtistListResponse>> artistList(
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size
+    ) {
+        List<ArtistListResponse> artistTag = artistService.findArtist(name, page, size);
         return ResponseEntity.ok(artistTag);
+    }
+
+    @GetMapping("/artists/{id}")
+    public ResponseEntity<ArtistDetailResponse> artistDetail(
+            @PathVariable Long id
+    ) {
+        ArtistDetailResponse artistDetail = artistService.findArtistDetail(id);
+        return ResponseEntity.ok(artistDetail);
     }
 
     @PutMapping("/artists")
