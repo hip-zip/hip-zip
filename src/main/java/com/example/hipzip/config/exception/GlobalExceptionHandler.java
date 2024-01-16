@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({IllegalArgumentException.class, RuntimeException.class})
     protected ResponseEntity<ErrorResponse> IllegalArgumentException(IllegalArgumentException e) {
         final ErrorResponse errorResponse = ErrorResponse.create(
                 HttpStatus.INTERNAL_SERVER_ERROR,

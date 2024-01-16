@@ -27,7 +27,7 @@ public class ArtistController {
 
     @PostMapping("/artists")
     public ResponseEntity<Void> save(@RequestBody @Valid ArtistSaveRequest request) {
-        Long artistId = artistService.saveArtist(request);
+        Long artistId = artistService.save(request);
         return ResponseEntity.created(URI.create("/artists/"+artistId)).build();
     }
 

@@ -57,7 +57,7 @@ class ArtistControllerTest {
 
     @Test
     void 아티스트를_조회할_수_있다() {
-        artistService.saveArtist(ArtistFixture.이서_저장_요청());
+        artistService.save(ArtistFixture.이서_저장_요청());
 
         ArtistResponse[] responses = RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
@@ -72,8 +72,8 @@ class ArtistControllerTest {
 
     @Test
     void 아티스트를_수정할_수_있다() {
-        Long 이서_ID = artistService.saveArtist(ArtistFixture.이서_저장_요청());
-        Long 아이브_ID = artistService.saveArtist(ArtistFixture.아이브_저장_요청());
+        Long 이서_ID = artistService.save(ArtistFixture.이서_저장_요청());
+        Long 아이브_ID = artistService.save(ArtistFixture.아이브_저장_요청());
 
         ArtistModifyRequest artistModifyRequest = new ArtistModifyRequest(
                 아이브_ID,

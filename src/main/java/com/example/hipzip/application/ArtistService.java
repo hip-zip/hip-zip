@@ -6,11 +6,9 @@ import com.example.hipzip.application.dto.ArtistResponse;
 import com.example.hipzip.application.dto.ArtistSaveRequest;
 import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistHashtag;
-import com.example.hipzip.domain.artist.ArtistHashtagRepository;
 import com.example.hipzip.domain.artist.ArtistRepository;
 import com.example.hipzip.domain.artist.ArtistType;
 import com.example.hipzip.domain.artist.Hashtag;
-import com.example.hipzip.domain.artist.HashtagRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,26 +25,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArtistService {
 
     private final ArtistRepository artistRepository;
-    private final HashtagRepository hashTagRepository;
-    private final ArtistHashtagRepository artistHashtagRepository;
+    private final HashtagService hashtagService;
+    private final ArtistHashtagService artistHashtagService;
 
-    public Long saveArtist(ArtistSaveRequest request) {
+    public Long save(ArtistSaveRequest request) {
         Artist artist = artistRepository.save(request.toArtist());
-
-        addHashtag(request.hashtag(), artist);
+        createHashtag(request.hashtag(), artist);
         return artist.getId();
     }
 
-    private Hashtag findHashtag(final String name) {
-        Hashtag hashTag = hashTagRepository.findByNameStartsWith(name);
-        if (hashTag != null) {
-            return hashTag;
-        }
-        return hashTagRepository.save(new Hashtag(name));
+    private void createHashtag(final List<String> tagNames, final Artist artist) {
+        List<Hashtag> hashtags = hashtagService.findOrCreateHashtag(tagNames);
+        List<ArtistHashtag> artistHashtags = hashtags.stream()
+                .map(it -> new ArtistHashtag(artist, it))
+                .toList();
+        artistHashtagService.saveAll(artistHashtags);
     }
 
     public List<ArtistResponse> findByName(String name) {
-        Hashtag hashTag = hashTagRepository.findByNameStartsWith(name);
+        Hashtag hashTag = hashtagService.findByName(name);
 
         if (hashTag == null) {
             return new ArrayList<>();
@@ -69,9 +66,8 @@ public class ArtistService {
     }
 
     public ArtistDetailResponse findById(Long id) {
-        Artist artist = artistRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
-        List<ArtistHashtag> artistHashtags = artistHashtagRepository.findByArtist_Id(id);
+        Artist artist = artistRepository.getById(id);
+        List<ArtistHashtag> artistHashtags = artistHashtagService.findByArtistId(id);
         List<String> hashtag = artistHashtags.stream()
                 .map(it -> it.getHashtag().getName())
                 .toList();
@@ -80,8 +76,7 @@ public class ArtistService {
     }
 
     public void edit(ArtistModifyRequest request) {
-        Artist artist = artistRepository.findById(request.id())
-                .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
+        Artist artist = artistRepository.getById(request.id());
 
         artist.setName(request.name());
         artist.setImage(request.image());
@@ -89,36 +84,20 @@ public class ArtistService {
         if (artist.getArtistType() == ArtistType.GROUP) {
             List<Artist> artists = request.artistGroupMemberIds()
                     .stream()
-                    .map(
-                            id -> artistRepository.findById(id)
-                                    .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."))
-                    )
+                    .map(artistRepository::getById)
                     .toList();
 
             artist.modifyGroupMember(artists);
         }
 
-        artistHashtagRepository.deleteAllByArtist_Id(artist.getId());
-        addHashtag(request.hashtag(), artist);
-    }
+        artistHashtagService.deleteAllByArtistId(artist.getId());
 
-    private void addHashtag(final List<String> request, final Artist artist) {
-        List<Hashtag> hashtags = request
-                .stream()
-                .map(this::findHashtag)
-                .toList();
-
-        for (Hashtag hashTag : hashtags) {
-            ArtistHashtag artistHashtag = new ArtistHashtag(artist, hashTag);
-            artistHashtagRepository.save(artistHashtag);
-        }
+        createHashtag(request.hashtag(), artist);
     }
 
     public void deleteById(Long id) {
-        Artist artist = artistRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
-
-        artistHashtagRepository.deleteAllByArtist_Id(artist.getId());
+        Artist artist = artistRepository.getById(id);
+        artistHashtagService.deleteAllByArtistId(artist.getId());
         artistRepository.deleteById(artist.getId());
     }
 }
