@@ -9,15 +9,11 @@ interface TagInputFieldProps {
   placeholder?: string;
   className?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   tagList?: Array<string>;
 }
 
 const TagInputField = (props: TagInputFieldProps) => {
-  useEffect(() => {
-    console.log("TagInputField > ", props.tagList);
-  }, [props.tagList]);
-
   return (
     <div className={"flex justify-between items-center"}>
       <Label className="text-right w-24">{props.label}</Label>
@@ -36,7 +32,7 @@ const TagInputField = (props: TagInputFieldProps) => {
         <Input
           className={cn(
             "col-span-3 text-hipzip-black bg-hipzip-white text-base w-1/2 h-10 border-none p-3 shadow-none",
-            props.className,
+            props.className || "",
           )}
           maxLength={12}
           onChange={props.onChange}

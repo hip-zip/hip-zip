@@ -17,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useEffect } from "react";
 
 const artistType = [
   {
@@ -31,11 +32,18 @@ const artistType = [
 
 interface ComboBoxProps {
   onSelect: React.Dispatch<React.SetStateAction<string>>;
+  defaultValue?: string;
 }
 
 const ComboBox = (props: ComboBoxProps) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  useEffect(() => {
+    if (props.defaultValue) {
+      setValue(props.defaultValue);
+    }
+  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

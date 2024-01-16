@@ -34,10 +34,12 @@ const Management = (props: ManagementProps) => {
   const [initialData, setInitialData] = useState<ImageGridType[]>([]);
   const [modifyModalStatus, setModifyModalStatus] = useState<boolean>(false);
   const [detailData, setDetailData] = useState<ArtistDetailType | undefined>();
+  const [id, setId] = useState<number>(0);
 
   const handleImageClick = async (id: number) => {
     const response = await getArtistDetail(id);
     await setDetailData(response);
+    await setId(id);
     await setModifyModalStatus(true);
   }; // Detail API 부르고 해당 정보 받아서 모달에 띄울 예정
 
@@ -48,14 +50,14 @@ const Management = (props: ManagementProps) => {
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // 이후 Page 단에서 데이터 fetch 해서 넘겨주는 방식으로 변경 예정
 
   return (
     <>
       <Input
         className={"text-center text-base"}
         type={"text"}
-        placeholder={"아티스트를 입력하세요"}
+        placeholder={"아티스트를 입력하세요"} // props로 받아서 처리 예정
         onChange={onSearchQueryChange}
       />
       <ImageGrid
@@ -68,6 +70,7 @@ const Management = (props: ManagementProps) => {
         open={modifyModalStatus}
         setOpen={setModifyModalStatus}
         detailData={detailData}
+        id={id}
       />
     </>
   );

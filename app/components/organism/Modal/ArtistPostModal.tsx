@@ -41,7 +41,7 @@ const ArtistPostModal = (props: ArtistModalProps) => {
     setFormValue,
     "image",
   );
-  const [tag, handleTagChange, handleTagInputKeyDown] =
+  const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
     useContinualInput<ArtistPostType>(
       formValue.hashtag,
       setFormValue,
@@ -119,8 +119,8 @@ const ArtistPostModal = (props: ArtistModalProps) => {
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}
               className={"m-0"}
-              onChange={handleTagChange}
-              onKeyDown={handleTagInputKeyDown}
+              onChange={handleHashtagChange}
+              onKeyDown={handleHashtagInputKeyDown}
               tagList={formValue.hashtag}
             />
           </div>

@@ -55,7 +55,7 @@ export const searchArtist = async (query: string) => {
   const params = {
     name: query,
   };
-  return (await getFetch("/artists", params)) as ImageGridType[];
+  return (await getFetch("/artists/search", params)) as ImageGridType[];
 };
 
 export const postArtist = async <T>(params: T) => {
@@ -64,5 +64,6 @@ export const postArtist = async <T>(params: T) => {
 };
 
 export const putArtist = async <T>(params: T) => {
-  return await customFetch("PUT", "/artists", params);
+  const response = await customFetch("PUT", "/artists", params);
+  return await response;
 };

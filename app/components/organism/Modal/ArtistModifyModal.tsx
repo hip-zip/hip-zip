@@ -13,17 +13,22 @@ import InputComboBoxField from "@/app/components/molecule/InputField/InputComboB
 import TagInputField from "@/app/components/molecule/InputField/TagInputField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
 import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
-import { getArtistDetail } from "@/app/hook/util";
+import { getArtistDetail, postArtist, putArtist } from "@/app/hook/util";
 import { ArtistPostType } from "@/app/components/organism/Modal/ArtistPostModal";
+import useFormInput from "@/app/hook/useFormInput";
+import { ArtistFormType } from "@/app/admin/artist/trash";
+import useContinualInput from "@/app/hook/useContinualInput";
+import { toast } from "@/components/ui/use-toast";
 
 interface ModifyModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   detailData: ArtistDetailType | undefined;
+  id: number;
 }
 
-export interface ArtistModifyType extends ArtistPostType {
-  artistGroupMemberIds: number[];
+interface ArtistModifyType extends ArtistPostType {
+  id: number;
 }
 
 const ArtistModifyModal = (props: ModifyModalProps) => {
@@ -32,12 +37,68 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
   );
 
   const [formValue, setFormValue] = useState<ArtistModifyType>({
-    name: props.detailData?.name || "",
-    image: props.detailData?.image || "",
-    artistType: props.detailData?.artistType.toLowerCase() || "SOLO",
-    artistGroupMemberIds: [],
+    id: 0,
+    name: "",
+    image: "",
+    artistType: "SOLO",
     hashtag: [],
   });
+
+  const [handleNameChange] = useFormInput<ArtistPostType>(setFormValue, "name");
+  const [handleImageChange] = useFormInput<ArtistPostType>(
+    setFormValue,
+    "image",
+  );
+
+  const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
+    useContinualInput<ArtistPostType>(
+      formValue.hashtag,
+      setFormValue,
+      "hashtag",
+    );
+
+  const [artistType, setArtistType] = useState<string>("SOLO");
+
+  const handleArtistSubmit = async () => {
+    try {
+      const params = {
+        ...formValue,
+        artistType,
+      };
+
+      const response = await putArtist<ArtistPostType>(params);
+
+      if (response.ok) {
+        toast({
+          variant: "success",
+          title: "아티스트 수정 성공",
+          description: `${formValue.name} 아티스트가 수정되었습니다.`,
+        });
+
+        setFormValue({
+          id: 0,
+          name: "",
+          image: "",
+          artistType: "SOLO",
+          artistTags: [],
+        });
+
+        props.setOpen(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    setFormValue({
+      id: props.id || 0,
+      name: props.detailData?.name || "",
+      image: props.detailData?.image || "",
+      artistType: props.detailData?.artistType || "SOLO",
+      hashtag: props.detailData?.hashtag || [],
+    });
+  }, [props.detailData]);
 
   return (
     <>
@@ -62,21 +123,31 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
           <div className={"flex flex-col gap-3"}>
             <InputField
               label={"아티스트 이름"}
+              onChange={handleNameChange}
               defaultValue={props.detailData?.name || ""}
             />
             <InputField
               label={"아티스트 이미지"}
+              onChange={handleImageChange}
               defaultValue={props.detailData?.image || ""}
             />
-            <InputComboBoxField label={"솔로/그룹 구분"} key={"artistType"} />
+            <InputComboBoxField
+              label={"솔로/그룹 구분"}
+              key={"artistType"}
+              onSelect={setArtistType}
+              defaultValue={formValue.artistType}
+            />
             <TagInputField
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}
               className={"m-0"}
+              onChange={handleHashtagChange}
+              onKeyDown={handleHashtagInputKeyDown}
+              tagList={formValue.hashtag}
             />
           </div>
           <DialogFooter>
-            <ConfirmDialog ok={() => {}} action={"수정"} />
+            <ConfirmDialog ok={handleArtistSubmit} action={"수정"} />
           </DialogFooter>
         </DialogContent>
       </Dialog>
