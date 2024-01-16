@@ -14,7 +14,7 @@ public class HashtagService {
 
     private final HashtagRepository hashTagRepository;
 
-    public Hashtag findByName(final String name) {
+    public List<Hashtag> findByName(final String name) {
         return hashTagRepository.findByNameStartsWith(name);
     }
 
@@ -25,7 +25,7 @@ public class HashtagService {
     }
 
     private Hashtag findOrCreateHashtag(final String name) {
-        Hashtag hashTag = hashTagRepository.findByNameStartsWith(name);
+        Hashtag hashTag = hashTagRepository.findByName(name);
         if (hashTag != null) {
             return hashTag;
         }

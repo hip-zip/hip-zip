@@ -9,7 +9,6 @@ import com.example.hipzip.domain.artist.ArtistHashtag;
 import com.example.hipzip.domain.artist.ArtistRepository;
 import com.example.hipzip.domain.artist.ArtistType;
 import com.example.hipzip.domain.artist.Hashtag;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,13 +42,10 @@ public class ArtistService {
     }
 
     public List<ArtistResponse> findByName(String name) {
-        Hashtag hashTag = hashtagService.findByName(name);
-
-        if (hashTag == null) {
-            return new ArrayList<>();
-        }
-
-        List<ArtistHashtag> artistHashtags = hashTag.getArtistHashtags();
+        List<Hashtag> hashTag = hashtagService.findByName(name);
+        List<ArtistHashtag> artistHashtags = hashTag.stream()
+                .flatMap(it -> it.getArtistHashtags().stream())
+                .toList();
 
         return artistHashtags.stream()
                 .map(ArtistHashtag::getArtist)
