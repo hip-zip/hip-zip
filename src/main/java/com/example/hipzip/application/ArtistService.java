@@ -117,4 +117,12 @@ public class ArtistService {
             artistHashtagRepository.save(artistHashtag);
         }
     }
+
+    public void deleteArtist(Long id) {
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
+
+        artistHashtagRepository.deleteAllByArtist_Id(artist.getId());
+        artistRepository.deleteById(artist.getId());
+    }
 }
