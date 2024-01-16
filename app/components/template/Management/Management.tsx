@@ -1,19 +1,13 @@
 "use client";
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import {
-  ArtistDetailType,
-  ArtistImageType,
-} from "@/app/components/atom/Images/Artist";
+import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
 import Input from "@/app/components/atom/Input/Input";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { getArtist, getArtistDetail, searchArtist } from "@/app/hook/util";
-import Button from "@/app/components/atom/Button/Button";
 import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
 import AlbumModal from "../../organism/Modal/AlbumModal";
-import { AlbumType } from "@/app/components/atom/Images/Album";
 import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
 
 interface ManagementProps {
@@ -34,6 +28,7 @@ const Management = (props: ManagementProps) => {
   const [initialData, setInitialData] = useState<ImageGridType[]>([]);
   const [modifyModalStatus, setModifyModalStatus] = useState<boolean>(false);
   const [detailData, setDetailData] = useState<ArtistDetailType | undefined>();
+  const [searchStatus, setSearchStatus] = useState<boolean>(false);
   const [id, setId] = useState<number>(0);
 
   const handleImageClick = async (id: number) => {
@@ -53,15 +48,22 @@ const Management = (props: ManagementProps) => {
   }, []); // 이후 Page 단에서 데이터 fetch 해서 넘겨주는 방식으로 변경 예정
 
   return (
-    <>
+    <div className={"w-full h-full p-4"}>
       <Input
-        className={"text-center text-base"}
+        className={"text-center text-base mb-4"}
         type={"text"}
         placeholder={"아티스트를 입력하세요"} // props로 받아서 처리 예정
-        onChange={onSearchQueryChange}
+        onChange={(e) => {
+          if (e.target.value === "") {
+            setSearchStatus(false);
+            return;
+          }
+          onSearchQueryChange(e);
+          setSearchStatus(true);
+        }}
       />
       <ImageGrid
-        data={response || initialData}
+        data={!searchStatus ? initialData : response}
         handleImageClick={handleImageClick}
       />
       {props.type === "artists" && <ArtistPostModal />}
@@ -72,7 +74,7 @@ const Management = (props: ManagementProps) => {
         detailData={detailData}
         id={id}
       />
-    </>
+    </div>
   );
 };
 

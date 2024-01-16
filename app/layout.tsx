@@ -80,8 +80,8 @@ export default function RootLayout({
         media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
         rel="apple-touch-startup-image"
       />
-      <body className={`${inter.className}`}>
-        <div className="h-full min-h-screen text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
+      <body className={`${inter.className} h-full min-h-screen`}>
+        <div className="text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
           <Header />
           {children}
           <Toaster />

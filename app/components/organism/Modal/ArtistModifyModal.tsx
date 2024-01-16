@@ -44,14 +44,17 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
     hashtag: [],
   });
 
-  const [handleNameChange] = useFormInput<ArtistPostType>(setFormValue, "name");
-  const [handleImageChange] = useFormInput<ArtistPostType>(
+  const [handleNameChange] = useFormInput<ArtistModifyType>(
+    setFormValue,
+    "name",
+  );
+  const [handleImageChange] = useFormInput<ArtistModifyType>(
     setFormValue,
     "image",
   );
 
   const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
-    useContinualInput<ArtistPostType>(
+    useContinualInput<ArtistModifyType>(
       formValue.hashtag,
       setFormValue,
       "hashtag",
@@ -66,13 +69,14 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
         artistType,
       };
 
-      const response = await putArtist<ArtistPostType>(params);
+      const response = await putArtist<ArtistModifyType>(params);
 
       if (response.ok) {
         toast({
-          variant: "success",
+          variant: "default",
           title: "아티스트 수정 성공",
           description: `${formValue.name} 아티스트가 수정되었습니다.`,
+          className: "bg-hipzip-black text-hipzip-white",
         });
 
         setFormValue({
@@ -80,7 +84,7 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
           name: "",
           image: "",
           artistType: "SOLO",
-          artistTags: [],
+          hashtag: [],
         });
 
         props.setOpen(false);

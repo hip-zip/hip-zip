@@ -62,16 +62,17 @@ const ArtistPostModal = (props: ArtistModalProps) => {
 
       if (response.ok) {
         toast({
-          variant: "success",
+          variant: "default",
           title: "아티스트 등록 성공",
           description: `${formValue.name} 아티스트가 등록되었습니다.`,
+          className: "bg-hipzip-black text-hipzip-white",
         });
 
         setFormValue({
           name: "",
           image: "",
           artistType: "SOLO",
-          artistTags: [],
+          hashtag: [],
         });
 
         setOpen(false);
@@ -84,7 +85,11 @@ const ArtistPostModal = (props: ArtistModalProps) => {
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className={"p-3 fixed bottom-10 left-10 text-sm"}>
+        <DialogTrigger
+          className={
+            "p-3 fixed bg-hipzip-black bottom-10 left-10 text-sm rounded-lg border border-hipzip-white"
+          }
+        >
           아티스트 등록하기
         </DialogTrigger>
         <DialogContent className={"bg-hipzip-black text-hipzip-white"}>
@@ -125,7 +130,7 @@ const ArtistPostModal = (props: ArtistModalProps) => {
             />
           </div>
           <DialogFooter>
-            <ConfirmDialog ok={handleArtistSubmit} action={"등록하기"} />
+            <ConfirmDialog ok={handleArtistSubmit} action={"등록"} />
           </DialogFooter>
         </DialogContent>
       </Dialog>

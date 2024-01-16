@@ -64,6 +64,5 @@ export const postArtist = async <T>(params: T) => {
 };
 
 export const putArtist = async <T>(params: T) => {
-  const response = await customFetch("PUT", "/artists", params);
-  return await response;
+  return await customFetch("PUT", "/artists", params);
 };
