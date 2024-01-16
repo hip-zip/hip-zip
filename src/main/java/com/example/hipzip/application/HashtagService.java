@@ -15,7 +15,7 @@ public class HashtagService {
     private final HashtagRepository hashTagRepository;
 
     public List<Hashtag> findByName(final String name) {
-        return hashTagRepository.findDistinctByNameStartsWith(name);
+        return hashTagRepository.findByNameStartsWith(name);
     }
 
     public List<Hashtag> findOrCreateHashtag(final List<String> tagNames){

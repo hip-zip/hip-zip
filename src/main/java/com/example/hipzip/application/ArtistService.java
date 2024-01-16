@@ -66,6 +66,7 @@ public class ArtistService {
         List<ArtistHashtag> artistHashtags = artistHashtagService.findByArtistId(id);
         List<String> hashtag = artistHashtags.stream()
                 .map(it -> it.getHashtag().getName())
+                .distinct()
                 .toList();
 
         return ArtistDetailResponse.from(artist, artist.getMembers(), hashtag);
