@@ -15,6 +15,7 @@ public record ArtistModifyRequest(
         String name,
         @URL(message = "올바른 URL이어야 합니다")
         String image,
+        @NotNull(message = "해시태그를 입력해 주세요")
         @Size(max = 10, message = "태그는 최대 10개까지 등록할 수 있습니다")
         List<String> hashtag,
         List<Long> artistGroupMemberIds
