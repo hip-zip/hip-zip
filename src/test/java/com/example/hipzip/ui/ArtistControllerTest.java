@@ -49,9 +49,9 @@ class ArtistControllerTest {
                 .statusCode(HttpStatus.CREATED.value());
 
         assertAll(
-                () -> Assertions.assertThat(hashTagRepository.findByNameStartsWith("LEESEO")).isNotNull(),
-                () -> Assertions.assertThat(hashTagRepository.findByNameStartsWith("이서")).isNotNull(),
-                () -> Assertions.assertThat(hashTagRepository.findByNameStartsWith("아이브")).isNotNull()
+                () -> Assertions.assertThat(hashTagRepository.findDistinctByNameStartsWith("LEESEO")).isNotNull(),
+                () -> Assertions.assertThat(hashTagRepository.findDistinctByNameStartsWith("이서")).isNotNull(),
+                () -> Assertions.assertThat(hashTagRepository.findDistinctByNameStartsWith("아이브")).isNotNull()
         );
     }
 
