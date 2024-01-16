@@ -20,29 +20,29 @@ import { useToast } from "@/components/ui/use-toast";
 import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";
 interface ArtistModalProps {}
 
-export interface ArtistFormType {
+export interface ArtistPostType {
   name: string;
   image: string;
   artistType: string;
   hashtag: Array<string>;
 }
 
-const ArtistModal = (props: ArtistModalProps) => {
+const ArtistPostModal = (props: ArtistModalProps) => {
   const { toast } = useToast();
 
-  const [formValue, setFormValue] = useState<ArtistFormType>({
+  const [formValue, setFormValue] = useState<ArtistPostType>({
     name: "",
     image: "",
     artistType: "SOLO",
     hashtag: [],
   });
-  const [handleNameChange] = useFormInput<ArtistFormType>(setFormValue, "name");
-  const [handleImageChange] = useFormInput<ArtistFormType>(
+  const [handleNameChange] = useFormInput<ArtistPostType>(setFormValue, "name");
+  const [handleImageChange] = useFormInput<ArtistPostType>(
     setFormValue,
     "image",
   );
   const [tag, handleTagChange, handleTagInputKeyDown] =
-    useContinualInput<ArtistFormType>(
+    useContinualInput<ArtistPostType>(
       formValue.hashtag,
       setFormValue,
       "hashtag",
@@ -58,7 +58,7 @@ const ArtistModal = (props: ArtistModalProps) => {
         artistType,
       };
 
-      const response = await postArtist<ArtistFormType>(params);
+      const response = await postArtist<ArtistPostType>(params);
 
       if (response.ok) {
         toast({
@@ -125,7 +125,7 @@ const ArtistModal = (props: ArtistModalProps) => {
             />
           </div>
           <DialogFooter>
-            <ConfirmDialog ok={handleArtistSubmit} />
+            <ConfirmDialog ok={handleArtistSubmit} action={"등록하기"} />
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -133,4 +133,4 @@ const ArtistModal = (props: ArtistModalProps) => {
   );
 };
 
-export default ArtistModal;
+export default ArtistPostModal;

@@ -1,11 +1,11 @@
 import Section from "@/app/components/atom/Section/Section";
-import Artist, { ArtistType } from "@/app/components/atom/Images/Artist";
+import Artist, { ArtistImageType } from "@/app/components/atom/Images/Artist";
 
 interface GridCommonProps {
   handleModalOpen: (id: number) => void;
 }
 
-interface GridArtistProps extends GridCommonProps, ArtistType {
+interface GridArtistProps extends GridCommonProps, ArtistImageType {
   type: "artists";
   item: {
     id: number;

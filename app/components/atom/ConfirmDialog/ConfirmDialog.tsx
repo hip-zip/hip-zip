@@ -13,17 +13,20 @@ import { Button } from "@/components/ui/button";
 
 interface ConfirmDialogProps<> {
   ok: () => void;
+  action: string;
 }
 
 const ConfirmDialog = (props: ConfirmDialogProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">등록하기</Button>
+        <Button variant="outline">{props.action}하기</Button>
       </AlertDialogTrigger>
       <AlertDialogContent className={"bg-hipzip-white text-hipzip-black"}>
         <AlertDialogHeader>
-          <AlertDialogTitle>아티스트를 등록하시겠습니까?</AlertDialogTitle>
+          <AlertDialogTitle>
+            아티스트를 {props.action}하시겠습니까?
+          </AlertDialogTitle>
           <AlertDialogDescription>
             <div className={"text-base font-bold mb-2"}>Check List</div>
             <div>- 이미 입력된 아티스트는 아닌지 확인해보세요 !</div>
@@ -37,7 +40,7 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
             className={"bg-hipzip-black text-hipzip-white"}
             onClick={props.ok}
           >
-            등록하기
+            {props.action}하기
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

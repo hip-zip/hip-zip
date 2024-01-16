@@ -1,8 +1,8 @@
-import { ArtistType } from "@/app/components/atom/Images/Artist";
 import {
-  ImageGridElementType,
-  ItemType,
-} from "@/app/components/template/Management/Management";
+  ArtistDetailType,
+  ArtistImageType,
+} from "@/app/components/atom/Images/Artist";
+import { ImageGridType } from "@/app/components/template/Management/Management";
 
 const getFetch = async <T>(endPoint: string, obj: Record<string, string>) => {
   const params = Object.fromEntries(
@@ -44,25 +44,22 @@ const customFetch = async <T>(method: string, url: string, obj: T) => {
 };
 
 export const getArtist = async () => {
-  return await getFetch("/artists", {});
+  return (await getFetch("/artists", {})) as ImageGridType[];
+};
+
+export const getArtistDetail = async (id: number) => {
+  return (await getFetch(`/artists/${id}`, {})) as ArtistDetailType;
 };
 
 export const searchArtist = async (query: string) => {
   const params = {
     name: query,
   };
-
-  const response = (await getFetch(
-    "/artists",
-    params,
-  )) as ImageGridElementType[];
-  console.log("searchArtist > ", response);
-  return response;
+  return (await getFetch("/artists", params)) as ImageGridType[];
 };
 
 export const postArtist = async <T>(params: T) => {
   const response = await customFetch("POST", "/artists", params);
-  console.log("DD Console Check > ", response);
   return response;
 };
 

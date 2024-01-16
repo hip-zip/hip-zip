@@ -1,4 +1,4 @@
-import Artist, { ArtistType } from "@/app/components/atom/Images/Artist";
+import Artist, { ArtistImageType } from "@/app/components/atom/Images/Artist";
 
 const GridManagement = () => {
   return;
