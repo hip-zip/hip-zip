@@ -45,7 +45,7 @@ public class ArtistService {
         return hashTagRepository.save(new Hashtag(name));
     }
 
-    public List<ArtistResponse> findArtist(String name, int page, int size) {
+    public List<ArtistResponse> findAll(String name, int page, int size) {
         if (name == null) {
             return findAll(page, size);
         }
@@ -72,7 +72,7 @@ public class ArtistService {
                 .toList();
     }
 
-    public ArtistDetailResponse findArtistDetail(Long id) {
+    public ArtistDetailResponse findById(Long id) {
         Artist artist = artistRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
         List<ArtistHashtag> artistHashtags = artistHashtagRepository.findByArtist_Id(id);
@@ -83,7 +83,7 @@ public class ArtistService {
         return ArtistDetailResponse.from(artist, artist.getMembers(), hashtag);
     }
 
-    public void editArtist(ArtistModifyRequest request) {
+    public void edit(ArtistModifyRequest request) {
         Artist artist = artistRepository.findById(request.id())
                 .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
 
@@ -118,7 +118,7 @@ public class ArtistService {
         }
     }
 
-    public void deleteArtist(Long id) {
+    public void deleteById(Long id) {
         Artist artist = artistRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("아티스트를 찾을 수 없습니다."));
 
