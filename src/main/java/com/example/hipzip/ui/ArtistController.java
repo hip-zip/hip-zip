@@ -42,7 +42,7 @@ public class ArtistController {
 
     @GetMapping("/artists/search")
     public ResponseEntity<List<ArtistResponse>> findByName(
-            @RequestParam(value = "name", required = false) String name
+            @RequestParam(value = "name") String name
     ) {
         List<ArtistResponse> artistTag = artistService.findByName(name);
         return ResponseEntity.ok(artistTag);
