@@ -33,11 +33,18 @@ public class ArtistController {
 
     @GetMapping("/artists")
     public ResponseEntity<List<ArtistResponse>> findAll(
-            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size
     ) {
-        List<ArtistResponse> artistTag = artistService.findAll(name, page, size);
+        List<ArtistResponse> artistTag = artistService.findAll(page, size);
+        return ResponseEntity.ok(artistTag);
+    }
+
+    @GetMapping("/artists/search")
+    public ResponseEntity<List<ArtistResponse>> findByName(
+            @RequestParam(value = "name", required = false) String name
+    ) {
+        List<ArtistResponse> artistTag = artistService.findByName(name);
         return ResponseEntity.ok(artistTag);
     }
 

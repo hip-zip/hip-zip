@@ -46,7 +46,7 @@ class ArtistControllerTest {
                 .body(ArtistFixture.이서_저장_요청())
                 .when().post("/artists")
                 .then().log().all()
-                .statusCode(HttpStatus.OK.value());
+                .statusCode(HttpStatus.CREATED.value());
 
         assertAll(
                 () -> Assertions.assertThat(hashTagRepository.findByNameStartsWith("LEESEO")).isNotNull(),
@@ -61,7 +61,7 @@ class ArtistControllerTest {
 
         ArtistResponse[] responses = RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
-                .when().get("/artists?name=아이브")
+                .when().get("/artists/search?name=아이브")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
                 .extract()

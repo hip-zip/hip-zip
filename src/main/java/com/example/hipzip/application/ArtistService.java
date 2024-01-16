@@ -45,11 +45,7 @@ public class ArtistService {
         return hashTagRepository.save(new Hashtag(name));
     }
 
-    public List<ArtistResponse> findAll(String name, int page, int size) {
-        if (name == null) {
-            return findAll(page, size);
-        }
-
+    public List<ArtistResponse> findByName(String name) {
         Hashtag hashTag = hashTagRepository.findByNameStartsWith(name);
 
         if (hashTag == null) {
@@ -64,7 +60,7 @@ public class ArtistService {
                 .toList();
     }
 
-    private List<ArtistResponse> findAll(int page, int size) {
+    public List<ArtistResponse> findAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Direction.DESC, "id"));
         Page<Artist> artists = artistRepository.findAll(pageRequest);
 
