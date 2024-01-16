@@ -4,9 +4,7 @@ import com.example.hipzip.config.exception.ErrorResponse.FieldErrorResponse;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -15,12 +13,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> Exception(Exception e) {
@@ -65,11 +61,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
-            final HttpRequestMethodNotSupportedException ex,
-            final HttpHeaders headers, final HttpStatusCode status,
-            final WebRequest request) {
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    protected ResponseEntity<Object> HttpRequestMethodNotSupportedException(
+            final HttpRequestMethodNotSupportedException e
+    ) {
         final ErrorResponse errorResponse = ErrorResponse.create(
                 HttpStatus.BAD_REQUEST,
                 "HTTP 메서드를 확인해 주세요"
@@ -77,11 +72,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    @Override
+    @ExceptionHandler(MissingServletRequestParameterException.class)
     protected ResponseEntity<Object> handleMissingServletRequestParameter(
-            final MissingServletRequestParameterException ex,
-            final HttpHeaders headers, final HttpStatusCode status,
-            final WebRequest request) {
+            final MissingServletRequestParameterException e
+    ) {
         final ErrorResponse errorResponse = ErrorResponse.create(
                 HttpStatus.BAD_REQUEST,
                 "요청 파라미터를 확인해 주세요"
