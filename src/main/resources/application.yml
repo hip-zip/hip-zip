@@ -6,9 +6,3 @@ springdoc:
     path: /docs
   api-docs:
     path: /docs
-server:
-  servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true

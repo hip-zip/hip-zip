@@ -52,9 +52,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({IllegalArgumentException.class, RuntimeException.class})
-    protected ResponseEntity<ErrorResponse> IllegalArgumentException(IllegalArgumentException e) {
+    protected ResponseEntity<ErrorResponse> IllegalArgumentException(RuntimeException e) {
         final ErrorResponse errorResponse = ErrorResponse.create(
-                HttpStatus.INTERNAL_SERVER_ERROR,
+                HttpStatus.BAD_REQUEST,
                 e.getMessage()
         );
 
