@@ -71,6 +71,21 @@ class ArtistControllerTest {
     }
 
     @Test
+    void 아티스트를_접두사로_조회할_수_있다() {
+        artistService.save(ArtistFixture.장원영_저장_요청());
+
+        ArtistResponse[] responses = RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .when().get("/artists/search?name=아")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract()
+                .as(ArtistResponse[].class);
+
+        Assertions.assertThat(responses.length).isEqualTo(1);
+    }
+
+    @Test
     void 아티스트를_수정할_수_있다() {
         Long 이서_ID = artistService.save(ArtistFixture.이서_저장_요청());
         Long 아이브_ID = artistService.save(ArtistFixture.아이브_저장_요청());

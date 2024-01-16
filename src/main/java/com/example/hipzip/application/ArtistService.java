@@ -45,12 +45,12 @@ public class ArtistService {
         List<Hashtag> hashTag = hashtagService.findByName(name);
         List<ArtistHashtag> artistHashtags = hashTag.stream()
                 .flatMap(it -> it.getArtistHashtags().stream())
-                .distinct()
                 .toList();
 
         return artistHashtags.stream()
                 .map(ArtistHashtag::getArtist)
                 .map(ArtistResponse::from)
+                .distinct()
                 .toList();
     }
 

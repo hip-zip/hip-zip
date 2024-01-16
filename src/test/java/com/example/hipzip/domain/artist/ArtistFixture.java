@@ -46,6 +46,15 @@ public class ArtistFixture {
         );
     }
 
+    public static ArtistSaveRequest 장원영_저장_요청() {
+        return new ArtistSaveRequest(
+                "장원영",
+                "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/172/3055172_20231013114039_500.jpg",
+                ArtistType.SOLO.name(),
+                List.of("Jang Wonyoung","아이즈원", "장원영", "아이브")
+        );
+    }
+
     public static ArtistSaveRequest 아이브_저장_요청() {
         return new ArtistSaveRequest(
                 "ive",
