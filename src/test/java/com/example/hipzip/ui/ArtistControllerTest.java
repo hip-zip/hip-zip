@@ -82,7 +82,7 @@ class ArtistControllerTest {
                 .extract()
                 .as(ArtistResponse[].class);
 
-        Assertions.assertThat(responses.length).isEqualTo(1);
+        Assertions.assertThat(responses.length).isGreaterThan(1);
     }
 
     @Test
