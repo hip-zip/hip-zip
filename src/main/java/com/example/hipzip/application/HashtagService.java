@@ -15,20 +15,27 @@ public class HashtagService {
     private final HashtagRepository hashTagRepository;
 
     public List<Hashtag> findByName(final String name) {
-        return hashTagRepository.findByNameStartsWith(name);
+        return hashTagRepository.findByNameStartsWith(cleanNameFormat(name));
     }
 
     public List<Hashtag> findOrCreateHashtag(final List<String> tagNames){
         return tagNames.stream()
                 .map(this::findOrCreateHashtag)
+                .distinct()
                 .toList();
     }
 
     private Hashtag findOrCreateHashtag(final String name) {
-        Hashtag hashTag = hashTagRepository.findByName(name);
+        String cleanName = cleanNameFormat(name);
+        Hashtag hashTag = hashTagRepository.findByName(cleanName);
         if (hashTag != null) {
             return hashTag;
         }
-        return hashTagRepository.save(new Hashtag(name));
+        return hashTagRepository.save(new Hashtag(cleanName));
+    }
+
+    private String cleanNameFormat(final String name) {
+        return name.replaceAll(" ", "")
+                .toUpperCase();
     }
 }

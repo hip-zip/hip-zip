@@ -34,11 +34,19 @@ public class ArtistService {
     }
 
     private void createHashtag(final List<String> tagNames, final Artist artist) {
-        List<Hashtag> hashtags = hashtagService.findOrCreateHashtag(tagNames);
+        List<Hashtag> hashtags = hashtagService.findOrCreateHashtag(addArtistNameToTags(tagNames, artist));
         List<ArtistHashtag> artistHashtags = hashtags.stream()
                 .map(it -> new ArtistHashtag(artist, it))
                 .toList();
         artistHashtagService.saveAll(artistHashtags);
+    }
+
+    private static List<String> addArtistNameToTags(final List<String> tagNames, final Artist artist) {
+        List<String> hashtag = tagNames;
+        if (!hashtag.contains(artist.getName())) {
+            hashtag.add(artist.getName());
+        }
+        return hashtag;
     }
 
     public List<ArtistResponse> findByName(String name) {

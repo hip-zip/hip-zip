@@ -29,11 +29,11 @@ import org.springframework.http.HttpStatus;
 class ArtistControllerTest {
 
     @Autowired
-    public ArtistService artistService;
+    private ArtistService artistService;
     @Autowired
-    public HashtagRepository hashTagRepository;
+    private HashtagRepository hashTagRepository;
     @Autowired
-    public ArtistRepository artistRepository;
+    private ArtistRepository artistRepository;
 
     @LocalServerPort
     private int port;
