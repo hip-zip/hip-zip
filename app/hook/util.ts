@@ -4,7 +4,7 @@ import {
 } from "@/app/components/atom/Images/Artist";
 import { ImageGridType } from "@/app/components/template/Management/Management";
 
-const getFetch = async <T>(endPoint: string, obj: Record<string, string>) => {
+const getFetch = async <T>(endPoint: string, obj: Record<any, any>) => {
   const params = Object.fromEntries(
     Object.entries(obj).filter(
       ([key, value]) => value !== "" && value !== null && value !== undefined,
@@ -43,8 +43,13 @@ const customFetch = async <T>(method: string, url: string, obj: T) => {
   }
 };
 
-export const getArtist = async () => {
-  return (await getFetch("/artists", {})) as ImageGridType[];
+export const getArtist = async (page: number) => {
+  const params = {
+    size: 20,
+    page: page,
+  };
+
+  return (await getFetch("/artists", params)) as ImageGridType[];
 };
 
 export const getArtistDetail = async (id: number) => {

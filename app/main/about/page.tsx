@@ -137,8 +137,8 @@ export default function Page() {
             "flex justify-center items-center m-10 p-10 text-amber-500 border-2 border-orange-700 rounded-lg"
           }
         >
-          <Link href={"/post/album"} className={"text-sm"}>
-            앨범 입력 도와주기
+          <Link href={"/admin/album"} className={"text-sm"}>
+            앨범 입력
           </Link>
         </div>
         <div
@@ -146,8 +146,8 @@ export default function Page() {
             "flex justify-center items-center m-10 p-10 text-amber-500 border-2 border-orange-700 rounded-lg"
           }
         >
-          <Link href={"/post/artist"} className={"text-sm"}>
-            아티스트 입력 도와주기
+          <Link href={"/admin/artist"} className={"text-sm"}>
+            아티스트 입력
           </Link>
         </div>
         <p className={"font-mono text-4xl text-center"}>Contact</p>

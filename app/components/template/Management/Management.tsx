@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
 import Input from "@/app/components/atom/Input/Input";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
@@ -9,6 +9,7 @@ import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
 import AlbumModal from "../../organism/Modal/AlbumModal";
 import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
+import useIntersectionObserver from "@/app/hook/useIntersectionObserver";
 
 interface ManagementProps {
   type: "artists" | "albums";
@@ -29,7 +30,14 @@ const Management = (props: ManagementProps) => {
   const [modifyModalStatus, setModifyModalStatus] = useState<boolean>(false);
   const [detailData, setDetailData] = useState<ArtistDetailType | undefined>();
   const [searchStatus, setSearchStatus] = useState<boolean>(false);
+  const target = useRef(null);
   const [id, setId] = useState<number>(0);
+  const [page, setPage] = useState<number>(-1);
+  const [keepFetch, setKeepFetch] = useState<boolean>(true);
+
+  const [observe, unobserve] = useIntersectionObserver(async () => {
+    setPage((prev) => prev + 1);
+  });
 
   const handleImageClick = async (id: number) => {
     const response = await getArtistDetail(id);
@@ -39,13 +47,29 @@ const Management = (props: ManagementProps) => {
   }; // Detail API 부르고 해당 정보 받아서 모달에 띄울 예정
 
   const initialFetch = async () => {
-    const response = await getArtist();
-    setInitialData(response);
+    // const response = await getArtist();
+    // setInitialData(response);
   };
 
+  // useEffect(() => {
+  //   // initialFetch();
+  // }, []); // 이후 Page 단에서 데이터 fetch 해서 넘겨주는 방식으로 변경 예정
+
   useEffect(() => {
-    initialFetch();
-  }, []); // 이후 Page 단에서 데이터 fetch 해서 넘겨주는 방식으로 변경 예정
+    observe(target.current);
+    return () => unobserve(target.current);
+  }, [observe, unobserve]);
+
+  useEffect(() => {
+    if (page === -1) return;
+    const fetch = async () => {
+      if (!keepFetch) return;
+      const response = await getArtist(page);
+      if (response.length === 0) setKeepFetch(false);
+      setInitialData((prev) => [...prev, ...response]);
+    };
+    fetch();
+  }, [page]);
 
   return (
     <div className={"w-full h-full p-4"}>
@@ -74,6 +98,7 @@ const Management = (props: ManagementProps) => {
         detailData={detailData}
         id={id}
       />
+      <div ref={target} className={"h-2"} />
     </div>
   );
 };
