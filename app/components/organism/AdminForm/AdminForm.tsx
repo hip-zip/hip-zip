@@ -1,3 +1,5 @@
+"use client";
+
 import AdminSection from "@/app/components/molecule/AdminSection/AdminSection";
 
 const AdminForm = () => {

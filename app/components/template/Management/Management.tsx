@@ -34,16 +34,17 @@ const Management = (props: ManagementProps) => {
   const [id, setId] = useState<number>(0);
   const [page, setPage] = useState<number>(-1);
   const [keepFetch, setKeepFetch] = useState<boolean>(true);
+  const [renderBlock, setRenderBlock] = useState<boolean>(true);
 
-  const [observe, unobserve] = useIntersectionObserver(async () => {
+  const [observe, unobserve] = useIntersectionObserver(() => {
     setPage((prev) => prev + 1);
   });
 
   const handleImageClick = async (id: number) => {
     const response = await getArtistDetail(id);
-    await setDetailData(response);
-    await setId(id);
-    await setModifyModalStatus(true);
+    setDetailData(response);
+    setId(id);
+    setModifyModalStatus(true);
   }; // Detail API 부르고 해당 정보 받아서 모달에 띄울 예정
 
   const initialFetch = async () => {
@@ -54,6 +55,10 @@ const Management = (props: ManagementProps) => {
   // useEffect(() => {
   //   // initialFetch();
   // }, []); // 이후 Page 단에서 데이터 fetch 해서 넘겨주는 방식으로 변경 예정
+
+  useEffect(() => {
+    setRenderBlock(false);
+  }, []);
 
   useEffect(() => {
     observe(target.current);
@@ -98,7 +103,14 @@ const Management = (props: ManagementProps) => {
         detailData={detailData}
         id={id}
       />
-      <div ref={target} className={"h-2"} />
+      {!renderBlock && (
+        <div
+          ref={(target) => {
+            observe(target);
+          }}
+          className={"h-30"}
+        />
+      )}
     </div>
   );
 };
