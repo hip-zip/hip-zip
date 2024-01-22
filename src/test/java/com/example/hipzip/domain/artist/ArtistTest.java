@@ -51,7 +51,6 @@ class ArtistTest {
     @Test
     void 솔로_아티스트를_그룹으로_수정할_수_없다() {
         Artist 장원영 = ArtistFixture.장원영();
-
         Artist 이서 = ArtistFixture.이서();
 
         assertThatThrownBy(() -> 장원영.modifyGroup(이서))

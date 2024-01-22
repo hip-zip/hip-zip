@@ -65,12 +65,12 @@ public class ArtistFixture {
     }
 
     public static ArtistModifyRequest 아이브_수정_요청() {
-        return new ArtistModifyRequest(
-                2L,
+        return  new ArtistModifyRequest(
+                1L,
                 "IVE",
                 "https://image.blip.kr/v1/file/f17114ade66730456e304bef23258bb6",
                 List.of("아이브", "ive", "IVE"),
-                List.of(1L)
+                List.of(2L)
         );
     }
 }
