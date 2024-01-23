@@ -19,6 +19,7 @@ export type ImageGridType = {
   id: number;
   name: string;
   image: string;
+  artistType: string;
 };
 
 const Management = (props: ManagementProps) => {
@@ -96,13 +97,16 @@ const Management = (props: ManagementProps) => {
         handleImageClick={handleImageClick}
       />
       {props.type === "artists" && <ArtistPostModal />}
+      {props.type === "artists" && <ArtistPostModal />}
       {props.type === "albums" && <AlbumModal />}
-      <ArtistModifyModal
-        open={modifyModalStatus}
-        setOpen={setModifyModalStatus}
-        detailData={detailData}
-        id={id}
-      />
+      {detailData?.artistType === "SOLO" && (
+        <ArtistModifyModal
+          open={modifyModalStatus}
+          setOpen={setModifyModalStatus}
+          detailData={detailData}
+          id={id}
+        />
+      )}
       {!renderBlock && (
         <div
           ref={(target) => {
