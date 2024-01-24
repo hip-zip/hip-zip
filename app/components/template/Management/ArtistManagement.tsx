@@ -10,6 +10,7 @@ import AlbumModal from "../../organism/Modal/AlbumModal";
 import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
 import useIntersectionObserver from "@/app/hook/useIntersectionObserver";
+import GroupModifyModal from "@/app/components/organism/Modal/GroupModifyModal";
 
 interface ManagementProps {
   type: "artists" | "albums";
@@ -22,7 +23,7 @@ export type ImageGridType = {
   artistType: string;
 };
 
-const Management = (props: ManagementProps) => {
+const ArtistManagement = (props: ManagementProps) => {
   const [response, onSearchQueryChange] = useDebouncedSearch<ImageGridType[]>(
     (query: string): Promise<ImageGridType[]> => searchArtist(query),
     300,
@@ -107,6 +108,14 @@ const Management = (props: ManagementProps) => {
           id={id}
         />
       )}
+      {detailData?.artistType === "GROUP" && (
+        <GroupModifyModal
+          open={modifyModalStatus}
+          setOpen={setModifyModalStatus}
+          detailData={detailData}
+          id={id}
+        />
+      )}
       {!renderBlock && (
         <div
           ref={(target) => {
@@ -119,4 +128,4 @@ const Management = (props: ManagementProps) => {
   );
 };
 
-export default Management;
+export default ArtistManagement;

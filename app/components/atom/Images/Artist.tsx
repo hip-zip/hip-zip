@@ -19,7 +19,7 @@ export interface ArtistDetailType {
     id: number;
     name: string;
     image: string;
-  };
+  } | null;
   groupMembers: {
     id: number;
     name: string;

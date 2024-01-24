@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import InputField from "@/app/components/molecule/InputField/InputField";
 import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";
-import TagInputField from "@/app/components/molecule/InputField/TagInputField";
+import HashtagInputField from "@/app/components/molecule/InputField/HashtagInputField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
 import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
 import { getArtistDetail, postArtist, putArtist } from "@/app/hook/util";
@@ -27,8 +27,11 @@ interface ModifyModalProps {
   id: number;
 }
 
-interface ArtistModifyType extends ArtistPostType {
+export interface ArtistModifyType {
   id: number;
+  name: string;
+  image: string;
+  hashtag: Array<string>;
 }
 
 const ArtistModifyModal = (props: ModifyModalProps) => {
@@ -40,7 +43,6 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
     id: 0,
     name: "",
     image: "",
-    artistType: "SOLO",
     hashtag: [],
   });
 
@@ -48,6 +50,7 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
     setFormValue,
     "name",
   );
+
   const [handleImageChange] = useFormInput<ArtistModifyType>(
     setFormValue,
     "image",
@@ -60,16 +63,9 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
       "hashtag",
     );
 
-  const [artistType, setArtistType] = useState<string>("SOLO");
-
   const handleArtistSubmit = async () => {
     try {
-      const params = {
-        ...formValue,
-        artistType,
-      };
-
-      const response = await putArtist<ArtistModifyType>(params);
+      const response = await putArtist<ArtistModifyType>(formValue);
 
       if (response.ok) {
         toast({
@@ -135,13 +131,7 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
               onChange={handleImageChange}
               defaultValue={props.detailData?.image || ""}
             />
-            <InputComboBoxField
-              label={"솔로/그룹 구분"}
-              key={"artistType"}
-              onSelect={setArtistType}
-              defaultValue={formValue.artistType}
-            />
-            <TagInputField
+            <HashtagInputField
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}
               className={"m-0"}

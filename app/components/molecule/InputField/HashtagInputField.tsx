@@ -13,7 +13,7 @@ interface TagInputFieldProps {
   tagList?: Array<string>;
 }
 
-const TagInputField = (props: TagInputFieldProps) => {
+const HashtagInputField = (props: TagInputFieldProps) => {
   return (
     <div className={"flex justify-between items-center"}>
       <Label className="text-right w-24">{props.label}</Label>
@@ -44,4 +44,4 @@ const TagInputField = (props: TagInputFieldProps) => {
   );
 };
 
-export default TagInputField;
+export default HashtagInputField;

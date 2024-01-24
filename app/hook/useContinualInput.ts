@@ -53,7 +53,6 @@ const useContinualInput = <T>(
     }
 
     if (e.key === "Backspace" && e.currentTarget.value === "") {
-      console.log("DD Console Check > 송재백");
       setFormValue((prev) => {
         if (typeof prev === "object" && prev !== null) {
           const updatedValue = { ...(prev as Record<string, unknown>) };

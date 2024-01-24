@@ -2,7 +2,7 @@ import {
   ArtistDetailType,
   ArtistImageType,
 } from "@/app/components/atom/Images/Artist";
-import { ImageGridType } from "@/app/components/template/Management/Management";
+import { ImageGridType } from "@/app/components/template/Management/ArtistManagement";
 
 const getFetch = async <T>(endPoint: string, obj: Record<any, any>) => {
   const params = Object.fromEntries(
