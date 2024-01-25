@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Artist from "@/app/components/atom/Images/Artist";
 import { cn } from "@/lib/utils";
 
-interface ImageGridProps {
+interface ArtistImageGridProps {
   data:
     | {
         id: number;
@@ -16,7 +16,7 @@ interface ImageGridProps {
   className?: string;
 }
 
-const ImageGrid = (props: ImageGridProps) => {
+const ArtistImageGrid = (props: ArtistImageGridProps) => {
   return (
     <div
       className={cn(
@@ -27,7 +27,7 @@ const ImageGrid = (props: ImageGridProps) => {
       {props.data?.map((item) => (
         <Artist
           key={item.id}
-          item={item}
+          artist={item}
           handleArtistClick={props.handleImageClick}
         />
       ))}
@@ -35,4 +35,4 @@ const ImageGrid = (props: ImageGridProps) => {
   );
 };
 
-export default ImageGrid;
+export default ArtistImageGrid;

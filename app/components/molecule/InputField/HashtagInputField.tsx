@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Input from "@/app/components/atom/Input/Input";
 import { Badge } from "@/components/ui/badge";
 
-interface TagInputFieldProps {
+interface HashtagInputFieldProps {
   label: string;
   placeholder?: string;
   className?: string;
@@ -13,7 +13,7 @@ interface TagInputFieldProps {
   tagList?: Array<string>;
 }
 
-const HashtagInputField = (props: TagInputFieldProps) => {
+const HashtagInputField = (props: HashtagInputFieldProps) => {
   return (
     <div className={"flex justify-between items-center"}>
       <Label className="text-right w-24">{props.label}</Label>

@@ -19,7 +19,7 @@ import useFormInput from "@/app/hook/useFormInput";
 import { ArtistFormType } from "@/app/admin/artist/trash";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
-import { ArtistModifyType } from "@/app/components/organism/Modal/ArtistModifyModal";
+import { ArtistModifyFormType } from "@/app/components/organism/Modal/ArtistModifyModal";
 import GroupMemberInputField from "@/app/components/molecule/InputField/GroupMemberInputField";
 
 interface ModifyModalProps {
@@ -29,7 +29,7 @@ interface ModifyModalProps {
   id: number;
 }
 
-interface GroupModifyType extends ArtistModifyType {
+interface GroupModifyType extends ArtistModifyFormType {
   artistGroupMemberIds: number[];
 }
 

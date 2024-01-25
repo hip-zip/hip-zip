@@ -1,8 +1,4 @@
-import {
-  ArtistDetailType,
-  ArtistImageType,
-} from "@/app/components/atom/Images/Artist";
-import { ImageGridType } from "@/app/components/template/Management/ArtistManagement";
+import { ArtistImageGridType } from "@/app/components/template/Management/ArtistManagement";
 
 const getFetch = async <T>(endPoint: string, obj: Record<any, any>) => {
   const params = Object.fromEntries(
@@ -49,8 +45,25 @@ export const getArtist = async (page: number) => {
     page: page,
   };
 
-  return (await getFetch("/artists", params)) as ImageGridType[];
+  return (await getFetch("/artists", params)) as ArtistImageGridType[];
 };
+
+export interface ArtistDetailType {
+  name: string;
+  image: string;
+  artistType: string;
+  group: {
+    id: number;
+    name: string;
+    image: string;
+  } | null;
+  groupMembers: {
+    id: number;
+    name: string;
+    image: string;
+  }[];
+  hashtag: string[];
+}
 
 export const getArtistDetail = async (id: number) => {
   return (await getFetch(`/artists/${id}`, {})) as ArtistDetailType;
@@ -60,7 +73,7 @@ export const searchArtist = async (query: string) => {
   const params = {
     name: query,
   };
-  return (await getFetch("/artists/search", params)) as ImageGridType[];
+  return (await getFetch("/artists/search", params)) as ArtistImageGridType[];
 };
 
 export const postArtist = async <T>(params: T) => {

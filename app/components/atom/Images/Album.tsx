@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export interface AlbumType {
+  //  스프링 체제 들어오면 수정 될 듯
   item: {
     id: number;
     album_name: string;

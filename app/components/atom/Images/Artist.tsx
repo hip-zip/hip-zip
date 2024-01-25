@@ -4,28 +4,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export interface ArtistImageType {
-  item: {
+  artist: {
     id: number;
     name: string;
     image: string;
   };
-}
-
-export interface ArtistDetailType {
-  name: string;
-  image: string;
-  artistType: string;
-  group: {
-    id: number;
-    name: string;
-    image: string;
-  } | null;
-  groupMembers: {
-    id: number;
-    name: string;
-    image: string;
-  }[];
-  hashtag: string[];
 }
 
 export interface ArtistProps extends ArtistImageType {
@@ -35,15 +18,15 @@ export interface ArtistProps extends ArtistImageType {
 const Artist = (props: ArtistProps) => {
   return (
     <Image
-      key={props.item.id}
-      src={props.item.image}
+      key={props.artist.id}
+      src={props.artist.image}
       alt={"개발자한테 사진 넣으라고 전해주세요"}
       width={250}
       height={250}
       className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
-      title={`${props.item.name}`}
+      title={`${props.artist.name}`}
       onClick={() => {
-        props.handleArtistClick(props.item.id);
+        props.handleArtistClick(props.artist.id);
       }}
     />
   );

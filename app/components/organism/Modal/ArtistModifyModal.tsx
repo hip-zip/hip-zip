@@ -6,58 +6,53 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import InputField from "@/app/components/molecule/InputField/InputField";
-import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";
 import HashtagInputField from "@/app/components/molecule/InputField/HashtagInputField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
-import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
-import { getArtistDetail, postArtist, putArtist } from "@/app/hook/util";
-import { ArtistPostType } from "@/app/components/organism/Modal/ArtistPostModal";
+import { ArtistDetailType, putArtist } from "@/app/hook/util";
 import useFormInput from "@/app/hook/useFormInput";
-import { ArtistFormType } from "@/app/admin/artist/trash";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
 
-interface ModifyModalProps {
+interface ArtistModifyModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   detailData: ArtistDetailType | undefined;
   id: number;
 }
 
-export interface ArtistModifyType {
+export interface ArtistModifyFormType {
   id: number;
   name: string;
   image: string;
   hashtag: Array<string>;
 }
 
-const ArtistModifyModal = (props: ModifyModalProps) => {
+const ArtistModifyModal = (props: ArtistModifyModalProps) => {
   const [data, setData] = useState<ArtistDetailType | undefined>(
     props.detailData,
   );
 
-  const [formValue, setFormValue] = useState<ArtistModifyType>({
+  const [formValue, setFormValue] = useState<ArtistModifyFormType>({
     id: 0,
     name: "",
     image: "",
     hashtag: [],
   });
 
-  const [handleNameChange] = useFormInput<ArtistModifyType>(
+  const [handleNameChange] = useFormInput<ArtistModifyFormType>(
     setFormValue,
     "name",
   );
 
-  const [handleImageChange] = useFormInput<ArtistModifyType>(
+  const [handleImageChange] = useFormInput<ArtistModifyFormType>(
     setFormValue,
     "image",
   );
 
   const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
-    useContinualInput<ArtistModifyType>(
+    useContinualInput<ArtistModifyFormType>(
       formValue.hashtag,
       setFormValue,
       "hashtag",
@@ -65,7 +60,7 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
 
   const handleArtistSubmit = async () => {
     try {
-      const response = await putArtist<ArtistModifyType>(formValue);
+      const response = await putArtist<ArtistModifyFormType>(formValue);
 
       if (response.ok) {
         toast({

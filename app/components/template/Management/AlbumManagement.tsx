@@ -1,41 +1,34 @@
 "use client";
 
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
 import Input from "@/app/components/atom/Input/Input";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
-import {
-  ArtistDetailType,
-  getArtist,
-  getArtistDetail,
-  searchArtist,
-} from "@/app/hook/util";
+import { getArtist, getArtistDetail, searchArtist } from "@/app/hook/util";
 import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
 import AlbumModal from "../../organism/Modal/AlbumModal";
 import ArtistImageGrid from "@/app/components/molecule/ImageGrid/ArtistImageGrid";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
 import useIntersectionObserver from "@/app/hook/useIntersectionObserver";
 import GroupModifyModal from "@/app/components/organism/Modal/GroupModifyModal";
-import { ArtistImageType } from "@/app/components/atom/Images/Artist";
 
 interface ManagementProps {
   type: "artists" | "albums";
 }
 
-export interface ArtistImageGridType {
+export type ImageGridType = {
   id: number;
   name: string;
   image: string;
   artistType: string;
-}
+};
 
 const ArtistManagement = (props: ManagementProps) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<
-    ArtistImageGridType[]
-  >(
-    (query: string): Promise<ArtistImageGridType[]> => searchArtist(query),
+  const [response, onSearchQueryChange] = useDebouncedSearch<ImageGridType[]>(
+    (query: string): Promise<ImageGridType[]> => searchArtist(query),
     300,
   );
-  const [initialData, setInitialData] = useState<ArtistImageGridType[]>([]);
+  const [initialData, setInitialData] = useState<ImageGridType[]>([]);
   const [modifyModalStatus, setModifyModalStatus] = useState<boolean>(false);
   const [detailData, setDetailData] = useState<ArtistDetailType | undefined>();
   const [searchStatus, setSearchStatus] = useState<boolean>(false);
@@ -54,7 +47,16 @@ const ArtistManagement = (props: ManagementProps) => {
     setDetailData(response);
     setId(id);
     setModifyModalStatus(true);
+  }; // Detail API 부르고 해당 정보 받아서 모달에 띄울 예정
+
+  const initialFetch = async () => {
+    // const response = await getArtist();
+    // setInitialData(response);
   };
+
+  // useEffect(() => {
+  //   // initialFetch();
+  // }, []); // 이후 Page 단에서 데이터 fetch 해서 넘겨주는 방식으로 변경 예정
 
   useEffect(() => {
     setRenderBlock(false);
@@ -96,6 +98,8 @@ const ArtistManagement = (props: ManagementProps) => {
         handleImageClick={handleImageClick}
       />
       {props.type === "artists" && <ArtistPostModal />}
+      {props.type === "artists" && <ArtistPostModal />}
+      {props.type === "albums" && <AlbumModal />}
       {detailData?.artistType === "SOLO" && (
         <ArtistModifyModal
           open={modifyModalStatus}
