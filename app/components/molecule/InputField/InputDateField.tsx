@@ -9,7 +9,7 @@ interface InputDateFieldProps {
   placeholder?: string;
   className?: string;
   defaultValue?: string;
-  onSelect: (date: Date) => void;
+  onSelect: (date: Date | undefined) => void;
 }
 
 const InputDateField = (props: InputDateFieldProps) => {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import PopoverForSearch from "@/app/components/molecule/InputField/PopoverForSearch";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +14,8 @@ import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { searchArtist } from "@/app/hook/util";
 import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModal";
 import XIcon from "@/app/components/atom/Icon/X-Icon";
+import { ArtistImageType } from "@/app/components/atom/Images/Artist";
+import { ArtistImageGridType } from "@/app/admin/artist/page";
 
 interface TagInputFieldProps {
   label: string;
@@ -28,12 +29,16 @@ interface TagInputFieldProps {
         image: string;
       }[]
     | undefined;
-  setGroupMembers: React.Dispatch<React.SetStateAction<GroupMemberType[]>>;
+  setGroupMembers: React.Dispatch<
+    React.SetStateAction<GroupMemberType[] | undefined>
+  >;
 }
 
 const InputGroupMemberField = (props: TagInputFieldProps) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<T[]>(
-    (query: string): Promise<T[]> => searchArtist(query),
+  const [response, onSearchQueryChange] = useDebouncedSearch<
+    ArtistImageGridType[]
+  >(
+    (query: string): Promise<ArtistImageGridType[]> => searchArtist(query),
     300,
   );
 
@@ -42,7 +47,11 @@ const InputGroupMemberField = (props: TagInputFieldProps) => {
   const handleAddMember = (member: GroupMemberType) => {
     if (props.groupMembers) {
       if (!props.groupMembers.find((artist) => artist.id === member.id)) {
-        props.setGroupMembers((prev: GroupMemberType[]) => [...prev, member]);
+        props.setGroupMembers((prev: GroupMemberType[] | undefined) => {
+          if (prev) {
+            return [...prev, member];
+          }
+        });
         return;
       }
       alert("이미 추가된 멤버입니다");

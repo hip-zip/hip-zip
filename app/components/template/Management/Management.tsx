@@ -78,7 +78,7 @@ const Management = <ImageType, DetailType>(
         <Input
           className={"text-center text-base mb-4"}
           type={"text"}
-          placeholder={""} // props로 받아서 처리 예정
+          placeholder={`${props.label} 검색`} // props로 받아서 처리 예정
           onChange={(e) => {
             if (e.target.value === "") {
               setSearchStatus(false);
@@ -92,26 +92,31 @@ const Management = <ImageType, DetailType>(
           data={!searchStatus ? initialData : response} // 검색 결과 데이터와 Fetch 데이터를 구분지어 관리
           handleImageClick={handleImageClick}
         />
-        {props.type === "artists" && <ArtistPostModal />}
+        {props.type === "artists" && (
+          <ArtistPostModal
+            open={postModalStatus}
+            setOpen={setPostModalStatus}
+          />
+        )}
         {props.type === "albums" && (
           <AlbumPostModal open={postModalStatus} setOpen={setPostModalStatus} />
         )}
-        {/*{detailData?.artistType? === "SOLO" && (*/}
-        {/*  <ArtistModifyModal*/}
-        {/*    open={modifyModalStatus}*/}
-        {/*    setOpen={setModifyModalStatus}*/}
-        {/*    detailData={detailData}*/}
-        {/*    id={id}*/}
-        {/*  />*/}
-        {/*)}*/}
-        {/*{detailData?.artistType === "GROUP" && (*/}
-        {/*  <GroupModifyModal*/}
-        {/*    open={modifyModalStatus}*/}
-        {/*    setOpen={setModifyModalStatus}*/}
-        {/*    detailData={detailData}*/}
-        {/*    id={id}*/}
-        {/*  />*/}
-        {/*)}*/}
+        {detailData?.artistType === "SOLO" && (
+          <ArtistModifyModal
+            open={modifyModalStatus}
+            setOpen={setModifyModalStatus}
+            detailData={detailData}
+            id={id}
+          />
+        )}
+        {detailData?.artistType === "GROUP" && (
+          <GroupModifyModal
+            open={modifyModalStatus}
+            setOpen={setModifyModalStatus}
+            detailData={detailData}
+            id={id}
+          />
+        )}
         <button
           className={
             "p-3 fixed bg-hipzip-black bottom-10 left-10 text-sm rounded-lg border border-hipzip-white"

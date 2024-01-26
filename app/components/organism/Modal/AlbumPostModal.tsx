@@ -58,13 +58,15 @@ const AlbumPostModal = (props: AlbumPostModalProps) => {
     "image",
   );
 
-  const handleAlbumReleaseDateChange = (date: Date) => {
-    setFormValue((prev) => {
-      return {
-        ...prev,
-        releaseDate: date,
-      };
-    });
+  const handleAlbumReleaseDateChange = (date: Date | undefined) => {
+    if (date) {
+      setFormValue((prev) => {
+        return {
+          ...prev,
+          releaseDate: date,
+        };
+      });
+    }
   };
 
   const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =

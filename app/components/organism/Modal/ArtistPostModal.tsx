@@ -18,13 +18,17 @@ import { postArtist } from "@/app/hook/util";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
 import { useToast } from "@/components/ui/use-toast";
 import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";
-interface ArtistModalProps {}
 
 export interface ArtistPostType {
   name: string;
   image: string;
   artistType: string;
   hashtag: Array<string>;
+}
+
+interface ArtistModalProps {
+  open: boolean;
+  setOpen: React.Dispatch<boolean>;
 }
 
 const ArtistPostModal = (props: ArtistModalProps) => {
@@ -49,7 +53,6 @@ const ArtistPostModal = (props: ArtistModalProps) => {
     );
 
   const [artistType, setArtistType] = useState<string>("SOLO");
-  const [open, setOpen] = useState<boolean>(false);
 
   const handleArtistSubmit = async () => {
     try {
@@ -75,7 +78,7 @@ const ArtistPostModal = (props: ArtistModalProps) => {
           hashtag: [],
         });
 
-        setOpen(false);
+        props.setOpen(false);
       }
     } catch (e) {
       console.log(e);
@@ -84,7 +87,7 @@ const ArtistPostModal = (props: ArtistModalProps) => {
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={props.open} onOpenChange={props.setOpen}>
         <DialogTrigger
           className={
             "p-3 fixed bg-hipzip-black bottom-10 left-10 text-sm rounded-lg border border-hipzip-white"
@@ -130,7 +133,11 @@ const ArtistPostModal = (props: ArtistModalProps) => {
             />
           </div>
           <DialogFooter>
-            <ConfirmDialog ok={handleArtistSubmit} action={"등록"} />
+            <ConfirmDialog
+              target={"아티스트"}
+              ok={handleArtistSubmit}
+              action={"등록"}
+            />
           </DialogFooter>
         </DialogContent>
       </Dialog>

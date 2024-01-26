@@ -74,7 +74,6 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
           id: 0,
           name: "",
           image: "",
-          artistType: "SOLO",
           hashtag: [],
         });
 
@@ -90,7 +89,6 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
       id: props.id || 0,
       name: props.detailData?.name || "",
       image: props.detailData?.image || "",
-      artistType: props.detailData?.artistType || "SOLO",
       hashtag: props.detailData?.hashtag || [],
     });
   }, [props.detailData]);

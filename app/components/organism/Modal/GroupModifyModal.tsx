@@ -9,14 +9,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import InputField from "@/app/components/molecule/InputField/InputField";
-import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";
+
 import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
-import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
-import { getArtistDetail, postArtist, putArtist } from "@/app/hook/util";
-import { ArtistPostType } from "@/app/components/organism/Modal/ArtistPostModal";
+import {
+  ArtistDetailType,
+  getArtistDetail,
+  postArtist,
+  putArtist,
+} from "@/app/hook/util";
 import useFormInput from "@/app/hook/useFormInput";
-import { ArtistFormType } from "@/app/admin/artist/trash";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
 import { ArtistModifyFormType } from "@/app/components/organism/Modal/ArtistModifyModal";
@@ -30,7 +32,7 @@ interface ModifyModalProps {
 }
 
 interface GroupModifyType extends ArtistModifyFormType {
-  artistGroupMemberIds: number[];
+  artistGroupMemberIds: number[] | undefined;
 }
 
 export interface GroupMemberType {
@@ -109,7 +111,7 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
       name: props.detailData?.name || "",
       image: props.detailData?.image || "",
       hashtag: props.detailData?.hashtag || [],
-      artistGroupMemberIds: groupMembers.map((member) => member.id) || [],
+      artistGroupMemberIds: groupMembers?.map((member) => member.id) || [],
     });
   }, [props.detailData]);
 
@@ -154,7 +156,11 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
             />
           </div>
           <DialogFooter>
-            <ConfirmDialog ok={handleGroupSubmit} action={"수정"} />
+            <ConfirmDialog
+              target={"그룹"}
+              ok={handleGroupSubmit}
+              action={"수정"}
+            />
           </DialogFooter>
         </DialogContent>
       </Dialog>
