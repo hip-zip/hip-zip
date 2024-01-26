@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import InputField from "@/app/components/molecule/InputField/InputField";
 import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";
-import HashtagInputField from "@/app/components/molecule/InputField/HashtagInputField";
+import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
 import { ArtistDetailType } from "@/app/components/atom/Images/Artist";
 import { getArtistDetail, postArtist, putArtist } from "@/app/hook/util";
@@ -20,7 +20,7 @@ import { ArtistFormType } from "@/app/admin/artist/trash";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
 import { ArtistModifyFormType } from "@/app/components/organism/Modal/ArtistModifyModal";
-import GroupMemberInputField from "@/app/components/molecule/InputField/GroupMemberInputField";
+import InputGroupMemberField from "@/app/components/molecule/InputField/InputGroupMemberField";
 
 interface ModifyModalProps {
   open: boolean;
@@ -137,14 +137,14 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
               onChange={handleImageChange}
               defaultValue={props.detailData?.image || ""}
             />
-            <GroupMemberInputField
+            <InputGroupMemberField
               label={"그룹 멤버"}
               onChange={handleHashtagChange}
               onKeyDown={handleHashtagInputKeyDown}
               groupMembers={groupMembers}
               setGroupMembers={setGroupMembers}
             />
-            <HashtagInputField
+            <InputHashtagField
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}
               className={"m-0"}

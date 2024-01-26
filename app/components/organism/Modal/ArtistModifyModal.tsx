@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import InputField from "@/app/components/molecule/InputField/InputField";
-import HashtagInputField from "@/app/components/molecule/InputField/HashtagInputField";
+import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
 import { ArtistDetailType, putArtist } from "@/app/hook/util";
 import useFormInput from "@/app/hook/useFormInput";
@@ -16,10 +16,10 @@ import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
 
 interface ArtistModifyModalProps {
+  id: number;
   open: boolean;
   setOpen: (open: boolean) => void;
   detailData: ArtistDetailType | undefined;
-  id: number;
 }
 
 export interface ArtistModifyFormType {
@@ -126,7 +126,7 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
               onChange={handleImageChange}
               defaultValue={props.detailData?.image || ""}
             />
-            <HashtagInputField
+            <InputHashtagField
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}
               className={"m-0"}
@@ -136,7 +136,11 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
             />
           </div>
           <DialogFooter>
-            <ConfirmDialog ok={handleArtistSubmit} action={"수정"} />
+            <ConfirmDialog
+              target={"아티스트"}
+              action={"수정"}
+              ok={handleArtistSubmit}
+            />
           </DialogFooter>
         </DialogContent>
       </Dialog>

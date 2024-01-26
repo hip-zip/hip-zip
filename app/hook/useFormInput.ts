@@ -2,7 +2,8 @@ import React from "react";
 import { SetFormValue } from "@/app/hook/useContinualInput";
 
 const useFormInput = <T>(
-  setFormValue: SetFormValue<T>,
+  // setFormValue: SetFormValue<T>,
+  setFormValue: React.Dispatch<React.SetStateAction<T>>,
   key: string,
 ): [(e: React.ChangeEvent<HTMLInputElement>) => void] => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

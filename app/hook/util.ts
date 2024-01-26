@@ -1,4 +1,4 @@
-import { ArtistImageGridType } from "@/app/components/template/Management/ArtistManagement";
+import { AlbumImageGridType } from "@/app/admin/album/page";
 
 const getFetch = async <T>(endPoint: string, obj: Record<any, any>) => {
   const params = Object.fromEntries(
@@ -45,7 +45,7 @@ export const getArtist = async (page: number) => {
     page: page,
   };
 
-  return (await getFetch("/artists", params)) as ArtistImageGridType[];
+  return (await getFetch("/artists", params)) as T[];
 };
 
 export interface ArtistDetailType {
@@ -73,7 +73,7 @@ export const searchArtist = async (query: string) => {
   const params = {
     name: query,
   };
-  return (await getFetch("/artists/search", params)) as ArtistImageGridType[];
+  return (await getFetch("/artists/search", params)) as T[];
 };
 
 export const postArtist = async <T>(params: T) => {
@@ -83,4 +83,29 @@ export const postArtist = async <T>(params: T) => {
 
 export const putArtist = async <T>(params: T) => {
   return await customFetch("PUT", "/artists", params);
+};
+
+export const getAlbum = async (page: number) => {
+  const response = [];
+  return response as AlbumImageGridType[];
+};
+
+export const postAlbum = async <T>(params: T) => {};
+
+export const putAlbum = async <T>(params: T) => {};
+
+export const searchAlbum = async (query: string) => {
+  const response = [];
+  return response as AlbumImageGridType[];
+};
+
+export interface AlbumDetailType {
+  name: string;
+  image: string;
+  artist: string;
+}
+
+export const getAlbumDetail = async (id: number) => {
+  const response = {};
+  return response as AlbumDetailType;
 };

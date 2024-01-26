@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/popover";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { searchArtist } from "@/app/hook/util";
-import { ArtistImageGridType } from "@/app/components/template/Management/ArtistManagement";
 import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModal";
 import XIcon from "@/app/components/atom/Icon/X-Icon";
 
@@ -32,11 +31,9 @@ interface TagInputFieldProps {
   setGroupMembers: React.Dispatch<React.SetStateAction<GroupMemberType[]>>;
 }
 
-const GroupMemberInputField = (props: TagInputFieldProps) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<
-    ArtistImageGridType[]
-  >(
-    (query: string): Promise<ArtistImageGridType[]> => searchArtist(query),
+const InputGroupMemberField = (props: TagInputFieldProps) => {
+  const [response, onSearchQueryChange] = useDebouncedSearch<T[]>(
+    (query: string): Promise<T[]> => searchArtist(query),
     300,
   );
 
@@ -140,4 +137,4 @@ const GroupMemberInputField = (props: TagInputFieldProps) => {
   );
 };
 
-export default GroupMemberInputField;
+export default InputGroupMemberField;

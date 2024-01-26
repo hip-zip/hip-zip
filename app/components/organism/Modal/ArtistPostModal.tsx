@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import InputField from "@/app/components/molecule/InputField/InputField";
-import HashtagInputField from "@/app/components/molecule/InputField/HashtagInputField";
+import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { postArtist } from "@/app/hook/util";
@@ -120,7 +120,7 @@ const ArtistPostModal = (props: ArtistModalProps) => {
               key={"artistType"}
               onSelect={setArtistType}
             />
-            <HashtagInputField
+            <InputHashtagField
               label={"검색 힌트"}
               placeholder={"지코, ZICO, 우지호"}
               className={"m-0"}

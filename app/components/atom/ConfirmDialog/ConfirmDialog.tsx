@@ -12,8 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface ConfirmDialogProps<> {
-  ok: () => void;
+  target: string;
   action: string;
+  ok: () => void;
 }
 
 const ConfirmDialog = (props: ConfirmDialogProps) => {
@@ -25,13 +26,13 @@ const ConfirmDialog = (props: ConfirmDialogProps) => {
       <AlertDialogContent className={"bg-hipzip-white text-hipzip-black"}>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            아티스트를 {props.action}하시겠습니까?
+            {props.target} {props.action}하시겠습니까?
           </AlertDialogTitle>
           <AlertDialogDescription>
             <div className={"text-base font-bold mb-2"}>Check List</div>
-            <div>- 이미 입력된 아티스트는 아닌지 확인해보세요 !</div>
-            <div>- 검색 힌트를 아티스트와 연관지어 주세요 !</div>
-            <div>- 아티스트의 이름에 오타가 없는지 확인해보세요 !</div>
+            <div>- 이미 입력된 {props.target}는 아닌지 확인해보세요 !</div>
+            <div>- 검색 힌트를 {props.target}와 연관지어 주세요 !</div>
+            <div>- {props.target}의 이름에 오타가 없는지 확인해보세요 !</div>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
