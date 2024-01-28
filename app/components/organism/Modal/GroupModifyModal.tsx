@@ -21,32 +21,25 @@ import {
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
-import { ArtistModifyFormType } from "@/app/components/organism/Modal/ArtistModifyModal";
+import {
+  ArtistModifyFormType,
+  ArtistModifyModalProps,
+} from "@/app/components/organism/Modal/ArtistModifyModal";
 import InputGroupMemberField from "@/app/components/molecule/InputField/InputGroupMemberField";
 
-interface ModifyModalProps {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  detailData: ArtistDetailType | undefined;
-  id: number;
-}
-
-interface GroupModifyType extends ArtistModifyFormType {
-  artistGroupMemberIds: number[] | undefined;
-}
+interface GroupModifyModalProps extends ArtistModifyModalProps {}
 
 export interface GroupMemberType {
   id: number;
   name: string;
   image: string;
 }
+export interface GroupModifyFormType extends ArtistModifyFormType {
+  artistGroupMemberIds: number[];
+}
 
-const ArtistModifyModal = (props: ModifyModalProps) => {
-  const [data, setData] = useState<ArtistDetailType | undefined>(
-    props.detailData,
-  );
-
-  const [formValue, setFormValue] = useState<GroupModifyType>({
+const ArtistModifyModal = (props: GroupModifyModalProps) => {
+  const [formValue, setFormValue] = useState<GroupModifyFormType>({
     id: 0,
     name: "",
     image: "",
@@ -54,25 +47,23 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
     artistGroupMemberIds: [],
   });
 
-  const [handleNameChange] = useFormInput<GroupModifyType>(
+  const [handleNameChange] = useFormInput<GroupModifyFormType>(
     setFormValue,
     "name",
   );
-  const [handleImageChange] = useFormInput<GroupModifyType>(
+  const [handleImageChange] = useFormInput<GroupModifyFormType>(
     setFormValue,
     "image",
   );
 
   const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
-    useContinualInput<GroupModifyType>(
+    useContinualInput<GroupModifyFormType>(
       formValue.hashtag,
       setFormValue,
       "hashtag",
     );
 
-  const [groupMembers, setGroupMembers] = useState<
-    GroupMemberType[] | undefined
-  >(props.detailData?.groupMembers);
+  const [groupMembers, setGroupMembers] = useState<GroupMemberType[]>([]);
 
   const handleGroupSubmit = async () => {
     try {
@@ -80,7 +71,7 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
         ...formValue,
         artistGroupMemberIds: groupMembers?.map((member) => member.id),
       };
-      const response = await putArtist<GroupModifyType>(param);
+      const response = await putArtist<GroupModifyFormType>(param);
 
       if (response.ok) {
         toast({
@@ -91,7 +82,7 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
         });
 
         setFormValue({
-          id: 0,
+          id: -1,
           name: "",
           image: "",
           hashtag: [],
@@ -106,14 +97,34 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
   };
 
   useEffect(() => {
-    setFormValue({
-      id: props.id || 0,
-      name: props.detailData?.name || "",
-      image: props.detailData?.image || "",
-      hashtag: props.detailData?.hashtag || [],
-      artistGroupMemberIds: groupMembers?.map((member) => member.id) || [],
-    });
-  }, [props.detailData]);
+    if (props.id !== -1 && props.open) {
+      getArtistDetail(props.id).then((response) => {
+        setFormValue({
+          id: props.id,
+          name: response?.name || "",
+          image: response?.image || "",
+          hashtag: response?.hashtag || [],
+          artistGroupMemberIds:
+            response?.groupMembers?.map((member) => member.id) || [],
+        });
+        setGroupMembers(response?.groupMembers || []);
+      });
+    }
+  }, [props.open]);
+
+  useEffect(() => {
+    console.log("DD Console Check > ", groupMembers);
+  }, [groupMembers]);
+
+  // useEffect(() => {
+  //   setFormValue({
+  //     id: props.id || 0,
+  //     name: props.detailData?.name || "",
+  //     image: props.detailData?.image || "",
+  //     hashtag: props.detailData?.hashtag || [],
+  //     artistGroupMemberIds: groupMembers?.map((member) => member.id) || [],
+  //   });
+  // }, [props.detailData]);
 
   return (
     <>
@@ -132,12 +143,14 @@ const ArtistModifyModal = (props: ModifyModalProps) => {
             <InputField
               label={"그룹 이름"}
               onChange={handleNameChange}
-              defaultValue={props.detailData?.name || ""}
+              value={formValue.name}
+              defaultValue={formValue.name || ""}
             />
             <InputField
               label={"그룹 이미지"}
               onChange={handleImageChange}
-              defaultValue={props.detailData?.image || ""}
+              value={formValue.image}
+              defaultValue={formValue.image || ""}
             />
             <InputGroupMemberField
               label={"그룹 멤버"}

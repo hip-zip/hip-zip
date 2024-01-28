@@ -16,12 +16,11 @@ export interface AlbumImageGridType {
 
 export default function Page() {
   return (
-    <Management<AlbumImageGridType, AlbumDetailType>
+    <Management<AlbumImageGridType>
       label={"앨범"}
       type={"albums"}
       fetch={getAlbum}
       search={searchAlbum}
-      detail={getAlbumDetail}
     />
   );
 }

@@ -2,31 +2,31 @@ import React from "react";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
+import { ArtistImageGridType } from "@/app/admin/artist/page";
 
 export interface ArtistImageType {
-  artist: {
-    id: number;
-    name: string;
-    image: string;
-  };
+  id: number;
+  name: string;
+  image: string;
 }
 
-export interface ArtistProps extends ArtistImageType {
-  handleArtistClick: (id: number) => void;
+export interface ArtistProps {
+  data: ArtistImageGridType;
+  handleArtistClick: (item: ArtistImageGridType) => void;
 }
 
 const Artist = (props: ArtistProps) => {
   return (
     <Image
-      key={props.artist.id}
-      src={props.artist.image}
+      key={props.data.id}
+      src={props.data.image}
       alt={"개발자한테 사진 넣으라고 전해주세요"}
       width={250}
       height={250}
       className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
-      title={`${props.artist.name}`}
+      title={`${props.data.name}`}
       onClick={() => {
-        props.handleArtistClick(props.artist.id);
+        props.handleArtistClick(props.data);
       }}
     />
   );

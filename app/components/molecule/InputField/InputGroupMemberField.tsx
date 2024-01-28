@@ -22,35 +22,31 @@ interface TagInputFieldProps {
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  groupMembers:
-    | {
-        id: number;
-        name: string;
-        image: string;
-      }[]
-    | undefined;
-  setGroupMembers: React.Dispatch<
-    React.SetStateAction<GroupMemberType[] | undefined>
-  >;
+  groupMembers: {
+    id: number;
+    name: string;
+    image: string;
+  }[];
+  setGroupMembers: React.Dispatch<React.SetStateAction<GroupMemberType[]>>;
 }
 
 const InputGroupMemberField = (props: TagInputFieldProps) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<
-    ArtistImageGridType[]
-  >(
-    (query: string): Promise<ArtistImageGridType[]> => searchArtist(query),
-    300,
-  );
+  const [response, onSearchQueryChange] =
+    useDebouncedSearch<ArtistImageGridType>(
+      (query: string) => searchArtist(query),
+      300,
+    );
 
   const [popOverStatus, setPopOverStatus] = useState<boolean>(false);
 
   const handleAddMember = (member: GroupMemberType) => {
     if (props.groupMembers) {
       if (!props.groupMembers.find((artist) => artist.id === member.id)) {
-        props.setGroupMembers((prev: GroupMemberType[] | undefined) => {
+        props.setGroupMembers((prev) => {
           if (prev) {
             return [...prev, member];
           }
+          return [];
         });
         return;
       }

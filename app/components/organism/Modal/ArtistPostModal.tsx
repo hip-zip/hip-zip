@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -53,6 +53,15 @@ const ArtistPostModal = (props: ArtistModalProps) => {
     );
 
   const [artistType, setArtistType] = useState<string>("SOLO");
+
+  useEffect(() => {
+    setFormValue({
+      name: "",
+      image: "",
+      artistType: "SOLO",
+      hashtag: [],
+    });
+  }, [props.open]);
 
   const handleArtistSubmit = async () => {
     try {
@@ -113,10 +122,19 @@ const ArtistPostModal = (props: ArtistModalProps) => {
             </DialogDescription>
           </DialogHeader>
           <div className={"flex flex-col gap-3"}>
-            <InputField label={"아티스트 이름"} onChange={handleNameChange} />
+            <InputField
+              label={"아티스트 이름"}
+              placeholder={"Jvcki Wai"}
+              onChange={handleNameChange}
+              value={formValue.name}
+            />
             <InputField
               label={"아티스트 이미지"}
+              placeholder={
+                "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/50/061/3050061_20231222114532_500.jpg?c31cf111d2073dd41ff3eb8fb8ec3ca2/melon/resize/416/quality/80/optimize"
+              }
               onChange={handleImageChange}
+              value={formValue.image}
             />
             <InputComboBoxField
               label={"솔로/그룹 구분"}

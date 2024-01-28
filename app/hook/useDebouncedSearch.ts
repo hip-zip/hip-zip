@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 const useDebouncedSearch = <T>(
-  method: (query: string) => Promise<T>,
+  method: (query: string) => Promise<T[]>,
   delay: number,
-): [T | null, (e: React.ChangeEvent<HTMLInputElement>) => void] => {
+): [T[], (e: React.ChangeEvent<HTMLInputElement>) => void] => {
   const [inputTimeout, setInputTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T[]>([]);
 
   const onSearchQueryChange = async (
     e: React.ChangeEvent<HTMLInputElement>,

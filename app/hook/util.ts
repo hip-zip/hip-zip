@@ -1,14 +1,16 @@
 import { AlbumImageGridType } from "@/app/admin/album/page";
+import { ArtistImageGridType } from "@/app/admin/artist/page";
 
-const getFetch = async <T>(endPoint: string, obj: Record<any, any>) => {
+const getFetch = async <T>(endpoint: string, paramObj: Record<string, any>) => {
+  // TODO: paramObj 타입 개선
   const params = Object.fromEntries(
-    Object.entries(obj).filter(
+    Object.entries(paramObj).filter(
       ([key, value]) => value !== "" && value !== null && value !== undefined,
     ),
   );
 
   const queryString = new URLSearchParams(params).toString();
-  const url = `${endPoint}?${queryString}`;
+  const url = `${endpoint}?${queryString}`;
 
   try {
     const response = await fetch(process.env.baseURL + url);
@@ -21,14 +23,18 @@ const getFetch = async <T>(endPoint: string, obj: Record<any, any>) => {
   }
 };
 
-const customFetch = async <T>(method: string, url: string, obj: T) => {
+const customFetch = async <T>(
+  method: string,
+  endpoint: string,
+  paramObj: T,
+) => {
   try {
-    const response = await fetch(process.env.baseURL + url, {
+    const response = await fetch(process.env.baseURL + endpoint, {
       method: `${method}`,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(obj),
+      body: JSON.stringify(paramObj),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -41,11 +47,11 @@ const customFetch = async <T>(method: string, url: string, obj: T) => {
 
 export const getArtist = async (page: number) => {
   const params = {
-    size: 20,
+    size: 40,
     page: page,
   };
 
-  return (await getFetch("/artists", params)) as T[];
+  return (await getFetch("/artists", params)) as ArtistImageGridType[];
 };
 
 export interface ArtistDetailType {
@@ -69,7 +75,7 @@ export const getArtistDetail = async (id: number) => {
   return (await getFetch(`/artists/${id}`, {})) as ArtistDetailType;
 };
 
-export const searchArtist = async (query: string) => {
+export const searchArtist = async <T>(query: string) => {
   const params = {
     name: query,
   };
@@ -86,18 +92,18 @@ export const putArtist = async <T>(params: T) => {
 };
 
 export const getAlbum = async (page: number) => {
-  const response = [];
-  return response as AlbumImageGridType[];
-};
+  const response: any[] = [];
+  return response as any;
+}; // TODO
 
 export const postAlbum = async <T>(params: T) => {};
 
 export const putAlbum = async <T>(params: T) => {};
 
 export const searchAlbum = async (query: string) => {
-  const response = [];
-  return response as AlbumImageGridType[];
-};
+  const response: any[] = [];
+  return response as any;
+}; // TODO
 
 export interface AlbumDetailType {
   name: string;
@@ -106,6 +112,6 @@ export interface AlbumDetailType {
 }
 
 export const getAlbumDetail = async (id: number) => {
-  const response = {};
-  return response as AlbumDetailType;
-};
+  const response: any = {};
+  return response as any;
+}; // TODO

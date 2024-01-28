@@ -8,6 +8,7 @@ interface InputFieldProps {
   placeholder?: string;
   className?: string;
   defaultValue?: string;
+  value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -20,9 +21,9 @@ const InputField = (props: InputFieldProps) => {
           "col-span-3 text-hipzip-black text-base w-[70%] focus:outline-none focus:ring-none",
           props.className || "",
         )}
-        defaultValue={props.defaultValue}
         onChange={props.onChange}
         placeholder={props.placeholder || ""}
+        value={props.value || ""}
       />
     </div>
   );

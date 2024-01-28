@@ -2,38 +2,43 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Input from "@/app/components/atom/Input/Input";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import {
+  AlbumDetailType,
   ArtistDetailType,
   getArtist,
   getArtistDetail,
   searchArtist,
 } from "@/app/hook/util";
 import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
-import ArtistImageGrid from "@/app/components/molecule/ImageGrid/ArtistImageGrid";
+import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
 import useIntersectionObserver from "@/app/hook/useIntersectionObserver";
 import GroupModifyModal from "@/app/components/organism/Modal/GroupModifyModal";
 import { ArtistImageType } from "@/app/components/atom/Images/Artist";
 import AlbumPostModal from "@/app/components/organism/Modal/AlbumPostModal";
+import { ArtistImageGridType } from "@/app/admin/artist/page";
+import { AlbumImageGridType } from "@/app/admin/album/page";
 
-interface ManagementProps<ImageType, DetailType> {
+interface ManagementProps<T extends ArtistImageGridType | AlbumImageGridType> {
   label: string;
   type: "artists" | "albums";
-  fetch: (page: number) => Promise<ImageType[]>;
-  search: (query: string) => Promise<ImageType[]>;
-  detail: (id: number) => Promise<DetailType>;
+  handlePostModalOpen?: () => void;
+  handleModifyModalOpen?: (item: T) => void;
+  fetch: (page: number) => Promise<T[]>;
+  search: (query: string) => Promise<T[]>;
+  // detail: (id: number) => Promise<U>;
 }
 
-const Management = <ImageType, DetailType>(
-  props: ManagementProps<ImageType, DetailType>,
+const Management = <T extends ArtistImageGridType | AlbumImageGridType>(
+  props: ManagementProps<T>,
 ) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<ImageType[]>(
-    (query: string): Promise<ImageType[]> => searchArtist(query),
+  const [response, onSearchQueryChange] = useDebouncedSearch<T>(
+    (query: string) => searchArtist(query),
     300,
   );
-  const [initialData, setInitialData] = useState<ImageType[]>([]);
+  const [initialData, setInitialData] = useState<T[]>([]);
   const [postModalStatus, setPostModalStatus] = useState<boolean>(false);
   const [modifyModalStatus, setModifyModalStatus] = useState<boolean>(false);
-  const [detailData, setDetailData] = useState<DetailType | undefined>();
+  // const [detailData, setDetailData] = useState<U | undefined>();
   const [searchStatus, setSearchStatus] = useState<boolean>(false);
   const [id, setId] = useState<number>(0);
   const [page, setPage] = useState<number>(-1);
@@ -45,11 +50,12 @@ const Management = <ImageType, DetailType>(
     setPage((prev) => prev + 1);
   });
 
-  const handleImageClick = async (id: number) => {
-    const response = await props.detail(id);
-    setDetailData(response);
-    setId(id);
-    setModifyModalStatus(true);
+  const handleImageClick = async (item: T) => {
+    // const response = await props.detail(id);
+    // setDetailData(response);
+    // setId(id);
+    // setModifyModalStatus(true);
+    props.handleModifyModalOpen?.(item);
   };
 
   useEffect(() => {
@@ -88,40 +94,15 @@ const Management = <ImageType, DetailType>(
             setSearchStatus(true);
           }}
         />
-        <ArtistImageGrid
+        <ImageGrid<T>
           data={!searchStatus ? initialData : response} // 검색 결과 데이터와 Fetch 데이터를 구분지어 관리
           handleImageClick={handleImageClick}
         />
-        {props.type === "artists" && (
-          <ArtistPostModal
-            open={postModalStatus}
-            setOpen={setPostModalStatus}
-          />
-        )}
-        {props.type === "albums" && (
-          <AlbumPostModal open={postModalStatus} setOpen={setPostModalStatus} />
-        )}
-        {detailData?.artistType === "SOLO" && (
-          <ArtistModifyModal
-            open={modifyModalStatus}
-            setOpen={setModifyModalStatus}
-            detailData={detailData}
-            id={id}
-          />
-        )}
-        {detailData?.artistType === "GROUP" && (
-          <GroupModifyModal
-            open={modifyModalStatus}
-            setOpen={setModifyModalStatus}
-            detailData={detailData}
-            id={id}
-          />
-        )}
         <button
           className={
             "p-3 fixed bg-hipzip-black bottom-10 left-10 text-sm rounded-lg border border-hipzip-white"
           }
-          onClick={() => setPostModalStatus(true)}
+          onClick={props.handlePostModalOpen}
         >
           {props.label} 등록하기
         </button>

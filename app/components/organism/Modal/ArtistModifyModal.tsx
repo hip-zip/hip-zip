@@ -10,17 +10,10 @@ import {
 import InputField from "@/app/components/molecule/InputField/InputField";
 import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
-import { ArtistDetailType, putArtist } from "@/app/hook/util";
+import { ArtistDetailType, getArtistDetail, putArtist } from "@/app/hook/util";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
-
-interface ArtistModifyModalProps {
-  id: number;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  detailData: ArtistDetailType | undefined;
-}
 
 export interface ArtistModifyFormType {
   id: number;
@@ -29,11 +22,14 @@ export interface ArtistModifyFormType {
   hashtag: Array<string>;
 }
 
-const ArtistModifyModal = (props: ArtistModifyModalProps) => {
-  const [data, setData] = useState<ArtistDetailType | undefined>(
-    props.detailData,
-  );
+export interface ArtistModifyModalProps {
+  id: number;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  // detailData: ArtistDetailType;
+}
 
+const ArtistModifyModal = (props: ArtistModifyModalProps) => {
   const [formValue, setFormValue] = useState<ArtistModifyFormType>({
     id: 0,
     name: "",
@@ -45,12 +41,10 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
     setFormValue,
     "name",
   );
-
   const [handleImageChange] = useFormInput<ArtistModifyFormType>(
     setFormValue,
     "image",
   );
-
   const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
     useContinualInput<ArtistModifyFormType>(
       formValue.hashtag,
@@ -85,13 +79,26 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
   };
 
   useEffect(() => {
-    setFormValue({
-      id: props.id || 0,
-      name: props.detailData?.name || "",
-      image: props.detailData?.image || "",
-      hashtag: props.detailData?.hashtag || [],
-    });
-  }, [props.detailData]);
+    if (props.id !== -1 && props.open) {
+      getArtistDetail(props.id).then((response) => {
+        setFormValue({
+          id: props.id,
+          name: response?.name || "",
+          image: response?.image || "",
+          hashtag: response?.hashtag || [],
+        });
+      });
+    }
+  }, [props.open]);
+
+  // useEffect(() => {
+  //   setFormValue({
+  //     id: props.id || 0,
+  //     name: props.detailData?.name || "",
+  //     image: props.detailData?.image || "",
+  //     hashtag: props.detailData?.hashtag || [],
+  //   });
+  // }, [props.detailData]);
 
   return (
     <>
@@ -117,12 +124,13 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
             <InputField
               label={"아티스트 이름"}
               onChange={handleNameChange}
-              defaultValue={props.detailData?.name || ""}
+              value={formValue.name}
+              // defaultValue={props.detailData?.name || ""}
             />
             <InputField
               label={"아티스트 이미지"}
               onChange={handleImageChange}
-              defaultValue={props.detailData?.image || ""}
+              value={formValue.image}
             />
             <InputHashtagField
               label={"검색 힌트"}
