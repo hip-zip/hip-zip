@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import Artist from "@/app/components/atom/Images/Artist";
+import Artist, { ArtistImageType } from "@/app/components/atom/Images/Artist";
 import { cn } from "@/lib/utils";
+import { ArtistImageGridType } from "@/app/admin/artist/page";
 
 interface ArtistImageGridProps {
   data:
@@ -10,9 +11,10 @@ interface ArtistImageGridProps {
         id: number;
         name: string;
         image: string;
+        artistType: string;
       }[]
     | null;
-  handleImageClick: (id: number) => void;
+  handleImageClick: (item: ArtistImageGridType) => void;
   className?: string;
 }
 
@@ -27,7 +29,7 @@ const ArtistImageGrid = (props: ArtistImageGridProps) => {
       {props.data?.map((item) => (
         <Artist
           key={item.id}
-          artist={item}
+          data={item}
           handleArtistClick={props.handleImageClick}
         />
       ))}

@@ -17,15 +17,16 @@ const Section = (props: SectionProps) => {
       href={props.redirectURL}
     >
       {/*{props.icon && <props.icon className={"text-hipzip-white"} />}*/}
-      <props.icon className={"text-hipzip-white"} />
-      <Link
-        href={props.redirectURL}
-        className={cn(
-          "border border-hipzip-white h-full flex justify-center items-center",
-        )}
-      >
-        {props.message}
-      </Link>
+      <div className={"flex flex-col justify-center items-center gap-8 "}>
+        <props.icon
+          className={
+            "text-hipzip-white h-64 w-64 hover:scale-110 transition-transform"
+          }
+        />
+        <div className={cn("h-full flex justify-center items-center")}>
+          {props.message}
+        </div>
+      </div>
     </Link>
   );
 };

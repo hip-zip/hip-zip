@@ -24,7 +24,7 @@ export default function Header() {
           <Label message={"HIPZIP"} className={"text-2xl text-hipzip-white"} />
         </Link>
         <div className={"flex gap-5"}>
-          <Link href={"/main/search"}>
+          <Link href={"/admin"}>
             <UserIcon />
           </Link>
           <Link href={"/main/about"}>
