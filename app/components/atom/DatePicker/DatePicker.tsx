@@ -37,7 +37,7 @@ export function DatePicker(props: DatePickerProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto p-0 bg-hipzip-black text-hipzip-white"
+        className="w-full p-0 bg-hipzip-black text-hipzip-white"
         align="start"
       >
         <Calendar
