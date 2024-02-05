@@ -2,6 +2,8 @@ package com.example.hipzip.domain.artist;
 
 import com.example.hipzip.application.dto.artist.ArtistModifyRequest;
 import com.example.hipzip.application.dto.artist.ArtistSaveRequest;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ArtistFixture {
@@ -64,13 +66,23 @@ public class ArtistFixture {
         );
     }
 
-    public static ArtistModifyRequest 아이브_수정_요청() {
+    public static ArtistModifyRequest 아이브_이서_추가_요청() {
         return  new ArtistModifyRequest(
                 1L,
                 "IVE",
                 "https://image.blip.kr/v1/file/f17114ade66730456e304bef23258bb6",
                 List.of("아이브", "ive", "IVE"),
                 List.of(2L)
+        );
+    }
+
+    public static ArtistModifyRequest 아이브_이서_삭제_요청() {
+        return  new ArtistModifyRequest(
+                1L,
+                "IVE",
+                "https://image.blip.kr/v1/file/f17114ade66730456e304bef23258bb6",
+                List.of("아이브", "ive", "IVE"),
+                Collections.emptyList()
         );
     }
 }

@@ -82,21 +82,14 @@ public class ArtistService {
 
     public void edit(ArtistModifyRequest request) {
         Artist artist = artistRepository.getById(request.id());
+        List<Artist> artists = request.artistGroupMemberIds()
+                .stream()
+                .map(artistRepository::getById)
+                .toList();
 
-        artist.setName(request.name());
-        artist.setImage(request.image());
-
-        if (artist.getArtistType() == ArtistType.GROUP) {
-            List<Artist> artists = request.artistGroupMemberIds()
-                    .stream()
-                    .map(artistRepository::getById)
-                    .toList();
-
-            artist.modifyGroupMember(artists);
-        }
+        artist.update(request.name(), request.image(), artists);
 
         artistHashtagService.deleteAllByArtistId(artist.getId());
-
         createHashtag(request.hashtag(), artist);
     }
 

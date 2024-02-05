@@ -23,6 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 @ExtendWith(DatabaseClearExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -138,14 +139,14 @@ class ArtistControllerTest {
     }
 
     @Test
-    void 아티스트를_수정할_수_있다() {
+    void 그룹멤버를_추가_할_수_있다() {
         //given-when
         Long 아이브_ID = artistService.save(ArtistFixture.아이브_저장_요청());
         Long 이서_ID = artistService.save(ArtistFixture.이서_저장_요청());
 
         RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
-                .body(ArtistFixture.아이브_수정_요청())
+                .body(ArtistFixture.아이브_이서_추가_요청())
                 .when().put("/artists")
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value());
@@ -155,9 +156,33 @@ class ArtistControllerTest {
 
         //then
         assertAll(
-                () -> Assertions.assertThat(이서.getGroup().getId()).isEqualTo(ArtistFixture.아이브_수정_요청().id()),
-                () -> Assertions.assertThat(아이브.getName()).isEqualTo(ArtistFixture.아이브_수정_요청().name()),
-                () -> Assertions.assertThat(아이브.getImage()).isEqualTo(ArtistFixture.아이브_수정_요청().image())
+                () -> Assertions.assertThat(이서.getGroup().getId()).isEqualTo(ArtistFixture.아이브_이서_추가_요청().id()),
+                () -> Assertions.assertThat(아이브.getName()).isEqualTo(ArtistFixture.아이브_이서_추가_요청().name()),
+                () -> Assertions.assertThat(아이브.getImage()).isEqualTo(ArtistFixture.아이브_이서_추가_요청().image())
+        );
+    }
+
+    @Test
+    void 그룹멤버를_삭제할_수_있다() {
+        //given-when
+        Long 아이브_ID = artistService.save(ArtistFixture.아이브_저장_요청());
+        Long 이서_ID = artistService.save(ArtistFixture.이서_저장_요청());
+        artistService.edit(ArtistFixture.아이브_이서_추가_요청());
+
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .body(ArtistFixture.아이브_이서_삭제_요청())
+                .when().put("/artists")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
+
+        Artist 이서 = artistRepository.findById(이서_ID).orElseThrow();
+        Artist 아이브 = artistRepository.findById(아이브_ID).orElseThrow();
+
+        //then
+        assertAll(
+                () -> Assertions.assertThat(이서.getGroup()).isNull(),
+                () -> Assertions.assertThat(아이브.getMembers()).isEmpty()
         );
     }
 
