@@ -57,7 +57,7 @@ public class ArtistService {
 
         return artistHashtags.stream()
                 .map(ArtistHashtag::getArtist)
-                .map(ArtistResponse::from)
+                .map(ArtistResponse::of)
                 .distinct()
                 .toList();
     }
@@ -66,7 +66,7 @@ public class ArtistService {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Direction.DESC, "id"));
         Page<Artist> artists = artistRepository.findAll(pageRequest);
 
-        return artists.stream().map(ArtistResponse::from)
+        return artists.stream().map(ArtistResponse::of)
                 .toList();
     }
 
@@ -77,7 +77,7 @@ public class ArtistService {
                 .map(it -> it.getHashtag().getName())
                 .toList();
 
-        return ArtistDetailResponse.from(artist, artist.getMembers(), hashtag);
+        return ArtistDetailResponse.of(artist, artist.getMembers(), hashtag);
     }
 
     public void edit(ArtistModifyRequest request) {

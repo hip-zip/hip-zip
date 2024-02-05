@@ -9,7 +9,7 @@ public record ArtistResponse(
         String artistType
 ) {
 
-    public static ArtistResponse from(Artist artist) {
+    public static ArtistResponse of(Artist artist) {
         return new ArtistResponse(
                 artist.getId(),
                 artist.getName(),
