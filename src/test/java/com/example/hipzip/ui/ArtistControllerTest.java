@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.example.hipzip.DatabaseClearExtension;
 import com.example.hipzip.application.ArtistService;
-import com.example.hipzip.application.dto.ArtistDetailResponse;
-import com.example.hipzip.application.dto.ArtistResponse;
+import com.example.hipzip.application.dto.artist.ArtistDetailResponse;
+import com.example.hipzip.application.dto.artist.ArtistResponse;
 import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistFixture;
 import com.example.hipzip.domain.artist.ArtistRepository;

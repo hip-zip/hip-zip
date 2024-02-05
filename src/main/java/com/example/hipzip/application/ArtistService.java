@@ -1,9 +1,9 @@
 package com.example.hipzip.application;
 
-import com.example.hipzip.application.dto.ArtistDetailResponse;
-import com.example.hipzip.application.dto.ArtistModifyRequest;
-import com.example.hipzip.application.dto.ArtistResponse;
-import com.example.hipzip.application.dto.ArtistSaveRequest;
+import com.example.hipzip.application.dto.artist.ArtistDetailResponse;
+import com.example.hipzip.application.dto.artist.ArtistModifyRequest;
+import com.example.hipzip.application.dto.artist.ArtistResponse;
+import com.example.hipzip.application.dto.artist.ArtistSaveRequest;
 import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistHashtag;
 import com.example.hipzip.domain.artist.ArtistRepository;

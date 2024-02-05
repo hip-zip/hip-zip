@@ -1,4 +1,4 @@
-package com.example.hipzip.application.dto;
+package com.example.hipzip.application.dto.artist;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

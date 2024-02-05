@@ -1,6 +1,6 @@
 package com.example.hipzip.domain;
 
-import com.example.hipzip.application.dto.AlbumSaveRequest;
+import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.artist.Artist;
 import java.time.LocalDateTime;

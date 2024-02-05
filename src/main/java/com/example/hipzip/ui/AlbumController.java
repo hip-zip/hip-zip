@@ -1,9 +1,9 @@
 package com.example.hipzip.ui;
 
 import com.example.hipzip.application.AlbumService;
-import com.example.hipzip.application.dto.AlbumDetailResponse;
-import com.example.hipzip.application.dto.AlbumResponse;
-import com.example.hipzip.application.dto.AlbumSaveRequest;
+import com.example.hipzip.application.dto.album.AlbumDetailResponse;
+import com.example.hipzip.application.dto.album.AlbumResponse;
+import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;

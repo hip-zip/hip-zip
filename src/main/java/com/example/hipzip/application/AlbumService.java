@@ -1,8 +1,8 @@
 package com.example.hipzip.application;
 
-import com.example.hipzip.application.dto.AlbumDetailResponse;
-import com.example.hipzip.application.dto.AlbumResponse;
-import com.example.hipzip.application.dto.AlbumSaveRequest;
+import com.example.hipzip.application.dto.album.AlbumDetailResponse;
+import com.example.hipzip.application.dto.album.AlbumResponse;
+import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.album.AlbumRepository;
 import com.example.hipzip.domain.artist.Artist;

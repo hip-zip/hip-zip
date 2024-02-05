@@ -3,9 +3,9 @@ package com.example.hipzip.ui;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.example.hipzip.DatabaseClearExtension;
-import com.example.hipzip.application.dto.AlbumDetailResponse;
-import com.example.hipzip.application.dto.AlbumResponse;
-import com.example.hipzip.application.dto.AlbumSaveRequest;
+import com.example.hipzip.application.dto.album.AlbumDetailResponse;
+import com.example.hipzip.application.dto.album.AlbumResponse;
+import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import com.example.hipzip.domain.AlbumFixture;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.album.AlbumRepository;

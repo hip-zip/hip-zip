@@ -1,4 +1,4 @@
-package com.example.hipzip.application.dto;
+package com.example.hipzip.application.dto.artist;
 
 import com.example.hipzip.domain.artist.Artist;
 

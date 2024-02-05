@@ -1,7 +1,7 @@
 package com.example.hipzip.domain.artist;
 
-import com.example.hipzip.application.dto.ArtistModifyRequest;
-import com.example.hipzip.application.dto.ArtistSaveRequest;
+import com.example.hipzip.application.dto.artist.ArtistModifyRequest;
+import com.example.hipzip.application.dto.artist.ArtistSaveRequest;
 import java.util.List;
 
 public class ArtistFixture {

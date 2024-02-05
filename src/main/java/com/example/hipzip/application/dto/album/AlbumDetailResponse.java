@@ -1,5 +1,6 @@
-package com.example.hipzip.application.dto;
+package com.example.hipzip.application.dto.album;
 
+import com.example.hipzip.application.dto.artist.ArtistResponse;
 import com.example.hipzip.domain.album.Album;
 import java.time.LocalDateTime;
 
