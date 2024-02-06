@@ -1,22 +1,41 @@
 "use client";
 
-import { useEffect } from "react";
-import Artist, { ArtistImageType } from "@/app/components/atom/Images/Artist";
+import React, { useEffect, useMemo } from "react";
+import Artist from "@/app/components/atom/Images/Artist";
 import { cn } from "@/lib/utils";
-import { ArtistImageGridType } from "@/app/admin/artist/page";
-import { AlbumImageGridType } from "@/app/admin/album/page";
+import { AlbumType } from "@/app/admin/album/page";
+import { ArtistType } from "@/app/components/type";
+import ArtistImageGrid from "@/app/components/molecule/ImageGrid/ArtistImageGrid";
+import AlbumImageGrid from "@/app/components/molecule/ImageGrid/AlbumImageGrid";
 
-interface ArtistImageGridProps<
-  T extends ArtistImageGridType | AlbumImageGridType,
-> {
+interface ImageGridProps<T> {
   data: T[];
   handleImageClick: (item: T) => void;
   className?: string;
 }
 
-const ImageGrid = <T extends ArtistImageGridType | AlbumImageGridType>(
-  props: ArtistImageGridProps<T>,
-) => {
+type ConditionalImageGridProps<T> = T extends "artists"
+  ? ImageGridProps<ArtistType>
+  : T extends "albums"
+    ? ImageGridProps<AlbumType>
+    : never;
+
+const ImageGrid = <T,>(props: ConditionalImageGridProps<T>) => {
+  const Contents = useMemo<Record<string, React.ReactNode>>(
+    () => ({
+      artists: (
+        <ArtistImageGrid
+          artists={props.data}
+          handleImageClick={props.handleImageClick}
+        />
+      ),
+      albums: <AlbumImageGrid />,
+    }),
+    [],
+  );
+
+  const OptionalGrid = Contents[props.type];
+
   return (
     <div className={"flex justify-center"}>
       <div
@@ -28,7 +47,7 @@ const ImageGrid = <T extends ArtistImageGridType | AlbumImageGridType>(
         {props.data?.map((item, index) => (
           <Artist
             key={item.id}
-            data={item as ArtistImageGridType}
+            artist={item as ArtistImageGridType}
             handleArtistClick={() => props.handleImageClick(props.data[index])}
           />
         ))}

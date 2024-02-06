@@ -1,23 +1,12 @@
 "use client";
 
-import Management from "@/app/components/template/Management/Management";
-import {
-  ArtistDetailType,
-  getArtist,
-  getArtistDetail,
-  searchArtist,
-} from "@/app/hook/util";
+import ContentsManagement from "@/app/components/template/Management/ContentsManagement";
+import { getArtist, getArtistDetail, searchArtist } from "@/app/api/fetch/api";
 import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
 import { Suspense, useState } from "react";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
 import GroupModifyModal from "@/app/components/organism/Modal/GroupModifyModal";
-
-export interface ArtistImageGridType {
-  id: number;
-  name: string;
-  image: string;
-  artistType: string;
-}
+import { ArtistType } from "@/app/components/type";
 
 export default function Page() {
   const [detailId, setDetailId] = useState<number>(-1);
@@ -31,7 +20,7 @@ export default function Page() {
     setPostModalOpen(true);
   };
 
-  const handleModifyModalOpen = (artist: ArtistImageGridType) => {
+  const handleModifyModalOpen = (artist: ArtistType) => {
     setDetailId(artist.id);
 
     if (artist.artistType === "SOLO") {
@@ -46,7 +35,7 @@ export default function Page() {
 
   return (
     <>
-      <Management<ArtistImageGridType>
+      <ContentsManagement<ArtistType>
         label={"아티스트"}
         type={"artists"}
         handlePostModalOpen={handlePostModalOpen}

@@ -1,39 +1,26 @@
 "use client";
 
-import { useEffect } from "react";
-import Artist, { ArtistImageType } from "@/app/components/atom/Images/Artist";
+import Artist from "@/app/components/atom/Images/Artist";
 import { cn } from "@/lib/utils";
-import { ArtistImageGridType } from "@/app/admin/artist/page";
+import { ArtistType } from "@/app/components/type";
 
 interface ArtistImageGridProps {
-  data:
-    | {
-        id: number;
-        name: string;
-        image: string;
-        artistType: string;
-      }[]
-    | null;
-  handleImageClick: (item: ArtistImageGridType) => void;
+  artists: ArtistType[];
+  handleImageClick: (item: ArtistType) => void;
   className?: string;
 }
 
 const ArtistImageGrid = (props: ArtistImageGridProps) => {
   return (
-    <div
-      className={cn(
-        "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 overflow-auto max-h-full",
-        props.className || "",
-      )}
-    >
-      {props.data?.map((item) => (
+    <>
+      {props.artists?.map((artist) => (
         <Artist
-          key={item.id}
-          data={item}
+          key={artist.id}
+          artist={artist}
           handleArtistClick={props.handleImageClick}
         />
       ))}
-    </div>
+    </>
   );
 };
 

@@ -1,46 +1,30 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Input from "@/app/components/atom/Input/Input";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
-import {
-  AlbumDetailType,
-  ArtistDetailType,
-  getArtist,
-  getArtistDetail,
-  searchArtist,
-} from "@/app/hook/util";
-import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
+import { getArtist, getArtistDetail, searchArtist } from "@/app/api/fetch/api";
 import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
-import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
 import useIntersectionObserver from "@/app/hook/useIntersectionObserver";
-import GroupModifyModal from "@/app/components/organism/Modal/GroupModifyModal";
-import { ArtistImageType } from "@/app/components/atom/Images/Artist";
-import AlbumPostModal from "@/app/components/organism/Modal/AlbumPostModal";
-import { ArtistImageGridType } from "@/app/admin/artist/page";
-import { AlbumImageGridType } from "@/app/admin/album/page";
+import { AlbumType } from "@/app/admin/album/page";
+import { ArtistType } from "@/app/components/type";
 
-interface ManagementProps<T extends ArtistImageGridType | AlbumImageGridType> {
+interface ContentsManagementProps<T extends ArtistType | AlbumType> {
   label: string;
   type: "artists" | "albums";
-  handlePostModalOpen?: () => void;
-  handleModifyModalOpen?: (item: T) => void;
+  handlePostModalOpen: () => void;
+  handleModifyModalOpen: (item: T) => void;
   fetch: (page: number) => Promise<T[]>;
   search: (query: string) => Promise<T[]>;
-  // detail: (id: number) => Promise<U>;
 }
 
-const Management = <T extends ArtistImageGridType | AlbumImageGridType>(
-  props: ManagementProps<T>,
+const ContentsManagement = <T extends ArtistType | AlbumType>(
+  props: ContentsManagementProps<T>,
 ) => {
   const [response, onSearchQueryChange] = useDebouncedSearch<T>(
     (query: string) => searchArtist(query),
     300,
   );
   const [initialData, setInitialData] = useState<T[]>([]);
-  const [postModalStatus, setPostModalStatus] = useState<boolean>(false);
-  const [modifyModalStatus, setModifyModalStatus] = useState<boolean>(false);
-  // const [detailData, setDetailData] = useState<U | undefined>();
   const [searchStatus, setSearchStatus] = useState<boolean>(false);
-  const [id, setId] = useState<number>(0);
   const [page, setPage] = useState<number>(-1);
   const [keepFetch, setKeepFetch] = useState<boolean>(true);
   const [renderBlock, setRenderBlock] = useState<boolean>(true);
@@ -51,11 +35,7 @@ const Management = <T extends ArtistImageGridType | AlbumImageGridType>(
   });
 
   const handleImageClick = async (item: T) => {
-    // const response = await props.detail(id);
-    // setDetailData(response);
-    // setId(id);
-    // setModifyModalStatus(true);
-    props.handleModifyModalOpen?.(item);
+    props.handleModifyModalOpen(item);
   };
 
   useEffect(() => {
@@ -96,6 +76,7 @@ const Management = <T extends ArtistImageGridType | AlbumImageGridType>(
         />
         <ImageGrid<T>
           data={!searchStatus ? initialData : response} // 검색 결과 데이터와 Fetch 데이터를 구분지어 관리
+          type={props.type}
           handleImageClick={handleImageClick}
         />
         <button
@@ -119,4 +100,4 @@ const Management = <T extends ArtistImageGridType | AlbumImageGridType>(
   );
 };
 
-export default Management;
+export default ContentsManagement;

@@ -17,7 +17,7 @@ import {
   getArtistDetail,
   postArtist,
   putArtist,
-} from "@/app/hook/util";
+} from "@/app/api/fetch/api";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";

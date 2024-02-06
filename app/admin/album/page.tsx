@@ -5,12 +5,12 @@ import {
   getAlbum,
   getAlbumDetail,
   searchAlbum,
-} from "@/app/hook/util";
-import Management from "@/app/components/template/Management/Management";
+} from "@/app/api/fetch/api";
+import ContentsManagement from "@/app/components/template/Management/ContentsManagement";
 import { useState } from "react";
 import AlbumPostModal from "@/app/components/organism/Modal/AlbumPostModal";
 
-export interface AlbumImageGridType {
+export interface AlbumType {
   id: number;
   name: string;
   image: string;
@@ -31,7 +31,7 @@ export default function Page() {
 
   return (
     <>
-      <Management<AlbumImageGridType>
+      <ContentsManagement<AlbumType>
         label={"앨범"}
         type={"albums"}
         handlePostModalOpen={handlePostModalOpen}

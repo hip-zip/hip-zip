@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
-import { searchArtist } from "@/app/hook/util";
+import { searchArtist } from "@/app/api/fetch/api";
 import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModal";
 import XIcon from "@/app/components/atom/Icon/X-Icon";
 import { ArtistImageType } from "@/app/components/atom/Images/Artist";
