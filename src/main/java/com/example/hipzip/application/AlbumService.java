@@ -52,4 +52,8 @@ public class AlbumService {
     public AlbumDetailResponse findById(Long id) {
         return AlbumDetailResponse.of(albumRepository.getById(id));
     }
+
+    public void deleteById(Long id) {
+        albumRepository.deleteById(id);
+    }
 }

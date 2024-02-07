@@ -4,14 +4,17 @@ import com.example.hipzip.application.AlbumService;
 import com.example.hipzip.application.dto.album.AlbumDetailResponse;
 import com.example.hipzip.application.dto.album.AlbumResponse;
 import com.example.hipzip.application.dto.album.AlbumSaveRequest;
+import com.example.hipzip.application.dto.artist.ArtistModifyRequest;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,5 +45,13 @@ public class AlbumController {
             @PathVariable Long id
     ) {
         return ResponseEntity.ok(albumService.findById(id));
+    }
+
+    @DeleteMapping("/albums/{id}")
+    public ResponseEntity<AlbumDetailResponse> deleteById(
+            @PathVariable Long id
+    ) {
+        albumService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

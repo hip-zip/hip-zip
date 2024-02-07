@@ -15,6 +15,7 @@ import com.example.hipzip.domain.artist.ArtistRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -119,5 +120,25 @@ class AlbumControllerTest {
                 () -> Assertions.assertThat(responses.releaseDate()).isEqualTo(WAVE.getReleaseDate()),
                 () -> Assertions.assertThat(responses.artistResponse().id()).isEqualTo(WAVE.getArtist().getId())
         );
+    }
+
+    @Test
+    void 앨범을_삭제할_수_있다() {
+        //given-when
+        Artist 아이브 = artistRepository.save(ArtistFixture.IVE());
+        Album WAVE = AlbumFixture.WAVE_앨범(아이브);
+
+        albumRepository.save(WAVE);
+
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .when().delete("/albums/" + WAVE.getId())
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
+
+        //then
+        Optional<Album> findAlbum = albumRepository.findById(WAVE.getId());
+
+        Assertions.assertThat(findAlbum).isEmpty();
     }
 }
