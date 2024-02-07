@@ -1,14 +1,11 @@
 package com.example.hipzip.application.dto.album;
 
-import com.example.hipzip.domain.album.Album;
-import com.example.hipzip.domain.artist.Artist;
-import com.example.hipzip.domain.artist.ArtistType;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record AlbumSaveRequest(
     String name,
     String image,
-    LocalDateTime releaseDate,
+    LocalDate releaseDate,
     String musicVideo,
     Long artistId
 ) {

@@ -2,13 +2,14 @@ package com.example.hipzip.application.dto.album;
 
 import com.example.hipzip.application.dto.artist.ArtistResponse;
 import com.example.hipzip.domain.album.Album;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record AlbumDetailResponse(
         Long id,
         String name,
         String image,
-        LocalDateTime releaseDate,
+        LocalDate releaseDate,
         String musicVideo,
         ArtistResponse artistResponse
 ) {
