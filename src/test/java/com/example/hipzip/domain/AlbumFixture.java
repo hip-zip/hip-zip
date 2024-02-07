@@ -18,6 +18,16 @@ public class AlbumFixture {
                 .build();
     }
 
+    public static Album IVE_IVE_앨범(Artist artist) {
+        return Album.builder()
+                .name("I've IVE")
+                .image("https://cdnimg.melon.co.kr/cm2/album/images/112/11/297/11211297_20230410151046_500.jpg?1af1b1d675154cbc4d581f9b36c75ebf/melon/resize/282/quality/80/optimize")
+                .releaseDate(LocalDate.of(2023, 4, 10))
+                .musicVideo("https://youtu.be/6ZUIwj3FgUY?si=dqUn6dxrlLEMyNFI")
+                .artist(artist)
+                .build();
+    }
+
     public static AlbumSaveRequest WAVE_앨범_저장_요청(Long artistId) {
         return new AlbumSaveRequest(
                 "WAVE",

@@ -1,7 +1,9 @@
-package com.example.hipzip.domain.artist;
+package com.example.hipzip.domain;
 
 import com.example.hipzip.application.dto.artist.ArtistModifyRequest;
 import com.example.hipzip.application.dto.artist.ArtistSaveRequest;
+import com.example.hipzip.domain.artist.Artist;
+import com.example.hipzip.domain.artist.ArtistType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

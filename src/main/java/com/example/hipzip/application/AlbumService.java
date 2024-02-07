@@ -53,6 +53,13 @@ public class AlbumService {
         return AlbumDetailResponse.of(albumRepository.getById(id));
     }
 
+    public List<AlbumResponse> findByName(String name) {
+        List<Album> albums = albumRepository.findByNameStartsWith(name);
+        return albums.stream()
+                .map(AlbumResponse::of)
+                .toList();
+    }
+
     public void deleteById(Long id) {
         albumRepository.deleteById(id);
     }

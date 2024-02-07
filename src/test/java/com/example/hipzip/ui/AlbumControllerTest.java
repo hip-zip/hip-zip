@@ -10,7 +10,7 @@ import com.example.hipzip.domain.AlbumFixture;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.album.AlbumRepository;
 import com.example.hipzip.domain.artist.Artist;
-import com.example.hipzip.domain.artist.ArtistFixture;
+import com.example.hipzip.domain.ArtistFixture;
 import com.example.hipzip.domain.artist.ArtistRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -20,6 +20,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -119,6 +121,31 @@ class AlbumControllerTest {
                 () -> Assertions.assertThat(responses.musicVideo()).isEqualTo(WAVE.getMusicVideo()),
                 () -> Assertions.assertThat(responses.releaseDate()).isEqualTo(WAVE.getReleaseDate()),
                 () -> Assertions.assertThat(responses.artistResponse().id()).isEqualTo(WAVE.getArtist().getId())
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"I've IVE","I'veIVE","I'VE IVE","i've ive","i'veive","I'VEIVE"})
+    void 앨범을_이름으로_검색할_수_있다(String name) {
+        //given-when
+        Artist 아이브 = artistRepository.save(ArtistFixture.IVE());
+        Album IVE_IVE = AlbumFixture.IVE_IVE_앨범(아이브);
+
+        albumRepository.save(IVE_IVE);
+
+        AlbumResponse[] responses = RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .when().get("/albums/search?name=" + name)
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract()
+                .as(AlbumResponse[].class);
+
+        //then
+        assertAll(
+                () -> Assertions.assertThat(responses[0].id()).isEqualTo(IVE_IVE.getId()),
+                () -> Assertions.assertThat(responses[0].name()).isEqualTo(IVE_IVE.getName()),
+                () -> Assertions.assertThat(responses[0].image()).isEqualTo(IVE_IVE.getImage())
         );
     }
 

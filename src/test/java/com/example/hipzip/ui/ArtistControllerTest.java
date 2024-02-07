@@ -7,7 +7,7 @@ import com.example.hipzip.application.ArtistService;
 import com.example.hipzip.application.dto.artist.ArtistDetailResponse;
 import com.example.hipzip.application.dto.artist.ArtistResponse;
 import com.example.hipzip.domain.artist.Artist;
-import com.example.hipzip.domain.artist.ArtistFixture;
+import com.example.hipzip.domain.ArtistFixture;
 import com.example.hipzip.domain.artist.ArtistRepository;
 import com.example.hipzip.domain.artist.ArtistType;
 import com.example.hipzip.domain.artist.HashtagRepository;
@@ -18,12 +18,13 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 
 @ExtendWith(DatabaseClearExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -90,14 +91,15 @@ class ArtistControllerTest {
         );
     }
 
-    @Test
-    void 아티스트를_태그_접두사로_조회할_수_있다() {
+    @ParameterizedTest
+    @ValueSource(strings = {"Jang Wonyoung","JangWonyoung","JANG WONYOUNG","jang wonyoung","jangwonyoung","JANGWONYOUNG"})
+    void 아티스트를_태그_접두사로_조회할_수_있다(String name) {
         //given-when
         Long id = artistService.save(ArtistFixture.장원영_저장_요청());
 
         ArtistResponse[] responses = RestAssured.given().log().all()
                 .contentType(ContentType.JSON)
-                .when().get("/artists/search?name=아")
+                .when().get("/artists/search?name="+name)
                 .then().log().all()
                 .statusCode(HttpStatus.OK.value())
                 .extract()
