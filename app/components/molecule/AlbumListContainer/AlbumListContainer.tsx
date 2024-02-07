@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { Album } from "@/app/components/atom/Images/Album";
+import { SupabaseAlbum } from "@/app/components/atom/Images/SupabaseAlbum";
 
 interface AlbumType {
   id: number;
@@ -77,7 +77,7 @@ const AlbumListContainer = (props: AlbumListContainerProps) => {
           {data?.pages
             .flatMap((page) => page.data)
             .map((item: AlbumType) => (
-              <Album
+              <SupabaseAlbum
                 key={item.id}
                 item={item}
                 setScrollLocation={props.setScrollLocation}

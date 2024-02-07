@@ -8,19 +8,15 @@ import { ArtistType } from "@/app/components/type";
 import ArtistImageGrid from "@/app/components/molecule/ImageGrid/ArtistImageGrid";
 import AlbumImageGrid from "@/app/components/molecule/ImageGrid/AlbumImageGrid";
 
-interface ImageGridProps<T> {
+interface ImageGridProps<T extends AlbumType | ArtistType> {
   data: T[];
-  handleImageClick: (item: T) => void;
+  handleImageClick: (item: ArtistType) => Promise<void>;
+  type: "artists" | "albums";
   className?: string;
 }
-
-type ConditionalImageGridProps<T> = T extends "artists"
-  ? ImageGridProps<ArtistType>
-  : T extends "albums"
-    ? ImageGridProps<AlbumType>
-    : never;
-
-const ImageGrid = <T,>(props: ConditionalImageGridProps<T>) => {
+const ImageGrid = <T extends AlbumType | ArtistType>(
+  props: ImageGridProps<T>,
+) => {
   const Contents = useMemo<Record<string, React.ReactNode>>(
     () => ({
       artists: (
@@ -29,7 +25,12 @@ const ImageGrid = <T,>(props: ConditionalImageGridProps<T>) => {
           handleImageClick={props.handleImageClick}
         />
       ),
-      albums: <AlbumImageGrid />,
+      albums: (
+        <AlbumImageGrid
+          albums={props.data}
+          handleImageClick={props.handleImageClick}
+        />
+      ),
     }),
     [],
   );
@@ -44,13 +45,7 @@ const ImageGrid = <T,>(props: ConditionalImageGridProps<T>) => {
           props.className || "",
         )}
       >
-        {props.data?.map((item, index) => (
-          <Artist
-            key={item.id}
-            artist={item as ArtistImageGridType}
-            handleArtistClick={() => props.handleImageClick(props.data[index])}
-          />
-        ))}
+        {OptionalGrid && OptionalGrid}
       </div>
     </div>
   );

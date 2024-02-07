@@ -9,7 +9,7 @@ import GroupModifyModal from "@/app/components/organism/Modal/GroupModifyModal";
 import { ArtistType } from "@/app/components/type";
 
 export default function Page() {
-  const [detailId, setDetailId] = useState<number>(-1);
+  const [artistDetailId, setArtistDetailId] = useState<number>(-1);
   const [postModalOpen, setPostModalOpen] = useState<boolean>(false);
   const [artistModifyModalOpen, setArtistModifyModalOpen] =
     useState<boolean>(false);
@@ -21,7 +21,7 @@ export default function Page() {
   };
 
   const handleModifyModalOpen = (artist: ArtistType) => {
-    setDetailId(artist.id);
+    setArtistDetailId(artist.id);
 
     if (artist.artistType === "SOLO") {
       setArtistModifyModalOpen(true);
@@ -46,12 +46,12 @@ export default function Page() {
       />
       <ArtistPostModal open={postModalOpen} setOpen={setPostModalOpen} />
       <ArtistModifyModal
-        id={detailId}
+        id={artistDetailId}
         open={artistModifyModalOpen}
         setOpen={setArtistModifyModalOpen}
       />
       <GroupModifyModal
-        id={detailId}
+        id={artistDetailId}
         open={groupModifyModalOpen}
         setOpen={setGroupModifyModalOpen}
       />
