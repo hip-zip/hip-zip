@@ -22,7 +22,6 @@ create table artist_hashtag
     id          bigint auto_increment primary key,
     artist_id   bigint,
     hashtag_id bigint,
-    name        varchar(255),
     created_at  timestamp(6),
     updated_at  timestamp(6),
     constraint fk_artist_hashtag_artist_id foreign key (artist_id) references artist (id),
