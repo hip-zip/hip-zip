@@ -7,7 +7,6 @@ import com.example.hipzip.application.dto.artist.ArtistSaveRequest;
 import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistHashtag;
 import com.example.hipzip.domain.artist.ArtistRepository;
-import com.example.hipzip.domain.artist.ArtistType;
 import com.example.hipzip.domain.artist.Hashtag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

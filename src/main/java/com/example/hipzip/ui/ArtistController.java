@@ -2,8 +2,8 @@ package com.example.hipzip.ui;
 
 import com.example.hipzip.application.ArtistService;
 import com.example.hipzip.application.dto.artist.ArtistDetailResponse;
-import com.example.hipzip.application.dto.artist.ArtistResponse;
 import com.example.hipzip.application.dto.artist.ArtistModifyRequest;
+import com.example.hipzip.application.dto.artist.ArtistResponse;
 import com.example.hipzip.application.dto.artist.ArtistSaveRequest;
 import jakarta.validation.Valid;
 import java.net.URI;

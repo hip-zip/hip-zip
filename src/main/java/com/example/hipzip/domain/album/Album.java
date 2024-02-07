@@ -5,7 +5,6 @@ import com.example.hipzip.domain.artist.Artist;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
