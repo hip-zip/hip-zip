@@ -7,10 +7,10 @@ import com.example.hipzip.application.dto.album.AlbumDetailResponse;
 import com.example.hipzip.application.dto.album.AlbumResponse;
 import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import com.example.hipzip.domain.AlbumFixture;
+import com.example.hipzip.domain.ArtistFixture;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.album.AlbumRepository;
 import com.example.hipzip.domain.artist.Artist;
-import com.example.hipzip.domain.ArtistFixture;
 import com.example.hipzip.domain.artist.ArtistRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -28,6 +28,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
+@SuppressWarnings("NonAsciiCharacters")
 @ExtendWith(DatabaseClearExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class AlbumControllerTest {
@@ -90,7 +91,7 @@ class AlbumControllerTest {
 
         //then
         assertAll(
-                () -> Assertions.assertThat(responses.length).isEqualTo(1),
+                () -> Assertions.assertThat(responses).hasSize(1),
                 () -> Assertions.assertThat(responses[0].id()).isEqualTo(WAVE.getId()),
                 () -> Assertions.assertThat(responses[0].name()).isEqualTo(WAVE.getName()),
                 () -> Assertions.assertThat(responses[0].image()).isEqualTo(WAVE.getImage())

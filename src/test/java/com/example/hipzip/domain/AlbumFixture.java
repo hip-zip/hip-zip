@@ -4,8 +4,8 @@ import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.artist.Artist;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+@SuppressWarnings("NonAsciiCharacters")
 public class AlbumFixture {
 
     public static Album WAVE_앨범(Artist artist) {

@@ -6,8 +6,8 @@ import com.example.hipzip.DatabaseClearExtension;
 import com.example.hipzip.application.ArtistService;
 import com.example.hipzip.application.dto.artist.ArtistDetailResponse;
 import com.example.hipzip.application.dto.artist.ArtistResponse;
-import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.ArtistFixture;
+import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistRepository;
 import com.example.hipzip.domain.artist.ArtistType;
 import com.example.hipzip.domain.artist.HashtagRepository;
@@ -26,6 +26,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
+@SuppressWarnings("NonAsciiCharacters")
 @ExtendWith(DatabaseClearExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ArtistControllerTest {
@@ -84,7 +85,7 @@ class ArtistControllerTest {
 
         //then
         assertAll(
-                () -> Assertions.assertThat(responses.length).isEqualTo(1),
+                () -> Assertions.assertThat(responses).hasSize(1),
                 () -> Assertions.assertThat(responses[0].id()).isEqualTo(id),
                 () -> Assertions.assertThat(responses[0].name()).isEqualTo(ArtistFixture.이서_저장_요청().name()),
                 () -> Assertions.assertThat(responses[0].image()).isEqualTo(ArtistFixture.이서_저장_요청().image())
@@ -107,7 +108,7 @@ class ArtistControllerTest {
 
         //then
         assertAll(
-                () -> Assertions.assertThat(responses.length).isEqualTo(1),
+                () -> Assertions.assertThat(responses).hasSize(1),
                 () -> Assertions.assertThat(responses[0].id()).isEqualTo(id),
                 () -> Assertions.assertThat(responses[0].name()).isEqualTo(ArtistFixture.장원영_저장_요청().name()),
                 () -> Assertions.assertThat(responses[0].image()).isEqualTo(ArtistFixture.장원영_저장_요청().image())
@@ -130,7 +131,7 @@ class ArtistControllerTest {
 
         //then
         assertAll(
-                () -> Assertions.assertThat(responses.length).isEqualTo(2),
+                () -> Assertions.assertThat(responses).hasSize(2),
                 () -> Assertions.assertThat(responses[0].id()).isEqualTo(이서_id),
                 () -> Assertions.assertThat(responses[0].name()).isEqualTo(ArtistFixture.이서_저장_요청().name()),
                 () -> Assertions.assertThat(responses[0].image()).isEqualTo(ArtistFixture.이서_저장_요청().image()),
