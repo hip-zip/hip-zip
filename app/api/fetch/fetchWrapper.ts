@@ -1,4 +1,7 @@
-export const Get = async <T>(endpoint: string, paramObj: Record<string, any>) => {
+export const Get = async <T>(
+  endpoint: string,
+  paramObj: Record<string, any>,
+) => {
   const params = Object.fromEntries(
     Object.entries(paramObj).filter(
       ([key, value]) => value !== "" && value !== null && value !== undefined,
@@ -6,6 +9,7 @@ export const Get = async <T>(endpoint: string, paramObj: Record<string, any>) =>
   );
 
   const queryString = new URLSearchParams(params).toString();
+  console.log("fetchWrapper.ts:9 - queryString = ", queryString);
   const url = `${endpoint}?${queryString}`;
 
   try {
@@ -19,10 +23,7 @@ export const Get = async <T>(endpoint: string, paramObj: Record<string, any>) =>
   }
 };
 
-export const Post = async (
-  endpoint: string,
-  paramObj: Record<string, any>,
-) => {
+export const Post = async (endpoint: string, paramObj: Record<string, any>) => {
   try {
     const response = await fetch(process.env.baseURL + endpoint, {
       method: "POST",
@@ -40,10 +41,7 @@ export const Post = async (
   }
 };
 
-export const Put = async (
-  endpoint: string,
-  paramObj: Record<string, any>,
-) => {
+export const Put = async (endpoint: string, paramObj: Record<string, any>) => {
   try {
     const response = await fetch(process.env.baseURL + endpoint, {
       method: "PUT",
@@ -61,10 +59,7 @@ export const Put = async (
   }
 };
 
-export const Delete = async <T>(
-  method: string,
-  endpoint: string,
-) => {
+export const Delete = async <T>(method: string, endpoint: string) => {
   try {
     const response = await fetch(process.env.baseURL + endpoint, {
       method: "Delete",

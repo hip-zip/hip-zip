@@ -42,6 +42,8 @@ export const getAlbum = async (page: number) => {
     size: 40,
     page: page,
   };
+
+  console.log("api.ts:46 - params = ", params);
   return (await Get("/albums", params)) as AlbumType[];
 };
 

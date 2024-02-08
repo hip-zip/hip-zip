@@ -26,7 +26,7 @@ export default async function Page() {
 
   return (
     <Suspense>
-      <AlbumList albumList={albumList} />
+      <AlbumList />
     </Suspense>
   );
 } // server -> client

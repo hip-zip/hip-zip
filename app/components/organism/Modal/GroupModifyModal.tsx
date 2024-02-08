@@ -29,7 +29,11 @@ export interface GroupMemberType {
   name: string;
   image: string;
 }
-export interface GroupModifyFormType extends ArtistModifyFormType {
+export interface GroupModifyFormType {
+  id: number;
+  name: string;
+  image: string;
+  hashtag: string[];
   artistGroupMemberIds: number[];
 }
 

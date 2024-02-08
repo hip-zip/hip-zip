@@ -4,18 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { SupabaseAlbum } from "@/app/components/atom/Images/SupabaseAlbum";
-
-interface AlbumType {
-  id: number;
-  album_name: string;
-  album_description: string;
-  album_image: string;
-  album_tracks: string[];
-  album_release_date: string;
-  music_video: string;
-  artist_name: string;
-  artist_image: string;
-}
+import { AlbumType } from "@/app/components/type";
 
 interface AlbumFetchType {
   data: AlbumType[];
@@ -34,11 +23,9 @@ const AlbumListContainer = (props: AlbumListContainerProps) => {
     useInfiniteQuery<AlbumFetchType, Error>({
       queryKey: ["albums", param.get("year")],
       queryFn: ({ pageParam = 1 }) =>
-        fetch(`/api/album/?page=${pageParam}&year=${param.get("year")}`).then(
-          (res) => res.json(),
-        ),
+        fetch(`/api/album?page=${pageParam}`).then((res) => res.json()),
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-      initialPageParam: 1, // Add this line to specify the initialPageParam
+      initialPageParam: 0, // Add this line to specify the initialPageParam
     });
 
   const observeElement = useRef<HTMLDivElement | null>(null);
@@ -76,10 +63,10 @@ const AlbumListContainer = (props: AlbumListContainerProps) => {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 overflow-auto max-h-full">
           {data?.pages
             .flatMap((page) => page.data)
-            .map((item: AlbumType) => (
+            .map((album) => (
               <SupabaseAlbum
-                key={item.id}
-                item={item}
+                key={album.id}
+                album={album}
                 setScrollLocation={props.setScrollLocation}
               />
             ))}
