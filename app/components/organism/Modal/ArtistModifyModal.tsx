@@ -10,11 +10,7 @@ import {
 import InputField from "@/app/components/molecule/InputField/InputField";
 import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
-import {
-  ArtistDetailType,
-  getArtistDetail,
-  putArtist,
-} from "@/app/api/fetch/api";
+import { getArtistDetail, putArtist } from "@/app/api/fetch/api";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
@@ -24,6 +20,7 @@ export interface ArtistModifyFormType {
   name: string;
   image: string;
   hashtag: Array<string>;
+  artistGroupMemberIds: [];
 }
 
 export interface ArtistModifyModalProps {
@@ -39,6 +36,7 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
     name: "",
     image: "",
     hashtag: [],
+    artistGroupMemberIds: [],
   });
 
   const [handleNameChange] = useFormInput<ArtistModifyFormType>(
@@ -73,6 +71,7 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
           name: "",
           image: "",
           hashtag: [],
+          artistGroupMemberIds: [],
         });
 
         props.setOpen(false);
@@ -85,11 +84,14 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
   useEffect(() => {
     if (props.id !== -1 && props.open) {
       getArtistDetail(props.id).then((response) => {
+        console.log("ArtistModifyModal.tsx:84 - response = ", response);
+
         setFormValue({
           id: props.id,
           name: response?.name || "",
           image: response?.image || "",
           hashtag: response?.hashtag || [],
+          artistGroupMemberIds: [],
         });
       });
     }

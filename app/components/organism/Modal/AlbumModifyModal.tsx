@@ -6,35 +6,32 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import InputField from "@/app/components/molecule/InputField/InputField";
-
 import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
-import { getArtistDetail, postArtist, putArtist } from "@/app/api/fetch/api";
+import { getArtistDetail, putArtist } from "@/app/api/fetch/api";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
-import {
-  ArtistModifyFormType,
-  ArtistModifyModalProps,
-} from "@/app/components/organism/Modal/ArtistModifyModal";
-import InputGroupMemberField from "@/app/components/molecule/InputField/InputGroupMemberField";
 
-interface GroupModifyModalProps extends ArtistModifyModalProps {}
-
-export interface GroupMemberType {
+export interface AlbumModifyType {
   id: number;
   name: string;
   image: string;
-}
-export interface GroupModifyFormType extends ArtistModifyFormType {
-  artistGroupMemberIds: number[];
+  hashtag: Array<string>;
+  artistGroupMemberIds: [];
 }
 
-const ArtistModifyModal = (props: GroupModifyModalProps) => {
-  const [formValue, setFormValue] = useState<GroupModifyFormType>({
+export interface AlbumModifyModalProps {
+  id: number;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  // detailData: ArtistDetailType;
+}
+
+const ArtistModifyModal = (props: AlbumModifyModalProps) => {
+  const [formValue, setFormValue] = useState<AlbumModifyType>({
     id: 0,
     name: "",
     image: "",
@@ -42,31 +39,24 @@ const ArtistModifyModal = (props: GroupModifyModalProps) => {
     artistGroupMemberIds: [],
   });
 
-  const [handleNameChange] = useFormInput<GroupModifyFormType>(
+  const [handleNameChange] = useFormInput<AlbumModifyType>(
     setFormValue,
     "name",
   );
-  const [handleImageChange] = useFormInput<GroupModifyFormType>(
+  const [handleImageChange] = useFormInput<AlbumModifyType>(
     setFormValue,
     "image",
   );
-
   const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
-    useContinualInput<GroupModifyFormType>(
+    useContinualInput<AlbumModifyType>(
       formValue.hashtag,
       setFormValue,
       "hashtag",
     );
 
-  const [groupMembers, setGroupMembers] = useState<GroupMemberType[]>([]);
-
-  const handleGroupSubmit = async () => {
+  const handleArtistSubmit = async () => {
     try {
-      const param = {
-        ...formValue,
-        artistGroupMemberIds: groupMembers?.map((member) => member.id),
-      };
-      const response = await putArtist<GroupModifyFormType>(param);
+      const response = await putArtist<AlbumModifyType>(formValue);
 
       if (response.ok) {
         toast({
@@ -77,7 +67,7 @@ const ArtistModifyModal = (props: GroupModifyModalProps) => {
         });
 
         setFormValue({
-          id: -1,
+          id: 0,
           name: "",
           image: "",
           hashtag: [],
@@ -94,15 +84,15 @@ const ArtistModifyModal = (props: GroupModifyModalProps) => {
   useEffect(() => {
     if (props.id !== -1 && props.open) {
       getArtistDetail(props.id).then((response) => {
+        console.log("ArtistModifyModal.tsx:84 - response = ", response);
+
         setFormValue({
           id: props.id,
           name: response?.name || "",
           image: response?.image || "",
           hashtag: response?.hashtag || [],
-          artistGroupMemberIds:
-            response?.groupMembers?.map((member) => member.id) || [],
+          artistGroupMemberIds: [],
         });
-        setGroupMembers(response?.groupMembers || []);
       });
     }
   }, [props.open]);
@@ -113,7 +103,6 @@ const ArtistModifyModal = (props: GroupModifyModalProps) => {
   //     name: props.detailData?.name || "",
   //     image: props.detailData?.image || "",
   //     hashtag: props.detailData?.hashtag || [],
-  //     artistGroupMemberIds: groupMembers?.map((member) => member.id) || [],
   //   });
   // }, [props.detailData]);
 
@@ -122,33 +111,32 @@ const ArtistModifyModal = (props: GroupModifyModalProps) => {
       <Dialog open={props.open} onOpenChange={props.setOpen}>
         <DialogContent className={"bg-hipzip-black text-hipzip-white"}>
           <DialogHeader>
-            <DialogTitle className={"mb-3"}>그룹 수정하기</DialogTitle>
+            <DialogTitle className={"mb-3"}>아티스트 수정하기</DialogTitle>
             <DialogDescription>
-              - 그룹 멤버들의 입력방식은 검색 힌트 입력 방식과 동일합니다.
+              - 아티스트의 이름 입력시 본명이 아닌 A.K.A(활동명)으로
+              작성해주세요.
+            </DialogDescription>
+            <DialogDescription>
+              - 아티스트의 이미지 입력시 URL을 입력하셔야 합니다.
             </DialogDescription>
             <DialogDescription>
               - 검색 힌트 입력시 단어를 입력 후 엔터를 치시면 됩니다.
             </DialogDescription>
+            <DialogDescription>
+              - 키드밀리를 예로 들면 KID MILLI, 최원재 등으로 입력하시면 됩니다.
+            </DialogDescription>
           </DialogHeader>
           <div className={"flex flex-col gap-3"}>
             <InputField
-              label={"그룹 이름"}
+              label={"아티스트 이름"}
               onChange={handleNameChange}
               value={formValue.name}
-              defaultValue={formValue.name || ""}
+              // defaultValue={props.detailData?.name || ""}
             />
             <InputField
-              label={"그룹 이미지"}
+              label={"아티스트 이미지"}
               onChange={handleImageChange}
               value={formValue.image}
-              defaultValue={formValue.image || ""}
-            />
-            <InputGroupMemberField
-              label={"그룹 멤버"}
-              onChange={handleHashtagChange}
-              onKeyDown={handleHashtagInputKeyDown}
-              groupMembers={groupMembers}
-              setGroupMembers={setGroupMembers}
             />
             <InputHashtagField
               label={"검색 힌트"}
@@ -161,9 +149,9 @@ const ArtistModifyModal = (props: GroupModifyModalProps) => {
           </div>
           <DialogFooter>
             <ConfirmDialog
-              target={"그룹"}
-              ok={handleGroupSubmit}
+              target={"아티스트"}
               action={"수정"}
+              ok={handleArtistSubmit}
             />
           </DialogFooter>
         </DialogContent>

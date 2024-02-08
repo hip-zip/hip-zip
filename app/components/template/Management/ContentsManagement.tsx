@@ -11,7 +11,7 @@ interface ContentsManagementProps<T extends ArtistType | AlbumType> {
   label: string;
   type: "artists" | "albums";
   handlePostModalOpen: () => void;
-  handleModifyModalOpen: (item: ArtistType) => void;
+  handleModifyModalOpen: (item: T) => void;
   fetch: (page: number) => Promise<T[]>;
   search: (query: string) => Promise<T[]>;
 }

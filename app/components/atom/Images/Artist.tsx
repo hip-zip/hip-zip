@@ -18,6 +18,7 @@ const Artist = (props: ArtistProps) => {
       className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
       title={`${props.artist.name}`}
       onClick={() => {
+        console.log("Artist.tsx:21 - props.artist = ", props.artist);
         props.handleArtistClick(props.artist);
       }}
     />

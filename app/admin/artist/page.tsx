@@ -21,6 +21,7 @@ export default function Page() {
   };
 
   const handleModifyModalOpen = (artist: ArtistType) => {
+    console.log("page.tsx:24 - artist = ", artist);
     setArtistDetailId(artist.id);
 
     if (artist.artistType === "SOLO") {

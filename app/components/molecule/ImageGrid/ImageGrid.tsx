@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useMemo } from "react";
 import Artist from "@/app/components/atom/Images/Artist";
 import { cn } from "@/lib/utils";
@@ -10,29 +8,36 @@ import AlbumImageGrid from "@/app/components/molecule/ImageGrid/AlbumImageGrid";
 
 interface ImageGridProps<T extends AlbumType | ArtistType> {
   data: T[];
-  handleImageClick: (item: ArtistType) => Promise<void>;
+  handleImageClick: (item: T) => void;
   type: "artists" | "albums";
   className?: string;
 }
+
 const ImageGrid = <T extends AlbumType | ArtistType>(
   props: ImageGridProps<T>,
 ) => {
+  useEffect(() => {
+    console.log("ImageGrid.tsx:20 - props.type = ", props.type);
+  }, [props.type]);
+
   const Contents = useMemo<Record<string, React.ReactNode>>(
     () => ({
       artists: (
         <ArtistImageGrid
-          artists={props.data}
-          handleImageClick={props.handleImageClick}
+          artists={props.data as ArtistType[]}
+          handleImageClick={
+            props.handleImageClick as (item: ArtistType) => void
+          } // Type assertion to ArtistType
         />
       ),
       albums: (
         <AlbumImageGrid
-          albums={props.data}
-          handleImageClick={props.handleImageClick}
+          albums={props.data as AlbumType[]}
+          handleImageClick={props.handleImageClick as (item: AlbumType) => void} // Type assertion to AlbumType
         />
       ),
     }),
-    [],
+    [props.type, props.data],
   );
 
   const OptionalGrid = Contents[props.type];
@@ -45,7 +50,7 @@ const ImageGrid = <T extends AlbumType | ArtistType>(
           props.className || "",
         )}
       >
-        {OptionalGrid && OptionalGrid}
+        {OptionalGrid}
       </div>
     </div>
   );

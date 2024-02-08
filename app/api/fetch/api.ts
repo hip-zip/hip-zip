@@ -14,19 +14,20 @@ export const getArtist = async (page: number) => {
   return (await Get("/artists", params)) as ArtistType[];
 };
 
-export const postArtist = async <T>(params: T) => {
+export const postArtist = async <T>(
+  params: T extends Record<string, any> ? T : never,
+) => {
   return await Post("/artists", params);
 };
 
-export const putArtist = async <T>(params: T) => {
+export const putArtist = async <T>(
+  params: T extends Record<string, any> ? T : never,
+) => {
   return await Put("/artists", params);
 };
 
 export const getArtistDetail = async (id: number) => {
-  const params = {
-    id: id,
-  };
-  return (await Get("/artists", params)) as ArtistDetailType;
+  return (await Get(`/artists/${id}`, {})) as ArtistDetailType;
 };
 
 export const searchArtist = async <T>(query: string) => {
@@ -44,16 +45,20 @@ export const getAlbum = async (page: number) => {
   return (await Get("/albums", params)) as AlbumType[];
 };
 
-export const postAlbum = async <T>(params: T) => {
+export const postAlbum = async <T>(
+  params: T extends Record<string, any> ? T : never,
+) => {
   return await Post("/albums", params);
 };
 
-export const putAlbum = async <T>(params: T) => {
+export const putAlbum = async <T>(
+  params: T extends Record<string, any> ? T : never,
+) => {
   return await Put("/albums", params);
 };
 
 export const searchAlbum = async (query: string) => {
-  // return response as any;
+  return {} as any;
 }; // TODO
 
 export const getAlbumDetail = async (id: number) => {

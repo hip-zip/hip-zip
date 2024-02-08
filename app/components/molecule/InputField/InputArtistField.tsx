@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,30 +11,25 @@ import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { searchArtist } from "@/app/api/fetch/api";
 import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModal";
 import XIcon from "@/app/components/atom/Icon/X-Icon";
-import { ArtistImageType } from "@/app/components/atom/Images/Artist";
-import { ArtistImageGridType } from "@/app/admin/artist/page";
 import CarouselComponent from "@/app/components/molecule/Carousel/Carousel";
 import { Simulate } from "react-dom/test-utils";
-import reset = Simulate.reset;
+import { ArtistType } from "@/app/components/type";
 
 interface InputArtistFieldProps {
   label: string;
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  artistInfo: ArtistImageGridType;
-  setArtistInfo: React.Dispatch<React.SetStateAction<ArtistImageGridType>>;
+  artistInfo: ArtistType;
+  setArtistInfo: React.Dispatch<React.SetStateAction<ArtistType>>;
 }
 
 const InputArtistField = (props: InputArtistFieldProps) => {
   const [response, onSearchQueryChange, resetResponse] =
-    useDebouncedSearch<ArtistImageGridType>(
-      (query: string) => searchArtist(query),
-      300,
-    );
+    useDebouncedSearch<ArtistType>((query: string) => searchArtist(query), 300);
 
   const [popOverStatus, setPopOverStatus] = useState<boolean>(false);
 
-  const handleSaveMember = (artist: ArtistImageGridType) => {
+  const handleSaveMember = (artist: ArtistType) => {
     props.setArtistInfo(artist);
     setPopOverStatus(false);
   };
@@ -61,7 +53,7 @@ const InputArtistField = (props: InputArtistFieldProps) => {
               클릭하여 아티스트를 선택하세요
             </h4>
             <div className={"mt-2 flex justify-center items-center"}>
-              <CarouselComponent<ArtistImageGridType>
+              <CarouselComponent<ArtistType>
                 data={response}
                 setData={handleSaveMember}
                 close={() => setPopOverStatus(false)}

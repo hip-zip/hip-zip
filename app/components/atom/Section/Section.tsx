@@ -20,10 +20,10 @@ const Section = (props: SectionProps) => {
       <div className={"flex flex-col justify-center items-center gap-8 "}>
         <props.icon
           className={
-            "text-hipzip-white h-64 w-64 hover:scale-110 transition-transform"
+            "text-hipzip-white h-32 w-32 hover:scale-110 transition-transform"
           }
         />
-        <div className={cn("h-full flex justify-center items-center")}>
+        <div className={cn("h-full flex justify-center items-center text-lg")}>
           {props.message}
         </div>
       </div>

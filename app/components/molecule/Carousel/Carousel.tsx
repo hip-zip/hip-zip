@@ -9,10 +9,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ArtistImageGridType } from "@/app/admin/artist/page";
 
 interface CarouselComponentProps<
-  T extends { id: string; image: string; name: string },
+  T extends { id: number; image: string; name: string },
 > {
   data: T[];
   setData: (item: T) => void;
@@ -20,7 +19,7 @@ interface CarouselComponentProps<
 }
 
 const CarouselComponent = <
-  T extends { id: string; image: string; name: string },
+  T extends { id: number; image: string; name: string },
 >(
   props: CarouselComponentProps<T>,
 ) => {

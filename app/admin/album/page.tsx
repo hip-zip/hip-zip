@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  AlbumDetailType,
-  getAlbum,
-  getAlbumDetail,
-  searchAlbum,
-} from "@/app/api/fetch/api";
+import { getAlbum, getAlbumDetail, searchAlbum } from "@/app/api/fetch/api";
 import ContentsManagement from "@/app/components/template/Management/ContentsManagement";
 import { useState } from "react";
 import AlbumPostModal from "@/app/components/organism/Modal/AlbumPostModal";

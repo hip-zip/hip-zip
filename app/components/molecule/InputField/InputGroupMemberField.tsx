@@ -14,8 +14,7 @@ import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { searchArtist } from "@/app/api/fetch/api";
 import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModal";
 import XIcon from "@/app/components/atom/Icon/X-Icon";
-import { ArtistImageType } from "@/app/components/atom/Images/Artist";
-import { ArtistImageGridType } from "@/app/admin/artist/page";
+import { ArtistType } from "@/app/components/type";
 
 interface TagInputFieldProps {
   label: string;
@@ -31,11 +30,10 @@ interface TagInputFieldProps {
 }
 
 const InputGroupMemberField = (props: TagInputFieldProps) => {
-  const [response, onSearchQueryChange] =
-    useDebouncedSearch<ArtistImageGridType>(
-      (query: string) => searchArtist(query),
-      300,
-    );
+  const [response, onSearchQueryChange] = useDebouncedSearch<ArtistType>(
+    (query: string) => searchArtist(query),
+    300,
+  );
 
   const [popOverStatus, setPopOverStatus] = useState<boolean>(false);
 
