@@ -63,9 +63,7 @@ export const searchAlbum = async (query: string) => {
   return {} as any;
 }; // TODO
 
-export const getAlbumDetail = async (id: number) => {
-  const params = {
-    id: id,
-  };
-  return (await Get("albums", params)) as AlbumDetailType;
+export const getAlbumDetail = async (id: number | string) => {
+  const params = {};
+  return (await Get(`/albums/${id}`, params)) as AlbumDetailType;
 };

@@ -9,7 +9,6 @@ export const Get = async <T>(
   );
 
   const queryString = new URLSearchParams(params).toString();
-  console.log("fetchWrapper.ts:9 - queryString = ", queryString);
   const url = `${endpoint}?${queryString}`;
 
   try {

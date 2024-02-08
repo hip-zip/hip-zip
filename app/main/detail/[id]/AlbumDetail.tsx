@@ -6,12 +6,13 @@ import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/Youtu
 import AlbumInformation from "@/app/components/molecule/AlbumInformation/AlbumInformation";
 import SpinningAlbum from "@/app/components/atom/Images/SpinningAlbum";
 import LikeDislike from "@/app/components/molecule/LikeDislike/LikeDislike";
+import { AlbumDetailType } from "@/app/components/type";
 
 interface AlbumDetailProps {
-  detail: any; // 정의 예정
+  album: AlbumDetailType;
 }
 
-const AlbumDetail = ({ data }: any) => {
+const AlbumDetail = (props: AlbumDetailProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -24,13 +25,13 @@ const AlbumDetail = ({ data }: any) => {
 
   return (
     <div className={"w-full flex flex-col justify-center items-center"}>
-      <SpinningAlbum image={data.album_image} />
+      <SpinningAlbum image={props.album.image} />
       <AlbumInformation
-        albumName={data.album_name}
-        artistName={data.artist_name}
+        albumName={props.album.name}
+        artistName={props.album.artistResponse.name}
       />
       <LikeDislike onClick={() => alert("기능 개발 예정")} />
-      <MusicVideoContainer src={data.music_video} />
+      <MusicVideoContainer src={props.album.musicVideo} />
       <div className={"h-48"} />
     </div>
   );
