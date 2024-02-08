@@ -24,4 +24,18 @@ public class Album extends BaseEntity {
     String musicVideo;
     @ManyToOne
     Artist artist;
+
+    public void update(
+            final String name,
+            final String image,
+            final LocalDate releaseDate,
+            final String musicVideo,
+            final Artist artist
+    ) {
+        this.name = name;
+        this.image = image;
+        this.releaseDate = releaseDate;
+        this.musicVideo = musicVideo;
+        this.artist = artist;
+    }
 }

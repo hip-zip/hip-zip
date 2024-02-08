@@ -2,6 +2,7 @@ package com.example.hipzip.ui;
 
 import com.example.hipzip.application.AlbumService;
 import com.example.hipzip.application.dto.album.AlbumDetailResponse;
+import com.example.hipzip.application.dto.album.AlbumModifyRequest;
 import com.example.hipzip.application.dto.album.AlbumResponse;
 import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import jakarta.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +53,12 @@ public class AlbumController {
     ) {
         List<AlbumResponse> responses = albumService.findByName(name);
         return ResponseEntity.ok(responses);
+    }
+
+    @PutMapping("/albums")
+    public ResponseEntity<Void> edit(@RequestBody AlbumModifyRequest request) {
+        albumService.edit(request);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/albums/{id}")

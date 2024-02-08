@@ -126,7 +126,7 @@ class AlbumControllerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"I've IVE","I'veIVE","I'VE IVE","i've ive","i'veive","I'VEIVE"})
+    @ValueSource(strings = {"I've IVE", "I'veIVE", "I'VE IVE", "i've ive", "i'veive", "I'VEIVE"})
     void 앨범을_이름으로_검색할_수_있다(String name) {
         //given-when
         Artist 아이브 = artistRepository.save(ArtistFixture.IVE());
@@ -148,6 +148,28 @@ class AlbumControllerTest {
                 () -> Assertions.assertThat(responses[0].name()).isEqualTo(IVE_IVE.getName()),
                 () -> Assertions.assertThat(responses[0].image()).isEqualTo(IVE_IVE.getImage())
         );
+    }
+
+    @Test
+    void 앨범을_수정_할_수_있다() {
+        //given-when
+        Artist 아이브 = artistRepository.save(ArtistFixture.IVE());
+        Artist 르세라핌 = artistRepository.save(ArtistFixture.LE_SSERAFIM());
+        Album WAVE = AlbumFixture.WAVE_앨범(르세라핌);
+
+        albumRepository.save(WAVE);
+
+        RestAssured.given().log().all()
+                .contentType(ContentType.JSON)
+                .body(AlbumFixture.WAVE_앨범_수정_요청(아이브.getId()))
+                .when().put("/albums")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value());
+
+        //then
+        Album album = albumRepository.getById(WAVE.getId());
+
+        Assertions.assertThat(album.getArtist()).isEqualTo(아이브);
     }
 
     @Test

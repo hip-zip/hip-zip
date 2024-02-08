@@ -1,6 +1,7 @@
 package com.example.hipzip.application;
 
 import com.example.hipzip.application.dto.album.AlbumDetailResponse;
+import com.example.hipzip.application.dto.album.AlbumModifyRequest;
 import com.example.hipzip.application.dto.album.AlbumResponse;
 import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import com.example.hipzip.domain.album.Album;
@@ -58,6 +59,18 @@ public class AlbumService {
         return albums.stream()
                 .map(AlbumResponse::of)
                 .toList();
+    }
+
+    public void edit(AlbumModifyRequest request) {
+        Album album = albumRepository.getById(request.id());
+        Artist artist = artistRepository.getById(request.artistId());
+        album.update(
+                request.name(),
+                request.image(),
+                request.releaseDate(),
+                request.musicVideo(),
+                artist
+        );
     }
 
     public void deleteById(Long id) {

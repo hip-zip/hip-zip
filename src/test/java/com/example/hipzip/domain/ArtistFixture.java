@@ -18,6 +18,14 @@ public class ArtistFixture {
                 .build();
     }
 
+    public static Artist LE_SSERAFIM() {
+        return Artist.builder()
+                .name("LE SSERAFIM")
+                .image("https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/92/950/3092950_20240131110604_500.jpg")
+                .artistType(ArtistType.GROUP)
+                .build();
+    }
+
     public static ArtistSaveRequest 이서_저장_요청() {
         return new ArtistSaveRequest(
                 "이서",
