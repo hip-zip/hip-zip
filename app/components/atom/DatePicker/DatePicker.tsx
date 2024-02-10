@@ -19,6 +19,7 @@ interface DatePickerProps {
   className?: string;
 }
 
+// TODO: 캘린더는 높이고정 되도록 수정해야 함. 혹은 PopOver가 밑으로 나와야 함
 export function DatePicker(props: DatePickerProps) {
   const [date, setDate] = React.useState<Date>();
 

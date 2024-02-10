@@ -95,7 +95,7 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
         });
       });
     }
-  }, [props.open]);
+  }, [props.open, props.id]);
 
   // useEffect(() => {
   //   setFormValue({

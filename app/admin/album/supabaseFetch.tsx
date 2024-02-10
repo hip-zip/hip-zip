@@ -1,9 +1,11 @@
+// TODO: Deprecated
+
 "use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import postSupabase from "@/app/hook/postSupabase";
-import extractYoutubeEmbedLink from "@/app/common/extractYoutubeEmbedLink";
+// import extractYoutubeEmbedLink from "@/app/common/extractYoutubeEmbedLink";
 
 export interface AlbumFormType {
   album_name: string;
@@ -43,7 +45,7 @@ export default function SupabaseFetch() {
     e.preventDefault();
 
     let paramObj = formValues;
-    paramObj.music_video = extractYoutubeEmbedLink(paramObj.music_video);
+    // paramObj.music_video = extractYoutubeEmbedLink(paramObj.music_video);
 
     try {
       await postSupabase(paramObj);

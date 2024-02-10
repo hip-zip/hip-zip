@@ -129,9 +129,9 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
           artistId: response?.artistResponse.id || -1,
         });
         setArtistInfo(response?.artistResponse);
-      }); // TODO: ArtistInfo 추가 설정 해줘야 할 필요가 있음
+      });
     }
-  }, [props.open]);
+  }, [props.open, props.id]);
 
   // useEffect(() => {
   //   setFormValue({
@@ -169,6 +169,11 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
               artistInfo={artistInfo}
               setArtistInfo={setArtistInfo}
             />
+            <InputDateField
+              label={"앨범 발매일"}
+              onSelect={handleAlbumReleaseDateChange}
+              date={formValue.releaseDate}
+            />
             <InputField
               label={"앨범 이미지"}
               onChange={handleImageChange}
@@ -181,11 +186,6 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
                 "https://www.youtube.com/embed/nZ5SfoLB5yA?si=l7i-idwk4RyUO9K9"
               }
               value={formValue.musicVideo}
-            />
-            <InputDateField
-              label={"앨범 발매일"}
-              onSelect={handleAlbumReleaseDateChange}
-              date={formValue.releaseDate}
             />
           </div>
           <DialogFooter>

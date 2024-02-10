@@ -168,6 +168,10 @@ const AlbumPostModal = (props: AlbumPostModalProps) => {
               artistInfo={artistInfo}
               setArtistInfo={setArtistInfo}
             />
+            <InputDateField
+              label={"앨범 발매일"}
+              onSelect={handleAlbumReleaseDateChange}
+            />
             <InputField
               label={"앨범 이미지"}
               onChange={handleImageChange}
@@ -181,10 +185,6 @@ const AlbumPostModal = (props: AlbumPostModalProps) => {
                 "https://www.youtube.com/embed/nZ5SfoLB5yA?si=l7i-idwk4RyUO9K9"
               }
               value={formValue.musicVideo}
-            />
-            <InputDateField
-              label={"앨범 발매일"}
-              onSelect={handleAlbumReleaseDateChange}
             />
           </div>
           <DialogFooter>

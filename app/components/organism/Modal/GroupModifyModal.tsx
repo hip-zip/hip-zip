@@ -109,7 +109,7 @@ const ArtistModifyModal = (props: GroupModifyModalProps) => {
         setGroupMembers(response?.groupMembers || []);
       });
     }
-  }, [props.open]);
+  }, [props.open, props.id]);
 
   // useEffect(() => {
   //   setFormValue({
