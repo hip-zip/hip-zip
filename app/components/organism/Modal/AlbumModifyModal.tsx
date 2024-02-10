@@ -10,17 +10,30 @@ import {
 import InputField from "@/app/components/molecule/InputField/InputField";
 import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
-import { getArtistDetail, putArtist } from "@/app/api/fetch/api";
+import {
+  getAlbumDetail,
+  getArtistDetail,
+  putAlbum,
+  putArtist,
+  searchArtist,
+} from "@/app/api/fetch/api";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
+import InputArtistField from "@/app/components/molecule/InputField/InputArtistField";
+import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
+import { ArtistType } from "@/app/components/type";
+import InputDateField from "@/app/components/molecule/InputField/InputDateField";
+import { convertDate } from "@/lib/utils";
+import { AlbumPostFormType } from "@/app/components/organism/Modal/AlbumPostModal";
 
 export interface AlbumModifyType {
   id: number;
   name: string;
   image: string;
-  hashtag: Array<string>;
-  artistGroupMemberIds: [];
+  releaseDate: string;
+  musicVideo: string;
+  artistId: number;
 }
 
 export interface AlbumModifyModalProps {
@@ -31,12 +44,25 @@ export interface AlbumModifyModalProps {
 }
 
 const ArtistModifyModal = (props: AlbumModifyModalProps) => {
+  const [response, onSearchQueryChange] = useDebouncedSearch<ArtistType>(
+    (query: string) => searchArtist(query),
+    300,
+  );
+
+  const [artistInfo, setArtistInfo] = useState<ArtistType>({
+    name: "",
+    image: "",
+    id: -1,
+    artistType: "SOLO",
+  });
+
   const [formValue, setFormValue] = useState<AlbumModifyType>({
     id: 0,
     name: "",
     image: "",
-    hashtag: [],
-    artistGroupMemberIds: [],
+    releaseDate: new Date().toString(),
+    musicVideo: "",
+    artistId: -1,
   });
 
   const [handleNameChange] = useFormInput<AlbumModifyType>(
@@ -47,16 +73,25 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
     setFormValue,
     "image",
   );
-  const [hashtag, handleHashtagChange, handleHashtagInputKeyDown] =
-    useContinualInput<AlbumModifyType>(
-      formValue.hashtag,
-      setFormValue,
-      "hashtag",
-    );
 
+  const [handleMusicVideoChange] = useFormInput<AlbumModifyType>(
+    setFormValue,
+    "musicVideo",
+  );
+
+  const handleAlbumReleaseDateChange = (date: Date | undefined) => {
+    if (date) {
+      setFormValue((prev) => {
+        return {
+          ...prev,
+          releaseDate: convertDate(date),
+        };
+      });
+    }
+  };
   const handleArtistSubmit = async () => {
     try {
-      const response = await putArtist<AlbumModifyType>(formValue);
+      const response = await putAlbum<AlbumModifyType>(formValue);
 
       if (response.ok) {
         toast({
@@ -67,11 +102,12 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
         });
 
         setFormValue({
-          id: 0,
+          id: -1,
           name: "",
           image: "",
-          hashtag: [],
-          artistGroupMemberIds: [],
+          releaseDate: new Date().toString(),
+          musicVideo: "",
+          artistId: -1,
         });
 
         props.setOpen(false);
@@ -83,17 +119,17 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
 
   useEffect(() => {
     if (props.id !== -1 && props.open) {
-      getArtistDetail(props.id).then((response) => {
-        console.log("ArtistModifyModal.tsx:84 - response = ", response);
-
+      getAlbumDetail(props.id).then((response) => {
         setFormValue({
           id: props.id,
           name: response?.name || "",
           image: response?.image || "",
-          hashtag: response?.hashtag || [],
-          artistGroupMemberIds: [],
+          releaseDate: response?.releaseDate || "",
+          musicVideo: response?.musicVideo || "",
+          artistId: response?.artistResponse.id || -1,
         });
-      });
+        setArtistInfo(response?.artistResponse);
+      }); // TODO: ArtistInfo 추가 설정 해줘야 할 필요가 있음
     }
   }, [props.open]);
 
@@ -113,43 +149,48 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
           <DialogHeader>
             <DialogTitle className={"mb-3"}>아티스트 수정하기</DialogTitle>
             <DialogDescription>
-              - 아티스트의 이름 입력시 본명이 아닌 A.K.A(활동명)으로
-              작성해주세요.
+              - 아티스트는 한 명만 넣으실 수 있습니다.
             </DialogDescription>
             <DialogDescription>
-              - 아티스트의 이미지 입력시 URL을 입력하셔야 합니다.
-            </DialogDescription>
-            <DialogDescription>
-              - 검색 힌트 입력시 단어를 입력 후 엔터를 치시면 됩니다.
-            </DialogDescription>
-            <DialogDescription>
-              - 키드밀리를 예로 들면 KID MILLI, 최원재 등으로 입력하시면 됩니다.
+              - 앨범 이미지 입력시 URL을 입력하셔야 합니다.
             </DialogDescription>
           </DialogHeader>
           <div className={"flex flex-col gap-3"}>
             <InputField
-              label={"아티스트 이름"}
+              label={"앨범 이름"}
               onChange={handleNameChange}
               value={formValue.name}
               // defaultValue={props.detailData?.name || ""}
             />
+            <InputArtistField
+              label={"아티스트 이름"}
+              onChange={onSearchQueryChange}
+              placeholder={"입력하여 검색하세요"}
+              artistInfo={artistInfo}
+              setArtistInfo={setArtistInfo}
+            />
             <InputField
-              label={"아티스트 이미지"}
+              label={"앨범 이미지"}
               onChange={handleImageChange}
               value={formValue.image}
             />
-            <InputHashtagField
-              label={"검색 힌트"}
-              placeholder={"지코, ZICO, 우지호"}
-              className={"m-0"}
-              onChange={handleHashtagChange}
-              onKeyDown={handleHashtagInputKeyDown}
-              tagList={formValue.hashtag}
+            <InputField
+              label={"뮤직 비디오"}
+              onChange={handleMusicVideoChange}
+              placeholder={
+                "https://www.youtube.com/embed/nZ5SfoLB5yA?si=l7i-idwk4RyUO9K9"
+              }
+              value={formValue.musicVideo}
+            />
+            <InputDateField
+              label={"앨범 발매일"}
+              onSelect={handleAlbumReleaseDateChange}
+              date={formValue.releaseDate}
             />
           </div>
           <DialogFooter>
             <ConfirmDialog
-              target={"아티스트"}
+              target={"앨범"}
               action={"수정"}
               ok={handleArtistSubmit}
             />

@@ -15,6 +15,7 @@ import {
 
 interface DatePickerProps {
   onSelect: (date: Date | undefined) => void;
+  date?: string;
   className?: string;
 }
 
@@ -33,7 +34,13 @@ export function DatePicker(props: DatePickerProps) {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "yyyy-MM-dd") : <span>Pick a date</span>}
+          {date ? (
+            format(date, "yyyy-MM-dd")
+          ) : props.date ? (
+            props.date
+          ) : (
+            <span>발매일을 선택해주세요</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -43,10 +50,10 @@ export function DatePicker(props: DatePickerProps) {
         <Calendar
           mode="single"
           selected={date}
+          captionLayout="dropdown-buttons"
           onSelect={(date) => {
             setDate(date);
             props.onSelect(date);
-            // props.onSelect(e);
           }}
           initialFocus
         />

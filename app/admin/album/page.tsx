@@ -2,8 +2,9 @@
 
 import { getAlbum, getAlbumDetail, searchAlbum } from "@/app/api/fetch/api";
 import ContentsManagement from "@/app/components/template/Management/ContentsManagement";
-import { useState } from "react";
+import React, { useState } from "react";
 import AlbumPostModal from "@/app/components/organism/Modal/AlbumPostModal";
+import AlbumModifyModal from "@/app/components/organism/Modal/AlbumModifyModal";
 
 export interface AlbumType {
   id: number;
@@ -12,6 +13,7 @@ export interface AlbumType {
 }
 
 export default function Page() {
+  const [albumDetailId, setAlbumDetailId] = useState<number>(-1);
   const [albumPostModalOpen, setAlbumPostModalOpen] = useState<boolean>(false);
   const [albumModifyModalOpen, setAlbumModifyModalOpen] =
     useState<boolean>(false);
@@ -20,7 +22,8 @@ export default function Page() {
     setAlbumPostModalOpen(true);
   };
 
-  const handleModifyModalOpen = () => {
+  const handleModifyModalOpen = (album: AlbumType) => {
+    setAlbumDetailId(album.id);
     setAlbumModifyModalOpen(true);
   };
 
@@ -37,6 +40,11 @@ export default function Page() {
       <AlbumPostModal
         open={albumPostModalOpen}
         setOpen={setAlbumPostModalOpen}
+      />
+      <AlbumModifyModal
+        id={albumDetailId}
+        open={albumModifyModalOpen}
+        setOpen={setAlbumModifyModalOpen}
       />
     </>
   );

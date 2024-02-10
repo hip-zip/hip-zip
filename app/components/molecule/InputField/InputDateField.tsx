@@ -10,13 +10,18 @@ interface InputDateFieldProps {
   className?: string;
   defaultValue?: string;
   onSelect: (date: Date | undefined) => void;
+  date?: string;
 }
 
 const InputDateField = (props: InputDateFieldProps) => {
   return (
     <div className={"flex justify-between items-center"}>
       <Label className="text-right w-24">{props.label}</Label>
-      <DatePicker onSelect={props.onSelect} className={"w-[70%]"} />
+      <DatePicker
+        onSelect={props.onSelect}
+        className={"w-[70%]"}
+        date={props.date}
+      />
     </div>
   );
 };

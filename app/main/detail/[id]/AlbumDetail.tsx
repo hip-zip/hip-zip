@@ -30,7 +30,7 @@ const AlbumDetail = (props: AlbumDetailProps) => {
         albumName={props.album.name}
         artistName={props.album.artistResponse.name}
       />
-      <LikeDislike onClick={() => alert("기능 개발 예정")} />
+      <LikeDislike onClick={() => {}} />
       <MusicVideoContainer src={props.album.musicVideo} />
       <div className={"h-48"} />
     </div>
