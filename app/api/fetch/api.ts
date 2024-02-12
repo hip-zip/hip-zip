@@ -26,7 +26,7 @@ export const putArtist = async <T>(
   return await Put("/artists", params);
 };
 
-export const getArtistDetail = async (id: number) => {
+export const getArtistDetail = async (id: number | string) => {
   return (await Get(`/artists/${id}`, {})) as ArtistDetailType;
 };
 

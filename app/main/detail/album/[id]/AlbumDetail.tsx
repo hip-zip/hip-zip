@@ -23,6 +23,16 @@ const AlbumDetail = (props: AlbumDetailProps) => {
     });
   }, []);
 
+  const handleArtistLabelClick = () => {
+    if (document?.startViewTransition) {
+      document.startViewTransition(() => {
+        router.push(`/main/artist/${props.album.artistResponse.id}`);
+      });
+    } else {
+      router.push(`/main/artist/${props.album.artistResponse.id}`);
+    }
+  };
+
   return (
     <div className={"w-full flex flex-col justify-center items-center"}>
       <SpinningAlbum image={props.album.image} />

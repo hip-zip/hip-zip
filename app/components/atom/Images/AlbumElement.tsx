@@ -3,12 +3,12 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 import { AlbumType } from "../../type";
-interface AlbumProps {
+interface AlbumElementProps {
   album: AlbumType;
   setScrollLocation: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const SupabaseAlbum = (props: AlbumProps) => {
+export const AlbumElement = (props: AlbumElementProps) => {
   const router = useRouter();
 
   return (
@@ -24,11 +24,11 @@ export const SupabaseAlbum = (props: AlbumProps) => {
           if (document?.startViewTransition) {
             document.startViewTransition(() => {
               props.setScrollLocation(window.scrollY);
-              router.push(`/main/detail/${props.album.id}`);
+              router.push(`/main/detail/album/${props.album.id}`);
             });
           } else {
             props.setScrollLocation(window.scrollY);
-            router.push(`/main/detail/${props.album.id}`);
+            router.push(`/main/detail/album/${props.album.id}`);
           }
         }}
       />

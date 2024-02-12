@@ -46,30 +46,30 @@ const SpinningAlbum = (props: SpinningAlbumProps) => {
         className="rounded-full transition-transform hover:scale-95 hover:brightness-95 animate-spin-slow cd-image"
         // sd-md sd-white shadow-lg shadow-amber-800
       />
-      <svg
-        className="absolute inset-0 rounded-full"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <mask id="cd-mask" x="0" y="0" width="100%" height="100%">
-            <circle
-              cx={cdVector.cx ? cdVector.cx : "50%"}
-              cy={cdVector.cy ? cdVector.cy : "50%"}
-              r={cdVector.r ? cdVector.r : "15%"}
-              fill={cdVector.fill}
-            />
-          </mask>
-        </defs>
-        <rect
-          x="0"
-          y="0"
-          width="100%"
-          height="100%"
-          fill="#000"
-          mask="url(#cd-mask)"
-        />
-      </svg>
+      {/*<svg*/}
+      {/*  className="absolute inset-0 rounded-full opacity-20"*/}
+      {/*  viewBox="0 0 100 100"*/}
+      {/*  xmlns="http://www.w3.org/2000/svg"*/}
+      {/*>*/}
+      {/*  <defs>*/}
+      {/*    <mask id="cd-mask" x="0" y="0" width="100%" height="100%">*/}
+      {/*      <circle*/}
+      {/*        cx={cdVector.cx ? cdVector.cx : "50%"}*/}
+      {/*        cy={cdVector.cy ? cdVector.cy : "50%"}*/}
+      {/*        r={cdVector.r ? cdVector.r : "15%"}*/}
+      {/*        fill={cdVector.fill}*/}
+      {/*      />*/}
+      {/*    </mask>*/}
+      {/*  </defs>*/}
+      {/*  <rect*/}
+      {/*    x="0"*/}
+      {/*    y="0"*/}
+      {/*    width="100%"*/}
+      {/*    height="100%"*/}
+      {/*    fill="#000"*/}
+      {/*    mask="url(#cd-mask)"*/}
+      {/*  />*/}
+      {/*</svg>*/}
     </div>
   );
 };

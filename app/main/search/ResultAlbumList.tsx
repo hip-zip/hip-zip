@@ -23,10 +23,10 @@ const ResultAlbumList = (props: { albumList: AlbumListType[] }) => {
               onClick={() => {
                 if (document?.startViewTransition) {
                   document.startViewTransition(() => {
-                    router.push(`/main/detail/${item.id}`);
+                    router.push(`/main/detail/album/${item.id}`);
                   });
                 } else {
-                  router.push(`/main/detail/${item.id}`);
+                  router.push(`/main/detail/album/${item.id}`);
                 }
               }}
             />

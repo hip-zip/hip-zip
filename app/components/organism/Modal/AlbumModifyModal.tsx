@@ -91,7 +91,12 @@ const ArtistModifyModal = (props: AlbumModifyModalProps) => {
   };
   const handleArtistSubmit = async () => {
     try {
-      const response = await putAlbum<AlbumModifyType>(formValue);
+      const params = {
+        ...formValue,
+        artistId: artistInfo.id,
+      };
+
+      const response = await putAlbum<AlbumModifyType>(params);
 
       if (response.ok) {
         toast({

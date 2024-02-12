@@ -22,7 +22,8 @@ export interface AlbumListProps {
 }
 
 export default async function Page() {
-  const albumList = await fetchSupabase(0); // 첫 로드 시에만 40개 정도 가져오는 방식으로 사용 예정
+  // const albumList = await fetchSupabase(0); // 첫 로드 시에만 40개 정도 가져오는 방식으로 사용 예정
+  // TODO: Deprecated
 
   return (
     <Suspense>
