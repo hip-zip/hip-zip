@@ -9,7 +9,7 @@ import com.example.hipzip.domain.album.AlbumRepository;
 import com.example.hipzip.domain.artist.Artist;
 import com.example.hipzip.domain.artist.ArtistRepository;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AlbumService {
 
     private final AlbumRepository albumRepository;
