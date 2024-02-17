@@ -11,3 +11,10 @@ spring:
       ddl-auto: none
 server:
   port: ${SERVER_PORT}
+oauth:
+  kakao:
+    clientId: ${KAKAO_CLIENT_ID}
+    redirectUri: ${KAKAO_REDIRECT_URI}
+    providerName: ${KAKAO_PROVIDER_NAME}
+    scope: ${KAKAO_SCOPE}
+    clientSecret: ${KAKAO_CLIENT_SECRET}

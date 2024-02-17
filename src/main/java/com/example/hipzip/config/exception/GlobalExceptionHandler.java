@@ -2,6 +2,7 @@ package com.example.hipzip.config.exception;
 
 import com.example.hipzip.config.exception.ErrorResponse.FieldErrorResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,7 @@ public class GlobalExceptionHandler {
                 errors
         );
 
+        log.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
@@ -58,6 +60,7 @@ public class GlobalExceptionHandler {
                 e.getMessage()
         );
 
+        log.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
