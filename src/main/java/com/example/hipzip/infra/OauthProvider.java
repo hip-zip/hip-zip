@@ -4,5 +4,5 @@ public interface OauthProvider {
 
     boolean supports(final String providerName);
     String getUrl();
-    String getIdToken(OauthTokenRequest request);
+    IdToken getIdToken(OauthTokenRequest request);
 }

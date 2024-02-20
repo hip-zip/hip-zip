@@ -26,6 +26,13 @@ dependencies {
     //open-feign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.3'
 
+    //jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    implementation 'com.auth0:java-jwt:3.19.0'
+    implementation 'com.auth0:jwks-rsa:0.21.1'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 

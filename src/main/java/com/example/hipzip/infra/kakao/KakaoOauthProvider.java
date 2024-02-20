@@ -1,9 +1,14 @@
 package com.example.hipzip.infra.kakao;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.hipzip.infra.IdToken;
 import com.example.hipzip.infra.OauthProvider;
 import com.example.hipzip.infra.OauthTokenRequest;
 import com.example.hipzip.infra.kakao.dto.KakaoOauthTokenRequest;
 import com.example.hipzip.infra.kakao.dto.KakaoOauthTokenResponse;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -32,7 +37,7 @@ public class KakaoOauthProvider implements OauthProvider {
     }
 
     @Override
-    public String getIdToken(final OauthTokenRequest request) {
+    public IdToken getIdToken(final OauthTokenRequest request) {
         KakaoOauthTokenRequest kakaoOauthTokenRequest = KakaoOauthTokenRequest.builder()
                 .clientId(config.clientId())
                 .redirectUri(config.redirectUri())
@@ -42,6 +47,10 @@ public class KakaoOauthProvider implements OauthProvider {
                 .build();
 
         KakaoOauthTokenResponse response = client.getToken(kakaoOauthTokenRequest);
-        return response.getIdToken();
+
+        DecodedJWT decoded = JWT.decode(response.getIdToken());
+        Map<String, Claim> claims = decoded.getClaims();
+
+        return new KakaoIdToken(claims);
     }
 }
