@@ -16,3 +16,12 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
+oauth:
+  kakao:
+    clientId: ""
+    redirectUri: ""
+    providerName: ""
+    scope: ""
+    clientSecret: ""
+jwt-secret : "985777887625d965d4bc917ec549c96e9d3b00b0c362dca2c61342d471fb3a4b533e0edb9fa6260c697812f1f458d10e863827d19a969169f4d306fde25b7962"
+jwt-expiration-time-millisecond : 43200000
