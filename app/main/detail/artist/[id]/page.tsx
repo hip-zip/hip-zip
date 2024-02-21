@@ -1,4 +1,4 @@
-import { getAlbumDetail, getArtistDetail } from "@/app/api/fetch/api";
+import { getAlbumDetail, getArtistDetail } from "@/app/api/fetch/requests";
 import React from "react";
 import ArtistDetailPage from "@/app/components/template/Detail/ArtistDetailPage";
 

@@ -26,7 +26,7 @@ export interface AlbumType {
   id: number;
   name: string;
   image: string;
-}
+} // ImageGridType
 
 export interface AlbumDetailType {
   id: number;

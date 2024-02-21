@@ -5,42 +5,55 @@ import { AlbumType } from "@/app/admin/album/page";
 import { ArtistType } from "@/app/components/type";
 import ArtistImageGrid from "@/app/components/molecule/ImageGrid/ArtistImageGrid";
 import AlbumImageGrid from "@/app/components/molecule/ImageGrid/AlbumImageGrid";
+import Image from "next/image";
 
-interface ImageGridProps<T extends AlbumType | ArtistType> {
+interface ImageGridTypes {
+  id: number;
+  image: string;
+  name: string;
+}
+
+interface ImageGridProps<T extends ImageGridTypes> {
   data: T[];
   handleImageClick: (item: T) => void;
   type: "artists" | "albums";
   className?: string;
 }
 
-const ImageGrid = <T extends AlbumType | ArtistType>(
-  props: ImageGridProps<T>,
-) => {
-  useEffect(() => {
-    console.log("ImageGrid.tsx:20 - props.type = ", props.type);
-  }, [props.type]);
+// type ImageGridProps =
+//   | {
+//       data: ArtistType[];
+//       className?: string;
+//       type: "artists";
+//       handleImageClick: (item: ArtistType) => void;
+//     }
+//   | {
+//       data: AlbumType[];
+//       className?: string;
+//       type: "albums";
+//       handleImageClick: (item: AlbumType) => void;
+//     }; // solo5star Solution
 
-  const Contents = useMemo<Record<string, React.ReactNode>>(
-    () => ({
-      artists: (
-        <ArtistImageGrid
-          artists={props.data as ArtistType[]}
-          handleImageClick={
-            props.handleImageClick as (item: ArtistType) => void
-          } // Type assertion to ArtistType
-        />
-      ),
-      albums: (
-        <AlbumImageGrid
-          albums={props.data as AlbumType[]}
-          handleImageClick={props.handleImageClick as (item: AlbumType) => void} // Type assertion to AlbumType
-        />
-      ),
-    }),
-    [props.type, props.data],
-  );
-
-  const OptionalGrid = Contents[props.type];
+const ImageGrid = <T extends ImageGridTypes>(props: ImageGridProps<T>) => {
+  // const Contents = useMemo<Record<string, React.ReactNode>>(
+  //   () => ({
+  //     artists: (
+  //       <ArtistImageGrid
+  //         artists={props.data}
+  //         handleImageClick={props.handleImageClick}
+  //       />
+  //     ),
+  //     albums: (
+  //       <AlbumImageGrid
+  //         albums={props.data}
+  //         handleImageClick={props.handleImageClick}
+  //       />
+  //     ),
+  //   }),
+  //   [props.type, props.data],
+  // );
+  //
+  // const OptionalGrid = Contents[props.type];
 
   return (
     <div className={"flex justify-center"}>
@@ -50,7 +63,18 @@ const ImageGrid = <T extends AlbumType | ArtistType>(
           props.className || "",
         )}
       >
-        {OptionalGrid}
+        {props.data?.map((content) => (
+          <Image
+            key={content.id}
+            src={content.image}
+            alt={"개발자한테 사진 넣으라고 전해주세요"}
+            width={250}
+            height={250}
+            className="rounded-md transition-transform hover:scale-95 hover:brightness-95"
+            title={`${content.name}`}
+            onClick={() => props.handleImageClick(content)}
+          />
+        ))}
       </div>
     </div>
   );

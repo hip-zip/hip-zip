@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
-import { searchArtist } from "@/app/api/fetch/api";
+import { searchArtist } from "@/app/api/fetch/requests";
 import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModal";
 import XIcon from "@/app/components/atom/Icon/X-Icon";
 import CarouselComponent from "@/app/components/molecule/Carousel/Carousel";

@@ -12,7 +12,11 @@ import InputField from "@/app/components/molecule/InputField/InputField";
 
 import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
-import { getArtistDetail, postArtist, putArtist } from "@/app/api/fetch/api";
+import {
+  getArtistDetail,
+  postArtist,
+  putArtist,
+} from "@/app/api/fetch/requests";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";

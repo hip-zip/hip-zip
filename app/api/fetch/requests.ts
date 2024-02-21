@@ -43,7 +43,7 @@ export const getAlbum = async (page: number) => {
     page: page,
   };
 
-  console.log("api.ts:46 - params = ", params);
+  console.log("requests.ts:46 - params = ", params);
   return (await Get("/albums", params)) as AlbumType[];
 };
 
@@ -66,4 +66,8 @@ export const searchAlbum = async (query: string) => {
 export const getAlbumDetail = async (id: number | string) => {
   const params = {};
   return (await Get(`/albums/${id}`, params)) as AlbumDetailType;
+};
+
+export const getKakaoAuthURL = async () => {
+  return await fetch(process.env.baseURL + "/oauth/kakao");
 };

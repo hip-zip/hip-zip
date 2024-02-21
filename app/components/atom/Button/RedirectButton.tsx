@@ -14,7 +14,7 @@ const RedirectButton = (props: RedirectButtonProps) => {
 
   return (
     <Button
-      className=""
+      className="w-72 h-10"
       type={"button"}
       message={props.message}
       handleButtonClick={() => {

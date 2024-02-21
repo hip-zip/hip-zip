@@ -1,7 +1,11 @@
 "use client";
 
 import ContentsManagement from "@/app/components/template/Management/ContentsManagement";
-import { getArtist, getArtistDetail, searchArtist } from "@/app/api/fetch/api";
+import {
+  getArtist,
+  getArtistDetail,
+  searchArtist,
+} from "@/app/api/fetch/requests";
 import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
 import { Suspense, useState } from "react";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";

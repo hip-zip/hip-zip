@@ -1,4 +1,4 @@
-import { getAlbum } from "@/app/api/fetch/api";
+import { getAlbum } from "@/app/api/fetch/requests";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

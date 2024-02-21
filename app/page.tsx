@@ -1,9 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import RedirectButton from "@/app/components/atom/Button/RedirectButton";
 import Logo from "@/public/static/logo.png";
 import Label from "@/app/components/atom/Label/Label";
+import KakaoLoginIcon from "@/public/static/kakaoLoginIcon.png";
+import { getKakaoAuthURL } from "@/app/api/fetch/requests";
 
 export default function Home() {
+  const handleKaKaoAuth = async () => {
+    const response = await getKakaoAuthURL();
+    window.open(await response.text(), "_blank");
+
+    const linkElement = document.createElement("a");
+    linkElement.href = await response.text();
+    // const popup = window.open(
+    //   await response.text(),
+    //   "KakaoAuthPopup",
+    //   "width=600,height=600",
+    // );
+  };
+
   return (
     <div className={"h-screen flex flex-col justify-center items-center"}>
       <Image
@@ -18,6 +35,14 @@ export default function Home() {
         message={"HIPZIP"}
       />
       <div className={"flex justify-center"}>
+        <Image
+          src={KakaoLoginIcon}
+          alt={"개발자한테 문의주세요"}
+          className={"w-72 h-10 cursor-pointer"}
+          onClick={handleKaKaoAuth}
+        />
+      </div>
+      <div className={"mt-2 flex justify-center"}>
         <RedirectButton
           redirectUrl={"main"}
           message={"앨범 리스트를 확인하러 가봅시다 🔥"}
