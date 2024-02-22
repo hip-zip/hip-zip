@@ -9,11 +9,15 @@ import { getKakaoAuthURL } from "@/app/api/fetch/requests";
 
 export default function Home() {
   const handleKaKaoAuth = async () => {
-    const response = await getKakaoAuthURL();
-    window.open(await response.text(), "_blank");
+    // const response = await getKakaoAuthURL();
+    window.location.href =
+      "https://accounts.kakao.com/login/?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fscope%3Dopenid%252Caccount_email%26response_type%3Dcode%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A3000%252Foauth%252Fkakao%252Fcallback%26through_account%3Dtrue%26client_id%3D8ddca437c7016b2818e52c567828dbb4#login";
 
-    const linkElement = document.createElement("a");
-    linkElement.href = await response.text();
+    // window.open(await response.text(), "_blank");
+    //
+    // const linkElement = document.createElement("a");
+    // linkElement.href = await response.text();
+
     // const popup = window.open(
     //   await response.text(),
     //   "KakaoAuthPopup",

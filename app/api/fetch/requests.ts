@@ -43,8 +43,20 @@ export const getAlbum = async (page: number) => {
     page: page,
   };
 
-  console.log("requests.ts:46 - params = ", params);
   return (await Get("/albums", params)) as AlbumType[];
+};
+
+export const getInfiniteAlbum = async (page: any) => {
+  const params = {
+    size: 40,
+    page: page,
+  };
+
+  const response = (await Get("/albums", params)) as AlbumType[];
+  if (response?.length === 0) {
+    return { data: response, nextCursor: undefined };
+  }
+  return { data: response, nextCursor: page + 1 };
 };
 
 export const postAlbum = async <T>(
@@ -69,5 +81,14 @@ export const getAlbumDetail = async (id: number | string) => {
 };
 
 export const getKakaoAuthURL = async () => {
-  return await fetch(process.env.baseURL + "/oauth/kakao");
+  return await Get("/oauth/kakao", {});
+};
+
+export const getKakaoToken = async (code: string) => {
+  const response = await Post(
+    `/oauth/kakao/callback?state=string&code=${code}`,
+    {},
+  );
+
+  return response;
 };

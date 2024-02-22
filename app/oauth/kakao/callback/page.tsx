@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
-import { getKakaoToken } from "@/app/api/fetch/requests";
 import { cookies } from "next/headers";
+import { getKakaoToken } from "@/app/api/fetch/requests";
+import LoginModule from "@/app/oauth/kakao/callback/LoginModule";
 
 export default async function Page({
   params,
@@ -9,23 +10,15 @@ export default async function Page({
   params: { slug: string };
   searchParams?: { [key: string]: string | undefined };
 }) {
-  const loginRedirect = async () => {
-    const code = searchParams?.code;
+  const code = searchParams?.code;
+  let token = "";
 
-    if (code) {
-      // const response = await getKakaoToken(code);
-      const response = await fetch(
-        "http://localhost:3000/api/oauth/kakao/callback?code=" + code,
-      );
-      console.log("page.tsx:18 - response = ", response);
+  if (code) {
+    const response = await getKakaoToken(code);
+    const body = await response.arrayBuffer();
+    const decoder = new TextDecoder("utf-8");
+    token = decoder.decode(body);
+  }
 
-      redirect("/main");
-    } else {
-      redirect("/");
-    }
-  };
-
-  await loginRedirect();
-
-  return;
+  return <LoginModule token={token} />;
 }
