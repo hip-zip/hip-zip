@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useLayoutEffect } from "react";
-import { getKakaoToken } from "@/app/api/fetch/requests";
+import { getKakaoToken } from "@/app/api/Client/requests";
 import { useRouter } from "next/navigation";
 import { useTokenStore } from "@/app/store/useTokenStore";
 

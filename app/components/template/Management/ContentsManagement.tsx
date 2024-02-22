@@ -5,7 +5,7 @@ import {
   getArtist,
   getArtistDetail,
   searchArtist,
-} from "@/app/api/fetch/requests";
+} from "@/app/api/Client/requests";
 import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
 import useIntersectionObserver from "@/app/hook/useIntersectionObserver";
 import { AlbumType } from "@/app/admin/album/page";

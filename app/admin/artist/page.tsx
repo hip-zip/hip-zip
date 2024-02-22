@@ -5,7 +5,7 @@ import {
   getArtist,
   getArtistDetail,
   searchArtist,
-} from "@/app/api/fetch/requests";
+} from "@/app/api/Client/requests";
 import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
 import { Suspense, useState } from "react";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";

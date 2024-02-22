@@ -4,7 +4,7 @@ import {
   getAlbum,
   getAlbumDetail,
   searchAlbum,
-} from "@/app/api/fetch/requests";
+} from "@/app/api/Client/requests";
 import ContentsManagement from "@/app/components/template/Management/ContentsManagement";
 import React, { useState } from "react";
 import AlbumPostModal from "@/app/components/organism/Modal/AlbumPostModal";

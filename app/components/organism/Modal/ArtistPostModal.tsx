@@ -14,7 +14,7 @@ import InputField from "@/app/components/molecule/InputField/InputField";
 import InputHashtagField from "@/app/components/molecule/InputField/InputHashtagField";
 import useFormInput from "@/app/hook/useFormInput";
 import useContinualInput from "@/app/hook/useContinualInput";
-import { postArtist } from "@/app/api/fetch/requests";
+import { postArtist } from "@/app/api/Client/requests";
 import ConfirmDialog from "@/app/components/atom/ConfirmDialog/ConfirmDialog";
 import { useToast } from "@/components/ui/use-toast";
 import InputComboBoxField from "@/app/components/molecule/InputField/InputComboBoxField";

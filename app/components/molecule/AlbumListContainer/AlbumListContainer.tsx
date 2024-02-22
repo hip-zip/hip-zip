@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AlbumElement } from "@/app/components/atom/Images/AlbumElement";
 import { AlbumType } from "@/app/components/type";
-import { getInfiniteAlbum } from "@/app/api/fetch/requests";
+import { getInfiniteAlbum } from "@/app/api/Client/requests";
 
 interface AlbumFetchType {
   data: AlbumType[];
@@ -24,7 +24,7 @@ const AlbumListContainer = (props: AlbumListContainerProps) => {
     useInfiniteQuery<AlbumFetchType, Error>({
       queryKey: ["albums", param.get("year")],
       queryFn: ({ pageParam = 1 }) =>
-        // fetch(`/api/album?page=${pageParam}`).then((res) => res.json()),
+        // Client(`/api/album?page=${pageParam}`).then((res) => res.json()),
         getInfiniteAlbum(pageParam),
       getNextPageParam: (lastPage) => lastPage.nextCursor,
       initialPageParam: 0, // Add this line to specify the initialPageParam

@@ -5,7 +5,7 @@ import RedirectButton from "@/app/components/atom/Button/RedirectButton";
 import Logo from "@/public/static/logo.png";
 import Label from "@/app/components/atom/Label/Label";
 import KakaoLoginIcon from "@/public/static/kakaoLoginIcon.png";
-import { getKakaoAuthURL } from "@/app/api/fetch/requests";
+import { getKakaoAuthURL } from "@/app/api/Client/requests";
 
 export default function Home() {
   const handleKaKaoAuth = async () => {
