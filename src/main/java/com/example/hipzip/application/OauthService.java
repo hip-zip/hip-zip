@@ -23,7 +23,9 @@ public class OauthService {
 
         Optional<User> findUser = userRepository.findByEmail(idToken.getEmail());
 
-        User user = findUser.orElseGet(() -> userRepository.save(new User(idToken.getEmail())));
+        User user = findUser.orElseGet(() -> userRepository.save(new User(
+                idToken.getEmail(), idToken.getNickName(), idToken.getImage()
+        )));
 
         return jwtTokenProvider.generateToken(user.getEmail());
     }

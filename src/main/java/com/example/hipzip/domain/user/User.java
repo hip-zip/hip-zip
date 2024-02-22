@@ -13,8 +13,12 @@ import lombok.NoArgsConstructor;
 public class User extends BaseEntity {
 
     private String email;
+    private String nickname;
+    private String image;
 
-    public User(final String email) {
+    public User(final String email, final String nickname, final String image) {
         this.email = email;
+        this.nickname = nickname;
+        this.image = image;
     }
 }

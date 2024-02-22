@@ -30,11 +30,15 @@ class OauthServiceTest {
     @Test
     void 소셜_로그인_할_수있다() {
         //given
-        OauthTokenRequest request = new OauthTokenRequest("", "test");
+        OauthTokenRequest request = new OauthTokenRequest("test");
         String providerName = "kakao";
         String kakaoMail = "test@kakao.com";
         given(oauthProviders.getIdToken(refEq(request), refEq(providerName)))
-                .willReturn(new TestToken(kakaoMail));
+                .willReturn(new TestToken(
+                        kakaoMail,
+                        "라이언",
+                        "https://upload.wikimedia.org/wikipedia/en/8/87/Kakaofriends.png"
+                ));
 
         //when
         String token = oauthService.generateToken(request, providerName);
