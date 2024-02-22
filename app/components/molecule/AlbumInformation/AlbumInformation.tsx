@@ -13,9 +13,7 @@ interface AlbumInformationProps {
 const AlbumInformation = (props: AlbumInformationProps) => {
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("AlbumInformation.tsx:14 - artist = ", props.artist);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>

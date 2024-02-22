@@ -91,9 +91,7 @@ const AlbumPostModal = (props: AlbumPostModalProps) => {
   // const [artistType, setArtistType] = useState<string>("SOLO");
   // const [open, setOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log("AlbumPostModal.tsx:81 - formValue = ", formValue);
-  }, [formValue]);
+  useEffect(() => {}, [formValue]);
 
   const handleAlbumSubmit = async () => {
     if (artistInfo.id === -1) {
@@ -135,9 +133,7 @@ const AlbumPostModal = (props: AlbumPostModalProps) => {
         });
         props.setOpen(false);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   return (

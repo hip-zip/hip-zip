@@ -12,9 +12,7 @@ interface ArtistImageGridProps {
 }
 
 const ArtistImageGrid = (props: ArtistImageGridProps) => {
-  useEffect(() => {
-    console.log("ArtistImageGrid.tsx:15 - props.artists = ", props.artists);
-  }, [props.artists]);
+  useEffect(() => {}, [props.artists]);
 
   return (
     <>

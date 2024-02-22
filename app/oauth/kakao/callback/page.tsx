@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { getKakaoToken } from "@/app/api/Client/requests";
+import { getKakaoToken } from "@/app/api/Server/requests";
 import LoginModule from "@/app/oauth/kakao/callback/LoginModule";
 
 export default async function Page({

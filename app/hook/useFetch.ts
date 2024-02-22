@@ -9,9 +9,7 @@ const useFetch = <T, U>(method: (obj: U) => Promise<T>, obj: U): T => {
         const result = await method(obj);
         // setData((prev) => [...prev, result]);
         setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      } catch (error) {}
     };
 
     fetchData();

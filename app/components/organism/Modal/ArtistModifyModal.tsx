@@ -76,16 +76,12 @@ const ArtistModifyModal = (props: ArtistModifyModalProps) => {
 
         props.setOpen(false);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
     if (props.id !== -1 && props.open) {
       getArtistDetail(props.id).then((response) => {
-        console.log("ArtistModifyModal.tsx:84 - response = ", response);
-
         setFormValue({
           id: props.id,
           name: response?.name || "",

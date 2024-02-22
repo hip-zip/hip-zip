@@ -49,7 +49,6 @@ const CarouselComponent = <
                       height={150}
                       className={"rounded-lg mt-2"}
                       onClick={() => {
-                        console.log("Carousel.tsx:53 - item = ", item);
                         props.setData(item);
                         props.close();
                       }}

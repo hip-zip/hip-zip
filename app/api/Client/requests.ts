@@ -79,15 +79,6 @@ export const getKakaoAuthURL = async () => {
   return await Get("/oauth/kakao", {});
 };
 
-export const getKakaoToken = async (code: string) => {
-  const response = await Post(
-    `/oauth/kakao/callback?state=string&code=${code}`,
-    {},
-  );
-
-  return response;
-};
-
 export const getAlbumDetail = async (id: number | string) => {
   const params = {};
   return (await Get(`/albums/${id}`, params)) as AlbumDetailType;

@@ -89,9 +89,7 @@ const ArtistPostModal = (props: ArtistModalProps) => {
 
         props.setOpen(false);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   return (
