@@ -176,9 +176,7 @@ class AlbumControllerTest {
     void 앨범을_삭제할_수_있다() {
         //given-when
         Artist 아이브 = artistRepository.save(ArtistFixture.IVE());
-        Album WAVE = AlbumFixture.WAVE_앨범(아이브);
-
-        albumRepository.save(WAVE);
+        Album WAVE = albumRepository.save(AlbumFixture.WAVE_앨범(아이브));
 
         RestAssured.given().log().all()
                 .contentType(ContentType.JSON)

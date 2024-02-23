@@ -4,6 +4,7 @@ import com.example.hipzip.application.dto.album.AlbumDetailResponse;
 import com.example.hipzip.application.dto.album.AlbumModifyRequest;
 import com.example.hipzip.application.dto.album.AlbumResponse;
 import com.example.hipzip.application.dto.album.AlbumSaveRequest;
+import com.example.hipzip.application.dto.album.AlbumVoteRequest;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.album.AlbumRepository;
 import com.example.hipzip.domain.artist.Artist;
@@ -50,18 +51,18 @@ public class AlbumService {
                 .toList();
     }
 
-    public AlbumDetailResponse findById(Long id) {
+    public AlbumDetailResponse findById(final Long id) {
         return AlbumDetailResponse.of(albumRepository.getById(id));
     }
 
-    public List<AlbumResponse> findByName(String name) {
+    public List<AlbumResponse> findByName(final String name) {
         List<Album> albums = albumRepository.findByNameStartsWith(name);
         return albums.stream()
                 .map(AlbumResponse::of)
                 .toList();
     }
 
-    public void edit(AlbumModifyRequest request) {
+    public void edit(final AlbumModifyRequest request) {
         Album album = albumRepository.getById(request.id());
         Artist artist = artistRepository.getById(request.artistId());
         album.update(
@@ -73,7 +74,14 @@ public class AlbumService {
         );
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(final Long id) {
         albumRepository.deleteById(id);
+    }
+
+    public void addVote(final Long albumId, final Long userId, final AlbumVoteRequest request) {
+        Album album = albumRepository.findById(albumId)
+                .orElseThrow(() -> new IllegalArgumentException("앨범을 찾을 수 없습니다."));
+
+        album.increaseVoteCount(userId, request.count());
     }
 }

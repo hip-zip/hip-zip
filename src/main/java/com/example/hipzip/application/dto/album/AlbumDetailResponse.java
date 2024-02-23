@@ -10,7 +10,8 @@ public record AlbumDetailResponse(
         String image,
         LocalDate releaseDate,
         String musicVideo,
-        ArtistResponse artistResponse
+        ArtistResponse artistResponse,
+        Long vote
 ) {
     public static AlbumDetailResponse of(Album album) {
         return new AlbumDetailResponse(
@@ -19,7 +20,8 @@ public record AlbumDetailResponse(
                 album.getImage(),
                 album.getReleaseDate(),
                 album.getMusicVideo(),
-                ArtistResponse.of(album.getArtist())
+                ArtistResponse.of(album.getArtist()),
+                album.calculateTotalVotes()
         );
     }
 }

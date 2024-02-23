@@ -5,6 +5,8 @@ import com.example.hipzip.application.dto.album.AlbumDetailResponse;
 import com.example.hipzip.application.dto.album.AlbumModifyRequest;
 import com.example.hipzip.application.dto.album.AlbumResponse;
 import com.example.hipzip.application.dto.album.AlbumSaveRequest;
+import com.example.hipzip.application.dto.album.AlbumVoteRequest;
+import com.example.hipzip.domain.user.User;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -66,6 +68,16 @@ public class AlbumController {
             @PathVariable Long id
     ) {
         albumService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/albums/{id}/vote")
+    public ResponseEntity<Void> vote(
+            @PathVariable Long id,
+            @LoginUser User user,
+            @RequestBody AlbumVoteRequest request
+            ) {
+        albumService.addVote(id, user.getId(), request);
         return ResponseEntity.ok().build();
     }
 }
