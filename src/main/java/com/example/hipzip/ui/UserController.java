@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping("/me")
-    public ResponseEntity<UserDetailResponse> generateToken(
+    public ResponseEntity<UserDetailResponse> find(
             @LoginUser User user
     ) {
         return ResponseEntity.ok(UserDetailResponse.of(user));
