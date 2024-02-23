@@ -1,17 +1,4 @@
-import { param } from "ts-interface-checker";
 import { useTokenStore } from "@/app/store/useTokenStore";
-import { cookies } from "next/headers";
-
-const getCookie = (name: string) => {
-  const value = "; " + document.cookie;
-  const parts = value.split("; " + name + "=");
-  if (parts.length === 2) return parts.pop()?.split(";").shift();
-};
-
-const getToken = () => {
-  return getCookie("token");
-};
-
 export const Get = async <T>(
   endpoint: string,
   paramObj: Record<string, any>,
@@ -24,7 +11,9 @@ export const Get = async <T>(
 
   const queryString = new URLSearchParams(params).toString();
   const url = `${endpoint}?${queryString}`;
-  const token = getToken();
+  const token = useTokenStore.getState().token;
+
+  console.log("wrapper.ts:16 - token = ", token);
 
   try {
     const response = await fetch(process.env.baseURL + url, {

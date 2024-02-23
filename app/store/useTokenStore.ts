@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { cookies } from "next/headers";
+import { immer } from "zustand/middleware/immer";
 
 interface TokenStoreType {
   token: string;
-  setToken: (token: string) => void;
 }
-export const useTokenStore = create<TokenStoreType>()((set) => ({
-  token: "",
-  setToken: (token: string) => set({ token: token }),
-}));
+export const useTokenStore = create<TokenStoreType>()(
+  immer((set) => ({
+    token: "",
+  })),
+);

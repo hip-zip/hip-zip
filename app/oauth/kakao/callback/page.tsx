@@ -13,12 +13,12 @@ export default async function Page({
   const code = searchParams?.code;
   let token = "";
 
-  if (code) {
-    const response = await getKakaoToken(code);
-    const body = await response.arrayBuffer();
-    const decoder = new TextDecoder("utf-8");
-    token = decoder.decode(body);
-  }
+  // if (code) {
+  //   const response = await getKakaoToken(code);
+  //   const body = await response.arrayBuffer();
+  //   const decoder = new TextDecoder("utf-8");
+  //   token = decoder.decode(body);
+  // }
 
   return <LoginModule token={token} />;
 }
