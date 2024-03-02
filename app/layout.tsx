@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+"use client";
+
 import "@/public/css/globals.css";
 import "@/public/css/font.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/app/components/organism/Header/Header";
 import { QueryClient } from "@tanstack/react-query";
-import { QueryClientProvider } from "@tanstack/react-query";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "hip_zip",
-  description: "힙합 앨범 리스트를 너희에게 제공하리라 ..",
-};
+import { CookiesProvider, useCookies } from "react-cookie";
+import { setToken, useTokenStore } from "@/app/store/useTokenStore";
+import { getUserInfo } from "@/app/api/Server/requests";
+import { setUserInfo } from "@/app/store/useUserInfoStore";
 
 export default function RootLayout({
   children,
@@ -21,13 +17,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const queryClient = new QueryClient();
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const globalToken = useTokenStore((state) => state.token);
+
+  const validationCheck = async () => {
+    if (globalToken) {
+      setCookie("token", globalToken, { path: "/" });
+      const response = await getUserInfo();
+      setUserInfo(response);
+    }
+  };
+
+  useEffect(() => {
+    if (cookies.token) {
+      setToken(cookies.token);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("layout.tsx:38 - globalToken = ", globalToken);
+    validationCheck();
+  }, [globalToken]);
 
   return (
     <html>
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0 maximum-scale=1"
-      />
       <link rel="apple-touch-icon" href="/icon-192x192.png"></link>
       <meta name="theme-color" content="#1c1c2e" />
       <link
@@ -80,12 +93,14 @@ export default function RootLayout({
         media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
         rel="apple-touch-startup-image"
       />
-      <body className={`${inter.className} h-full min-h-screen`}>
-        <div className="text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
-          <Header />
-          {children}
-          <Toaster />
-        </div>
+      <body className={`h-full min-h-screen`}>
+        <CookiesProvider defaultSetOptions={{ path: "/" }}>
+          <div className="text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
+            <Header />
+            {children}
+            <Toaster />
+          </div>
+        </CookiesProvider>
       </body>
     </html>
   );

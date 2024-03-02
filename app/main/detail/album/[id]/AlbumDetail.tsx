@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/YoutubeEmbededVideo";
 import AlbumInformation from "@/app/components/molecule/AlbumInformation/AlbumInformation";
 import SpinningAlbum from "@/app/components/atom/Images/SpinningAlbum";
-import LikeDislike from "@/app/components/molecule/LikeDislike/LikeDislike";
+import Like from "@/app/components/molecule/Like/Like";
 import { AlbumDetailType } from "@/app/components/type";
+import { postAlbumVote } from "@/app/api/Client/requests";
 
 interface AlbumDetailProps {
   album: AlbumDetailType;
@@ -14,6 +15,7 @@ interface AlbumDetailProps {
 
 const AlbumDetail = (props: AlbumDetailProps) => {
   const router = useRouter();
+  const [likeCount, setLikeCount] = useState<number>(props.album.vote);
 
   useEffect(() => {
     window.addEventListener("popstate", function (event) {
@@ -33,6 +35,11 @@ const AlbumDetail = (props: AlbumDetailProps) => {
     }
   };
 
+  const handleLikeClick = async () => {
+    const response = await postAlbumVote(props.album.id);
+    setLikeCount((prev) => prev + 1);
+  };
+
   return (
     <div className={"w-full flex flex-col justify-center items-center"}>
       <SpinningAlbum image={props.album.image} />
@@ -40,7 +47,7 @@ const AlbumDetail = (props: AlbumDetailProps) => {
         albumName={props.album.name}
         artist={props.album.artistResponse}
       />
-      <LikeDislike onClick={() => {}} />
+      <Like onClick={handleLikeClick} count={likeCount} />
       <MusicVideoContainer src={props.album.musicVideo} />
       <div className={"h-48"} />
     </div>

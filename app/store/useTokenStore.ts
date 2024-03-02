@@ -3,10 +3,21 @@ import { cookies } from "next/headers";
 import { immer } from "zustand/middleware/immer";
 
 interface TokenStoreType {
-  token: string;
+  token: string | undefined;
 }
 export const useTokenStore = create<TokenStoreType>()(
   immer((set) => ({
-    token: "",
+    token: undefined,
   })),
 );
+
+export const getToken = () => {
+  return useTokenStore.getState().token;
+};
+
+export const setToken = (token: string) => {
+  useTokenStore.setState((state) => {
+    state.token = token;
+    return state;
+  });
+};

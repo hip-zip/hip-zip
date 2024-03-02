@@ -32,6 +32,7 @@ export interface AlbumDetailType {
   id: number;
   name: string;
   image: string;
+  vote: number;
   releaseDate: string;
   musicVideo: string;
   artistResponse: ArtistType;

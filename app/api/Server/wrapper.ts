@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { getToken } from "@/app/store/useTokenStore";
 
 export const Get = async <T>(
   endpoint: string,
@@ -12,8 +12,7 @@ export const Get = async <T>(
 
   const queryString = new URLSearchParams(params).toString();
   const url = `${endpoint}?${queryString}`;
-  const cookie = cookies().get("token");
-  const token = cookie?.value;
+  const token = getToken();
 
   try {
     const response = await fetch(process.env.baseURL + url, {
@@ -27,18 +26,19 @@ export const Get = async <T>(
     }
     return (await response.json()) as T;
   } catch (e) {
-    throw e;
+    console.log("wrapper.ts:29 - e = ", e);
   }
 };
 
 // TODO: Server Action 관련 함수 필요
 export const Post = async (endpoint: string, paramObj: Record<string, any>) => {
+  const token = getToken();
   try {
     const response = await fetch(process.env.baseURL + endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(paramObj),
     });
@@ -48,6 +48,6 @@ export const Post = async (endpoint: string, paramObj: Record<string, any>) => {
     }
     return response;
   } catch (e) {
-    throw e;
+    console.log("wrapper.ts:50 - e = ", e);
   }
 };

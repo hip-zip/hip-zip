@@ -1,4 +1,4 @@
-import { useTokenStore } from "@/app/store/useTokenStore";
+import { getToken, useTokenStore } from "@/app/store/useTokenStore";
 export const Get = async <T>(
   endpoint: string,
   paramObj: Record<string, any>,
@@ -11,15 +11,13 @@ export const Get = async <T>(
 
   const queryString = new URLSearchParams(params).toString();
   const url = `${endpoint}?${queryString}`;
-  const token = useTokenStore.getState().token;
-
-  console.log("wrapper.ts:16 - token = ", token);
+  const token = getToken();
 
   try {
     const response = await fetch(process.env.baseURL + url, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `${token && "Bearer " + token}`,
       },
     });
     if (!response.ok) {
@@ -32,12 +30,14 @@ export const Get = async <T>(
 };
 
 export const Post = async (endpoint: string, paramObj: Record<string, any>) => {
+  const token = getToken();
+  console.log("wrapper.ts:34 - token = ", token);
   try {
     const response = await fetch(process.env.baseURL + endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(paramObj),
     });

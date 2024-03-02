@@ -76,10 +76,14 @@ export const searchAlbum = async (query: string) => {
 }; // TODO
 
 export const getKakaoAuthURL = async () => {
-  return await Get("/oauth/kakao", {});
+  return await fetch(process.env.baseURL + "/oauth/kakao", {});
 };
 
 export const getAlbumDetail = async (id: number | string) => {
   const params = {};
   return (await Get(`/albums/${id}`, params)) as AlbumDetailType;
+};
+
+export const postAlbumVote = async (id: number | string) => {
+  return await Post(`/albums/${id}/vote`, { count: 1 });
 };
