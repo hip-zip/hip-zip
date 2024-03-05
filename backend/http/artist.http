@@ -1,0 +1,17 @@
+###
+POST {{host}}/artists
+Content-Type: application/json
+
+{
+  "name": "아이브",
+  "image": "https://cdnimg.melon.co.kr/cm2/artistcrop/images/030/55/146/3055146_20231013113531_500.jpg?0e566ba6e62e36c713375aa363f4b9ef/melon/resize/416/quality/80/optimize",
+  "artistType": "SOLO",
+  "hashtag": [
+    "아이브"
+  ]
+}
+
+###
+GET {{host}}/artists
+
+###

@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: ${RDS_URL}
+    username: ${RDS_USERNAME}
+    password: ${RDS_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+server:
+  port: ${SERVER_PORT}
+oauth:
+  kakao:
+    clientId: ${KAKAO_CLIENT_ID}
+    redirectUri: ${KAKAO_REDIRECT_URI}
+    providerName: ${KAKAO_PROVIDER_NAME}
+    scope: ${KAKAO_SCOPE}
+    clientSecret: ${KAKAO_CLIENT_SECRET}
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-time-millisecond: ${JWT_EXPIRATION_TIME_MILLISECOND}
