@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradientAnimation 5s infinite;
+}
+
+.cd-image {
+  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 15px;
+}
+
+.gradient-bg {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-slow-reverse {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+/* 600px 이상인 경우 기본 값인 56.25%로 설정 */
+.mv-container {
+  width: 70%;
+  padding-bottom: 45%;
+}
+
+/* 600px 이하인 경우 70%로 설정 */
+@media (max-width: 600px) {
+  .mv-container {
+    width: 90%;
+    padding-bottom: 70%;
+  }
+}
+
+/* Apply specific durations to all animations */
+
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(page-header),
+::view-transition-new(page-header),
+::view-transition-old(page-content),
+::view-transition-new(page-content) {
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.5s; /* Adjust the duration as needed (in seconds) */
+}
