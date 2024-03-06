@@ -7,11 +7,13 @@ phases:
   build:
     commands:
       - echo Build Starting on `date`
+      - cd backend
       - ./gradlew build
 artifacts:
   files:
     - build/libs/*.jar
   discard-paths: yes
+  base-directory: backend
 cache:
   paths:
     - '/root/.gradle/caches/**/*'

@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles"
+    "start": "next start -p 8080",
+    "build": "npm run clean && next build",
+    "clean": "rm -rf .next",
+    "deploy-dev": "npm install && npm run build && eb deploy eb-next-app-dev"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.5",
