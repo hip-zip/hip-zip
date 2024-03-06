@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/YoutubeEmbededVideo";
 import AlbumInformation from "@/app/components/molecule/AlbumInformation/AlbumInformation";
@@ -8,7 +8,7 @@ import SpinningAlbum from "@/app/components/atom/Images/SpinningAlbum";
 import Like from "@/app/components/molecule/Like/Like";
 import { AlbumDetailType } from "@/app/components/type";
 import { postAlbumVote } from "@/app/api/Client/requests";
-
+import { debounce } from "lodash";
 interface AlbumDetailProps {
   album: AlbumDetailType;
 }
@@ -16,6 +16,7 @@ interface AlbumDetailProps {
 const AlbumDetail = (props: AlbumDetailProps) => {
   const router = useRouter();
   const [likeCount, setLikeCount] = useState<number>(props.album.vote);
+  const [fetchLikeCount, setFetchLikeCount] = useState<number>(0);
 
   useEffect(() => {
     window.addEventListener("popstate", function (event) {
@@ -35,10 +36,26 @@ const AlbumDetail = (props: AlbumDetailProps) => {
     }
   };
 
-  const handleLikeClick = async () => {
-    const response = await postAlbumVote(props.album.id);
-    setLikeCount((prev) => prev + 1);
+  // const handleLikeClick = async () => {
+  // setFetchLikeCount((prev) => prev + 1);
+  // const response = await postAlbumVote(props.album.id, 1);
+  // setLikeCount((prev) => prev + 1);
+  // };
+
+  const handleLikeClick = debounce(async () => {
+    console.log("AlbumDetail.tsx:46 -  = Click!", likeCount);
+    // const response = await postAlbumVote(props.album.id, fetchLikeCount);
+    // setFetchLikeCount(0);
+  }, 1000);
+
+  const debounceFunc = () => {
+    // setLikeCount((prev) => prev + 1);
+    console.log("AlbumDetail.tsx:53 -  = Click!!");
   };
+
+  useEffect(() => {
+    console.log("AlbumDetail.tsx:54 - fetchLikeCount = ", fetchLikeCount);
+  }, [fetchLikeCount]);
 
   return (
     <div className={"w-full flex flex-col justify-center items-center"}>
@@ -47,7 +64,17 @@ const AlbumDetail = (props: AlbumDetailProps) => {
         albumName={props.album.name}
         artist={props.album.artistResponse}
       />
-      <Like onClick={handleLikeClick} count={likeCount} />
+      <Like
+        onClick={
+          () => {
+            handleLikeClick();
+            debounceFunc();
+          }
+          // setLikeCount((prev) => prev + 1);
+          // setFetchLikeCount((prev) => prev + 1);
+        }
+        count={likeCount}
+      />
       <MusicVideoContainer src={props.album.musicVideo} />
       <div className={"h-48"} />
     </div>

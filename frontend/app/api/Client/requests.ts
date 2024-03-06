@@ -84,6 +84,6 @@ export const getAlbumDetail = async (id: number | string) => {
   return (await Get(`/albums/${id}`, params)) as AlbumDetailType;
 };
 
-export const postAlbumVote = async (id: number | string) => {
-  return await Post(`/albums/${id}/vote`, { count: 1 });
+export const postAlbumVote = async (id: number | string, count: number) => {
+  return await Post(`/albums/${id}/vote`, { count: count });
 };
