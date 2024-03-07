@@ -16,7 +16,7 @@ interface AlbumDetailProps {
 const AlbumDetail = (props: AlbumDetailProps) => {
   const router = useRouter();
   const [likeCount, setLikeCount] = useState<number>(props.album.vote);
-  const [fetchLikeCount, setFetchLikeCount] = useState<number>(0);
+  const [fetchLikeCount, setFetchLikeCount] = useState<number>(1);
 
   useEffect(() => {
     window.addEventListener("popstate", function (event) {
@@ -42,16 +42,13 @@ const AlbumDetail = (props: AlbumDetailProps) => {
   // setLikeCount((prev) => prev + 1);
   // };
 
-  const handleLikeClick = debounce(async () => {
-    console.log("AlbumDetail.tsx:46 -  = Click!", likeCount);
-    // const response = await postAlbumVote(props.album.id, fetchLikeCount);
-    // setFetchLikeCount(0);
-  }, 1000);
-
-  const debounceFunc = () => {
-    // setLikeCount((prev) => prev + 1);
-    console.log("AlbumDetail.tsx:53 -  = Click!!");
-  };
+  const handleLikeClick = useCallback(
+    debounce(async (count: number) => {
+      const response = await postAlbumVote(props.album.id, count);
+      setFetchLikeCount(1);
+    }, 1000),
+    [],
+  );
 
   useEffect(() => {
     console.log("AlbumDetail.tsx:54 - fetchLikeCount = ", fetchLikeCount);
@@ -65,14 +62,11 @@ const AlbumDetail = (props: AlbumDetailProps) => {
         artist={props.album.artistResponse}
       />
       <Like
-        onClick={
-          () => {
-            handleLikeClick();
-            debounceFunc();
-          }
-          // setLikeCount((prev) => prev + 1);
-          // setFetchLikeCount((prev) => prev + 1);
-        }
+        onClick={() => {
+          setLikeCount((prev) => prev + 1);
+          setFetchLikeCount((prev) => prev + 1);
+          handleLikeClick(fetchLikeCount);
+        }}
         count={likeCount}
       />
       <MusicVideoContainer src={props.album.musicVideo} />
