@@ -20,7 +20,7 @@ import { useToast } from "@/components/ui/use-toast";
 import InputDateField from "@/app/components/molecule/InputField/InputDateField";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import InputArtistField from "@/app/components/molecule/InputField/InputArtistField";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 import { convertDate } from "@/lib/utils";
 
 export interface AlbumPostFormType {
@@ -40,12 +40,12 @@ interface AlbumPostModalProps {
 const AlbumPostModal = (props: AlbumPostModalProps) => {
   const { toast } = useToast();
 
-  const [response, onSearchQueryChange] = useDebouncedSearch<ArtistType>(
+  const [response, onSearchQueryChange] = useDebouncedSearch<IArtist>(
     (query: string) => searchArtist(query),
     300,
   );
 
-  const [artistInfo, setArtistInfo] = useState<ArtistType>({
+  const [artistInfo, setArtistInfo] = useState<IArtist>({
     name: "",
     image: "",
     id: -1,

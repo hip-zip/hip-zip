@@ -2,12 +2,12 @@
 
 import Artist from "@/app/components/atom/Images/Artist";
 import { cn } from "@/lib/utils";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 import { useEffect } from "react";
 
 interface ArtistImageGridProps {
-  artists: ArtistType[];
-  handleImageClick: (item: ArtistType) => void;
+  artists: IArtist[];
+  handleImageClick: (item: IArtist) => void;
   className?: string;
 }
 

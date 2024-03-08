@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 
 export interface ArtistProps {
-  artist: ArtistType;
-  handleArtistClick: (item: ArtistType) => void;
+  artist: IArtist;
+  handleArtistClick: (item: IArtist) => void;
 }
 
 const Artist = (props: ArtistProps) => {

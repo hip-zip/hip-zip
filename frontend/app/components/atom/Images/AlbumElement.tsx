@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import { AlbumType } from "../../type";
+import { IAlbum } from "../../type";
 interface AlbumElementProps {
-  album: AlbumType;
+  album: IAlbum;
   setScrollLocation: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -12,7 +12,10 @@ export const AlbumElement = (props: AlbumElementProps) => {
   const router = useRouter();
 
   return (
-    <div key={props.album.id} className="flex justify-center items-center">
+    <div
+      key={props.album.id}
+      className="flex flex-col justify-center items-center gap-1"
+    >
       <Image
         src={props.album.image}
         alt={"개발자한테 사진 넣으라고 전해주세요"}
@@ -32,6 +35,7 @@ export const AlbumElement = (props: AlbumElementProps) => {
           }
         }}
       />
+      <span className={"text-center text-xs"}>{props.album.name}</span>
     </div>
   );
 };

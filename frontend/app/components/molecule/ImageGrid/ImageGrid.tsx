@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from "react";
 import Artist from "@/app/components/atom/Images/Artist";
 import { cn } from "@/lib/utils";
-import { AlbumType } from "@/app/admin/album/page";
-import { ArtistType } from "@/app/components/type";
+import { IAlbum } from "@/app/admin/album/page";
+import { IArtist } from "@/app/components/type";
 import ArtistImageGrid from "@/app/components/molecule/ImageGrid/ArtistImageGrid";
 import AlbumImageGrid from "@/app/components/molecule/ImageGrid/AlbumImageGrid";
 import Image from "next/image";

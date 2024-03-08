@@ -10,6 +10,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import { setToken, useTokenStore } from "@/app/store/useTokenStore";
 import { getUserInfo } from "@/app/api/Server/requests";
 import { setUserInfo } from "@/app/store/useUserInfoStore";
+import { useVibrateStore } from "@/app/store/useVibrateStore";
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
   const queryClient = new QueryClient();
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const globalToken = useTokenStore((state) => state.token);
+  const vibrate = useVibrateStore((state) => state.vibrate);
 
   const validationCheck = async () => {
     if (globalToken) {
@@ -33,6 +35,10 @@ export default function RootLayout({
       setToken(cookies.token);
     }
   }, []);
+
+  useEffect(() => {
+    console.log("layout.tsx:40 - vibrate = ", vibrate);
+  }, [vibrate]);
 
   useEffect(() => {
     console.log("layout.tsx:38 - globalToken = ", globalToken);
@@ -95,7 +101,12 @@ export default function RootLayout({
       />
       <body className={`h-full min-h-screen`}>
         <CookiesProvider defaultSetOptions={{ path: "/" }}>
-          <div className="text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray animate-gradient">
+          <div
+            className={
+              "text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray " +
+              `${vibrate === true ? "animate-vibrate" : ""}`
+            }
+          >
             <Header />
             {children}
             <Toaster />

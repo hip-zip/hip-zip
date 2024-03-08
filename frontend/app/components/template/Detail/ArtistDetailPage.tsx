@@ -2,10 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArtistDetailType } from "@/app/components/type";
+import { IArtistDetail } from "@/app/components/type";
 
 interface ArtistDetailPageProps {
-  artist: ArtistDetailType;
+  artist: IArtistDetail;
 }
 
 const ArtistDetailPage = (props: ArtistDetailPageProps) => {

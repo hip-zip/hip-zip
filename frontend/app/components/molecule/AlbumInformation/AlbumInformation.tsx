@@ -2,12 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Label from "@/app/components/atom/Label/Label";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 import { useRouter } from "next/navigation";
 
 interface AlbumInformationProps {
   albumName: string;
-  artist: ArtistType;
+  artist: IArtist;
 }
 
 const AlbumInformation = (props: AlbumInformationProps) => {

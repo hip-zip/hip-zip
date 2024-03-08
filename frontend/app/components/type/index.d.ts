@@ -1,11 +1,11 @@
-export interface ArtistType {
+export interface IArtist {
   id: number;
   name: string;
   image: string;
   artistType?: string;
 }
 
-export interface ArtistDetailType {
+export interface IArtistDetail {
   name: string;
   image: string;
   artistType: string;
@@ -22,18 +22,18 @@ export interface ArtistDetailType {
   hashtag: string[];
 }
 
-export interface AlbumType {
+export interface IAlbum {
   id: number;
   name: string;
   image: string;
 } // ImageGridType
 
-export interface AlbumDetailType {
+export interface IAlbumDetail {
   id: number;
   name: string;
   image: string;
   vote: number;
   releaseDate: string;
   musicVideo: string;
-  artistResponse: ArtistType;
+  artistResponse: IArtist;
 }

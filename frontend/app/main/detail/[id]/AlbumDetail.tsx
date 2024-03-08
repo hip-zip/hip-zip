@@ -6,10 +6,10 @@ import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/Youtu
 import AlbumInformation from "@/app/components/molecule/AlbumInformation/AlbumInformation";
 import SpinningAlbum from "@/app/components/atom/Images/SpinningAlbum";
 import Like from "@/app/components/molecule/Like/Like";
-import { AlbumDetailType } from "@/app/components/type";
+import { IAlbumDetail } from "@/app/components/type";
 
 interface AlbumDetailProps {
-  album: AlbumDetailType;
+  album: IAlbumDetail;
 }
 
 const AlbumDetail = (props: AlbumDetailProps) => {

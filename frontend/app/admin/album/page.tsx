@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import AlbumPostModal from "@/app/components/organism/Modal/AlbumPostModal";
 import AlbumModifyModal from "@/app/components/organism/Modal/AlbumModifyModal";
 
-export interface AlbumType {
+export interface IAlbum {
   id: number;
   name: string;
   image: string;
@@ -26,14 +26,14 @@ export default function Page() {
     setAlbumPostModalOpen(true);
   };
 
-  const handleModifyModalOpen = (album: AlbumType) => {
+  const handleModifyModalOpen = (album: IAlbum) => {
     setAlbumDetailId(album.id);
     setAlbumModifyModalOpen(true);
   };
 
   return (
     <>
-      <ContentsManagement<AlbumType>
+      <ContentsManagement<IAlbum>
         label={"앨범"}
         type={"albums"}
         handlePostModalOpen={handlePostModalOpen}

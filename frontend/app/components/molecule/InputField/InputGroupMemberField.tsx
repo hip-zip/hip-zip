@@ -14,7 +14,7 @@ import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
 import { searchArtist } from "@/app/api/Client/requests";
 import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModal";
 import XIcon from "@/app/components/atom/Icon/X-Icon";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 
 interface TagInputFieldProps {
   label: string;
@@ -30,7 +30,7 @@ interface TagInputFieldProps {
 }
 
 const InputGroupMemberField = (props: TagInputFieldProps) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<ArtistType>(
+  const [response, onSearchQueryChange] = useDebouncedSearch<IArtist>(
     (query: string) => searchArtist(query),
     300,
   );
