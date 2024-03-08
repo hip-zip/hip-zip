@@ -10,12 +10,15 @@ import { AlbumDetailType } from "@/app/components/type";
 import { postAlbumVote } from "@/app/api/Client/requests";
 import { debounce } from "lodash";
 import { setVibrate, stopVibrate } from "@/app/store/useVibrateStore";
+import { vibrate } from "@/app/util/util";
+import { useTokenStore } from "@/app/store/useTokenStore";
 interface AlbumDetailProps {
   album: AlbumDetailType;
 }
 
 const AlbumDetail = (props: AlbumDetailProps) => {
   const router = useRouter();
+  const token = useTokenStore((state) => state.token);
   const [likeCount, setLikeCount] = useState<number>(props.album.vote);
   const [fetchLikeCount, setFetchLikeCount] = useState<number>(1);
 
@@ -37,13 +40,19 @@ const AlbumDetail = (props: AlbumDetailProps) => {
     }
   };
 
-  // const handleLikeClick = async () => {
-  // setFetchLikeCount((prev) => prev + 1);
-  // const response = await postAlbumVote(props.album.id, 1);
-  // setLikeCount((prev) => prev + 1);
-  // };
+  const handleLikeClick = async () => {
+    if (token === "") {
+      alert("로그인이 필요한 작업입니다.");
+      return;
+    }
 
-  const handleLikeClick = useCallback(
+    setLikeCount((prev) => prev + 1);
+    setFetchLikeCount((prev) => prev + 1);
+    handleVoteDebounce(fetchLikeCount);
+    vibrate();
+  };
+
+  const handleVoteDebounce = useCallback(
     debounce(async (count: number) => {
       const response = await postAlbumVote(props.album.id, count);
       setFetchLikeCount(1);
@@ -62,18 +71,7 @@ const AlbumDetail = (props: AlbumDetailProps) => {
         albumName={props.album.name}
         artist={props.album.artistResponse}
       />
-      <Like
-        onClick={() => {
-          setLikeCount((prev) => prev + 1);
-          setFetchLikeCount((prev) => prev + 1);
-          handleLikeClick(fetchLikeCount);
-          setVibrate();
-          setTimeout(() => {
-            stopVibrate();
-          }, 200);
-        }}
-        count={likeCount}
-      />
+      <Like onClick={handleLikeClick} count={likeCount} />
       <MusicVideoContainer src={props.album.musicVideo} />
       <div className={"h-48"} />
     </div>
