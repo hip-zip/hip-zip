@@ -1,5 +1,4 @@
 import fetchSupabase from "@/app/hook/fetchSupabase";
-import { IAlbumList } from "@/app/main/page";
 import fetchDetailSupabase from "@/app/hook/fetchDetailSupabase";
 import AlbumDetail from "@/app/main/detail/album/[id]/AlbumDetail";
 import { getAlbumDetail } from "@/app/api/Server/requests";

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { IAlbumList } from "@/app/main/page";
 import { useRouter } from "next/navigation";
+import { ISupabaseAlbumList } from "@/app/components/organism/SearchForm/SearchForm";
 
-const ResultAlbumList = (props: { albumList: IAlbumList[] }) => {
+const ResultAlbumList = (props: { albumList: ISupabaseAlbumList[] }) => {
   const router = useRouter();
 
   return (
