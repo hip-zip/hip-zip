@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { AlbumType, ArtistType } from "@/app/components/type";
+import { IAlbum, IArtist } from "@/app/components/type";
 
 export interface ArtistProps {
   key: number;
-  album: AlbumType;
-  handleAlbumClick: (item: ArtistType) => void;
+  album: IAlbum;
+  handleAlbumClick: (item: IArtist) => void;
 }
 
 const Album = (props: ArtistProps) => {

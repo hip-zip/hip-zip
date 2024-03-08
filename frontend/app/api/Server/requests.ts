@@ -1,10 +1,10 @@
-import { AlbumDetailType } from "@/app/components/type";
+import { IAlbumDetail } from "@/app/components/type";
 import { Get, Post } from "@/app/api/Server/wrapper";
 import { UserInfoType } from "@/app/store/useUserInfoStore";
 
 export const getAlbumDetail = async (id: number | string) => {
   const params = {};
-  return (await Get(`/albums/${id}`, params)) as AlbumDetailType;
+  return (await Get(`/albums/${id}`, params)) as IAlbumDetail;
 };
 
 export const getKakaoToken = async (code: string) => {

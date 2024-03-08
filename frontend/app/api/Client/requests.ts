@@ -1,9 +1,9 @@
 import { Get, Post, Put } from "@/app/api/Client/wrapper";
 import {
-  AlbumDetailType,
-  AlbumType,
-  ArtistDetailType,
-  ArtistType,
+  IAlbumDetail,
+  IAlbum,
+  IArtistDetail,
+  IArtist,
 } from "@/app/components/type";
 
 export const getArtist = async (page: number) => {
@@ -11,7 +11,7 @@ export const getArtist = async (page: number) => {
     size: 40,
     page: page,
   };
-  return (await Get("/artists", params)) as ArtistType[];
+  return (await Get("/artists", params)) as IArtist[];
 };
 
 export const postArtist = async <T>(
@@ -27,7 +27,7 @@ export const putArtist = async <T>(
 };
 
 export const getArtistDetail = async (id: number | string) => {
-  return (await Get(`/artists/${id}`, {})) as ArtistDetailType;
+  return (await Get(`/artists/${id}`, {})) as IArtistDetail;
 };
 
 export const searchArtist = async <T>(query: string) => {
@@ -43,7 +43,7 @@ export const getAlbum = async (page: number) => {
     page: page,
   };
 
-  return (await Get("/albums", params)) as AlbumType[];
+  return (await Get("/albums", params)) as IAlbum[];
 };
 
 export const getInfiniteAlbum = async (page: any) => {
@@ -52,7 +52,7 @@ export const getInfiniteAlbum = async (page: any) => {
     page: page,
   };
 
-  const response = (await Get("/albums", params)) as AlbumType[];
+  const response = (await Get("/albums", params)) as IAlbum[];
   if (response?.length === 0) {
     return { data: response, nextCursor: undefined };
   }
@@ -81,7 +81,7 @@ export const getKakaoAuthURL = async () => {
 
 export const getAlbumDetail = async (id: number | string) => {
   const params = {};
-  return (await Get(`/albums/${id}`, params)) as AlbumDetailType;
+  return (await Get(`/albums/${id}`, params)) as IAlbumDetail;
 };
 
 export const postAlbumVote = async (id: number | string, count: number) => {

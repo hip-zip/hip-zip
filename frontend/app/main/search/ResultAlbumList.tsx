@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import React, { useEffect } from "react";
-import { AlbumListType } from "@/app/main/page";
+import { IAlbumList } from "@/app/main/page";
 import { useRouter } from "next/navigation";
 
-const ResultAlbumList = (props: { albumList: AlbumListType[] }) => {
+const ResultAlbumList = (props: { albumList: IAlbumList[] }) => {
   const router = useRouter();
 
   return (

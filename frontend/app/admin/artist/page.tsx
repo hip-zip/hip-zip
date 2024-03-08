@@ -10,7 +10,7 @@ import ArtistPostModal from "@/app/components/organism/Modal/ArtistPostModal";
 import { Suspense, useState } from "react";
 import ArtistModifyModal from "@/app/components/organism/Modal/ArtistModifyModal";
 import GroupModifyModal from "@/app/components/organism/Modal/GroupModifyModal";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 
 export default function Page() {
   const [artistDetailId, setArtistDetailId] = useState<number>(-1);
@@ -24,7 +24,7 @@ export default function Page() {
     setPostModalOpen(true);
   };
 
-  const handleModifyModalOpen = (artist: ArtistType) => {
+  const handleModifyModalOpen = (artist: IArtist) => {
     setArtistDetailId(artist.id);
 
     if (artist.artistType === "SOLO") {
@@ -39,7 +39,7 @@ export default function Page() {
 
   return (
     <>
-      <ContentsManagement<ArtistType>
+      <ContentsManagement<IArtist>
         label={"아티스트"}
         type={"artists"}
         handlePostModalOpen={handlePostModalOpen}

@@ -22,7 +22,7 @@ import useContinualInput from "@/app/hook/useContinualInput";
 import { toast } from "@/components/ui/use-toast";
 import InputArtistField from "@/app/components/molecule/InputField/InputArtistField";
 import useDebouncedSearch from "@/app/hook/useDebouncedSearch";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 import InputDateField from "@/app/components/molecule/InputField/InputDateField";
 import { convertDate } from "@/lib/utils";
 import { AlbumPostFormType } from "@/app/components/organism/Modal/AlbumPostModal";
@@ -44,12 +44,12 @@ export interface AlbumModifyModalProps {
 }
 
 const ArtistModifyModal = (props: AlbumModifyModalProps) => {
-  const [response, onSearchQueryChange] = useDebouncedSearch<ArtistType>(
+  const [response, onSearchQueryChange] = useDebouncedSearch<IArtist>(
     (query: string) => searchArtist(query),
     300,
   );
 
-  const [artistInfo, setArtistInfo] = useState<ArtistType>({
+  const [artistInfo, setArtistInfo] = useState<IArtist>({
     name: "",
     image: "",
     id: -1,

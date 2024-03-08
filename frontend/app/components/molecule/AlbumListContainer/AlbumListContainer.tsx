@@ -4,11 +4,11 @@ import React, { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AlbumElement } from "@/app/components/atom/Images/AlbumElement";
-import { AlbumType } from "@/app/components/type";
+import { IAlbum } from "@/app/components/type";
 import { getInfiniteAlbum } from "@/app/api/Client/requests";
 
 interface AlbumFetchType {
-  data: AlbumType[];
+  data: IAlbum[];
   nextCursor: number;
 }
 

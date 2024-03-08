@@ -8,10 +8,10 @@ import {
 } from "@/app/api/Client/requests";
 import ImageGrid from "@/app/components/molecule/ImageGrid/ImageGrid";
 import useIntersectionObserver from "@/app/hook/useIntersectionObserver";
-import { AlbumType } from "@/app/admin/album/page";
-import { ArtistType } from "@/app/components/type";
+import { IAlbum } from "@/app/admin/album/page";
+import { IArtist } from "@/app/components/type";
 
-interface ContentsManagementProps<T extends ArtistType | AlbumType> {
+interface ContentsManagementProps<T extends IArtist | IAlbum> {
   label: string;
   type: "artists" | "albums";
   handlePostModalOpen: () => void;
@@ -20,7 +20,7 @@ interface ContentsManagementProps<T extends ArtistType | AlbumType> {
   search: (query: string) => Promise<T[]>;
 }
 
-const ContentsManagement = <T extends ArtistType | AlbumType>(
+const ContentsManagement = <T extends IArtist | IAlbum>(
   props: ContentsManagementProps<T>,
 ) => {
   const [response, onSearchQueryChange] = useDebouncedSearch<T>(

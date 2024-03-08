@@ -1,10 +1,10 @@
 import React from "react";
-import { AlbumType } from "@/app/components/type";
+import { IAlbum } from "@/app/components/type";
 import Album from "@/app/components/atom/Images/Album";
 
 interface AlbumImageGridProps {
-  albums: AlbumType[];
-  handleImageClick: (item: AlbumType) => void;
+  albums: IAlbum[];
+  handleImageClick: (item: IAlbum) => void;
   className?: string;
 }
 

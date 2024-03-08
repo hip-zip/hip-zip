@@ -6,14 +6,14 @@ import MusicVideoContainer from "@/app/components/atom/YoutubeEmbededVideo/Youtu
 import AlbumInformation from "@/app/components/molecule/AlbumInformation/AlbumInformation";
 import SpinningAlbum from "@/app/components/atom/Images/SpinningAlbum";
 import Like from "@/app/components/molecule/Like/Like";
-import { AlbumDetailType } from "@/app/components/type";
+import { IAlbumDetail } from "@/app/components/type";
 import { postAlbumVote } from "@/app/api/Client/requests";
 import { debounce } from "lodash";
 import { setVibrate, stopVibrate } from "@/app/store/useVibrateStore";
 import { vibrate } from "@/app/util/util";
 import { useTokenStore } from "@/app/store/useTokenStore";
 interface AlbumDetailProps {
-  album: AlbumDetailType;
+  album: IAlbumDetail;
 }
 
 const AlbumDetail = (props: AlbumDetailProps) => {
@@ -59,10 +59,6 @@ const AlbumDetail = (props: AlbumDetailProps) => {
     }, 1000),
     [],
   );
-
-  useEffect(() => {
-    console.log("AlbumDetail.tsx:54 - fetchLikeCount = ", fetchLikeCount);
-  }, [fetchLikeCount]);
 
   return (
     <div className={"w-full flex flex-col justify-center items-center"}>

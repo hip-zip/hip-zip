@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { AlbumListType } from "@/app/main/page";
+import { IAlbumList } from "@/app/main/page";
 import { SearchForm } from "@/app/components/organism/SearchForm/SearchForm";
 
 export const Search = () => {
-  const [albumList, setAlbumList] = useState<AlbumListType[]>([]);
+  const [albumList, setAlbumList] = useState<IAlbumList[]>([]);
 
   const searchQuery = async (param: string) => {
     if (param !== "empty") {

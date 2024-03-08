@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
-import { AlbumType } from "../../type";
+import { IAlbum } from "../../type";
 interface AlbumElementProps {
-  album: AlbumType;
+  album: IAlbum;
   setScrollLocation: React.Dispatch<React.SetStateAction<number>>;
 }
 

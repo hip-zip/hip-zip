@@ -13,23 +13,23 @@ import { GroupMemberType } from "@/app/components/organism/Modal/GroupModifyModa
 import XIcon from "@/app/components/atom/Icon/X-Icon";
 import CarouselComponent from "@/app/components/molecule/Carousel/Carousel";
 import { Simulate } from "react-dom/test-utils";
-import { ArtistType } from "@/app/components/type";
+import { IArtist } from "@/app/components/type";
 
 interface InputArtistFieldProps {
   label: string;
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  artistInfo: ArtistType;
-  setArtistInfo: React.Dispatch<React.SetStateAction<ArtistType>>;
+  artistInfo: IArtist;
+  setArtistInfo: React.Dispatch<React.SetStateAction<IArtist>>;
 }
 
 const InputArtistField = (props: InputArtistFieldProps) => {
   const [response, onSearchQueryChange, resetResponse] =
-    useDebouncedSearch<ArtistType>((query: string) => searchArtist(query), 300);
+    useDebouncedSearch<IArtist>((query: string) => searchArtist(query), 300);
 
   const [popOverStatus, setPopOverStatus] = useState<boolean>(false);
 
-  const handleSaveMember = (artist: ArtistType) => {
+  const handleSaveMember = (artist: IArtist) => {
     props.setArtistInfo(artist);
     setPopOverStatus(false);
   };
@@ -53,7 +53,7 @@ const InputArtistField = (props: InputArtistFieldProps) => {
               클릭하여 아티스트를 선택하세요
             </h4>
             <div className={"mt-2 flex justify-center items-center"}>
-              <CarouselComponent<ArtistType>
+              <CarouselComponent<IArtist>
                 data={response}
                 setData={handleSaveMember}
                 close={() => setPopOverStatus(false)}
