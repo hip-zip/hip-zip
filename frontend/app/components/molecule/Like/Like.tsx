@@ -31,7 +31,7 @@ const Like = (props: LikeDislikeProps) => {
       >
         🔥
       </span>
-      <div>{props.count}</div>
+      <div className={"text-center"}>{props.count}</div>
     </div>
   );
 };

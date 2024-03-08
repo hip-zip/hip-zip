@@ -9,6 +9,7 @@ import Like from "@/app/components/molecule/Like/Like";
 import { AlbumDetailType } from "@/app/components/type";
 import { postAlbumVote } from "@/app/api/Client/requests";
 import { debounce } from "lodash";
+import { setVibrate, stopVibrate } from "@/app/store/useVibrateStore";
 interface AlbumDetailProps {
   album: AlbumDetailType;
 }
@@ -66,6 +67,10 @@ const AlbumDetail = (props: AlbumDetailProps) => {
           setLikeCount((prev) => prev + 1);
           setFetchLikeCount((prev) => prev + 1);
           handleLikeClick(fetchLikeCount);
+          setVibrate();
+          setTimeout(() => {
+            stopVibrate();
+          }, 200);
         }}
         count={likeCount}
       />
