@@ -48,9 +48,9 @@ export default function RootLayout({
 
   useEffect(() => {
     if (globalToken) {
+      setCookie("token", globalToken, { path: "/" });
       tokenValidation();
     }
-
   }, [globalToken]);
 
   return (
