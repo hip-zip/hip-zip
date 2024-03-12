@@ -11,6 +11,7 @@ import { setToken, useTokenStore } from "@/app/store/useTokenStore";
 import { getUserInfo } from "@/app/api/Server/requests";
 import { setUserInfo } from "@/app/store/useUserInfoStore";
 import { useVibrateStore } from "@/app/store/useVibrateStore";
+import { useRouter } from "next/navigation";
 
 export default function RootLayout({
   children,
@@ -21,12 +22,12 @@ export default function RootLayout({
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const globalToken = useTokenStore((state) => state.token);
   const vibrate = useVibrateStore((state) => state.vibrate);
+  const router = useRouter();
 
   const tokenValidation = async () => {
     try {
       setToken(cookies.token);
       const response = await getUserInfo();
-      console.log("layout.tsx:29 - response = ", response);
       setUserInfo({
         email: response.email,
         nickName: response.nickName,
@@ -45,13 +46,6 @@ export default function RootLayout({
       return;
     } // first logic - if token is in cookies
   }, []);
-
-  useEffect(() => {
-    if (globalToken) {
-      setCookie("token", globalToken, { path: "/" });
-      tokenValidation();
-    }
-  }, [globalToken]);
 
   return (
     <html>

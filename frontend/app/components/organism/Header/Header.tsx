@@ -53,7 +53,7 @@ export default function Header() {
         <div className={"flex gap-5"}>
           {userInfo && (
             <>
-              <div>{userInfo?.nickName} 님, 반갑습니다</div>
+              <div className={"truncate w-24"}>{userInfo?.nickName} 님</div>
               <UnLockIcon onClick={handleLogout} />
             </>
           )}
@@ -61,9 +61,9 @@ export default function Header() {
           <Link href={"/admin"}>
             <UserIcon />
           </Link>
-          <Link href={"/main/about"}>
-            <AboutIcon />
-          </Link>
+          {/*<Link href={"/main/about"}>*/}
+          {/*  <AboutIcon />*/}
+          {/*</Link>*/}
           <Link href={"/main/search"}>
             <SearchIcon />
           </Link>
