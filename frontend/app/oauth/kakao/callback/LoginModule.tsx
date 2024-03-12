@@ -17,9 +17,9 @@ const LoginModule = (props: LoginModuleProps) => {
 
   const tokenValidation = async () => {
     try {
+      setToken(props.token);
       const response = await getUserInfo();
       setCookie("token", props.token, { path: "/" });
-      setToken(props.token);
       setUserInfo(response);
       router.push("/main");
     } catch (e) {
