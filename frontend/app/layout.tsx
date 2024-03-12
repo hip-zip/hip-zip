@@ -50,6 +50,7 @@ export default function RootLayout({
     if (globalToken) {
       tokenValidation();
     }
+
   }, [globalToken]);
 
   return (
