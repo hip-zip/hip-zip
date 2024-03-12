@@ -1,6 +1,6 @@
 import { IAlbumDetail } from "@/app/components/type";
 import { Get, Post } from "@/app/api/Server/wrapper";
-import { UserInfoType } from "@/app/store/useUserInfoStore";
+import { UserInfo } from "@/app/store/useUserInfoStore";
 
 export const getAlbumDetail = async (id: number | string) => {
   const params = {};
@@ -17,5 +17,5 @@ export const getKakaoToken = async (code: string) => {
 };
 
 export const getUserInfo = async () => {
-  return (await Get("/me", {})) as UserInfoType;
+  return (await Get("/me", {})) as UserInfo;
 };
