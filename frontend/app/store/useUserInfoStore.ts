@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-interface UserInfo {
+export interface UserInfo {
   email: string;
   image: string;
   nickName: string;
