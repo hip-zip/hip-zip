@@ -5,7 +5,7 @@ import "@/public/css/font.css";
 import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/app/components/organism/Header/Header";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider, useCookies } from "react-cookie";
 import { setToken, useTokenStore } from "@/app/store/useTokenStore";
 import { getUserInfo } from "@/app/api/Server/requests";
@@ -22,24 +22,35 @@ export default function RootLayout({
   const globalToken = useTokenStore((state) => state.token);
   const vibrate = useVibrateStore((state) => state.vibrate);
 
-  const cookieExsists = async () => {
+  const tokenValidation = async () => {
     try {
       setToken(cookies.token);
       const response = await getUserInfo();
-      setUserInfo(response);
-    } catch {
-      removeCookie("token", { path: "/" });
+      console.log("layout.tsx:29 - response = ", response);
+      setUserInfo({
+        email: response.email,
+        nickName: response.nickName,
+        image: response.image,
+      });
+    } catch (e) {
       setToken(undefined);
-      return;
+      removeCookie("token");
+      console.log("layout.tsx:51 - e = ", e);
     }
-  }; // 쿠키 존재 케이스 - 첫 렌더링 시에만 감지
+  };
 
   useEffect(() => {
     if (cookies.token) {
-      cookieExsists();
+      tokenValidation();
       return;
     } // first logic - if token is in cookies
   }, []);
+
+  useEffect(() => {
+    if (globalToken) {
+      tokenValidation();
+    }
+  }, [globalToken]);
 
   return (
     <html>
@@ -96,18 +107,20 @@ export default function RootLayout({
         rel="apple-touch-startup-image"
       />
       <body className={`h-full min-h-screen`}>
-        <CookiesProvider defaultSetOptions={{ path: "/" }}>
-          <div
-            className={
-              "text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray " +
-              `${vibrate === true ? "animate-vibrate" : ""}`
-            }
-          >
-            <Header />
-            {children}
-            <Toaster />
-          </div>
-        </CookiesProvider>
+        <QueryClientProvider client={queryClient}>
+          <CookiesProvider defaultSetOptions={{ path: "/" }}>
+            <div
+              className={
+                "text-hipzip-white font-bold text-4xl s-core-medium bg-gradient-to-r from-hipzip-black to-hipzip-darkgray " +
+                `${vibrate === true ? "animate-vibrate" : ""}`
+              }
+            >
+              <Header />
+              {children}
+              <Toaster />
+            </div>
+          </CookiesProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );

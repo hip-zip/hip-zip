@@ -1,31 +1,24 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-export interface UserInfoType {
+interface UserInfo {
   email: string;
-  nickname: string;
   image: string;
+  nickName: string;
+}
+interface UseUserInfoStoreType {
+  userInfo: UserInfo | undefined;
 }
 
-interface UserInfoStoreType {
-  userInfo: UserInfoType;
-}
-
-export const useTokenStore = create<UserInfoStoreType>()(
+export const useUserInfoStore = create<UseUserInfoStoreType>()(
   immer((set) => ({
-    userInfo: {
-      email: "",
-      nickname: "",
-      image: "",
-    },
+    userInfo: undefined,
   })),
 );
 
-export const setUserInfo = (newState: UserInfoType) => {
-  useTokenStore.setState((state) => {
-    state.userInfo.email = newState.email;
-    state.userInfo.nickname = newState.nickname;
-    state.userInfo.image = newState.image;
+export const setUserInfo = (userInfo: UserInfo | undefined) => {
+  useUserInfoStore.setState((state) => {
+    state.userInfo = userInfo;
     return state;
   });
 };
