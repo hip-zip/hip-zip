@@ -22,28 +22,24 @@ export default function RootLayout({
   const globalToken = useTokenStore((state) => state.token);
   const vibrate = useVibrateStore((state) => state.vibrate);
 
-  const validationCheck = async () => {
-    if (globalToken) {
-      setCookie("token", globalToken, { path: "/" });
+  const cookieExsists = async () => {
+    try {
+      setToken(cookies.token);
       const response = await getUserInfo();
       setUserInfo(response);
+    } catch {
+      removeCookie("token", { path: "/" });
+      setToken(undefined);
+      return;
     }
-  };
+  }; // 쿠키 존재 케이스 - 첫 렌더링 시에만 감지
 
   useEffect(() => {
     if (cookies.token) {
-      setToken(cookies.token);
-    }
+      cookieExsists();
+      return;
+    } // first logic - if token is in cookies
   }, []);
-
-  useEffect(() => {
-    console.log("layout.tsx:40 - vibrate = ", vibrate);
-  }, [vibrate]);
-
-  useEffect(() => {
-    console.log("layout.tsx:38 - globalToken = ", globalToken);
-    validationCheck();
-  }, [globalToken]);
 
   return (
     <html>

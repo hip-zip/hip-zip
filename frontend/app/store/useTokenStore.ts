@@ -15,7 +15,7 @@ export const getToken = () => {
   return useTokenStore.getState().token;
 };
 
-export const setToken = (token: string) => {
+export const setToken = (token: string | undefined) => {
   useTokenStore.setState((state) => {
     state.token = token;
     return state;

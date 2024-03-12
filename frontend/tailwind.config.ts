@@ -15,6 +15,9 @@ const config: Config = {
         darkgray: "#121214",
         black: "#000000",
       },
+      kakao: {
+        yellow: "#F9E000",
+      },
     },
     extend: {
       keyframes: {
