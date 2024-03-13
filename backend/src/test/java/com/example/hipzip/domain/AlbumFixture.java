@@ -5,9 +5,18 @@ import com.example.hipzip.application.dto.album.AlbumSaveRequest;
 import com.example.hipzip.domain.album.Album;
 import com.example.hipzip.domain.artist.Artist;
 import java.time.LocalDate;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("NonAsciiCharacters")
 public class AlbumFixture {
+
+    @Test
+    void name() {
+        String test = "한";
+        int length = test.getBytes().length;
+
+        System.out.println("length : " + length + " Bytes");
+    }
 
     public static Album WAVE_앨범(Artist artist) {
         return Album.builder()

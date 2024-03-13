@@ -1,6 +1,8 @@
 package com.example.hipzip.domain.artist;
 
 import com.example.hipzip.domain.BaseEntity;
+import com.example.hipzip.domain.album.Album;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -29,6 +31,8 @@ public class Artist extends BaseEntity {
     private Artist group;
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     private List<Artist> members = new ArrayList<>();
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Album> albums = new ArrayList<>();
 
     @Builder
     public Artist(
@@ -63,5 +67,9 @@ public class Artist extends BaseEntity {
 
             this.members = members;
         }
+    }
+
+    public void addAlbum(final Album album) {
+        albums.add(album);
     }
 }
