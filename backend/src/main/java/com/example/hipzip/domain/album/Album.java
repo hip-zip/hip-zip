@@ -36,6 +36,7 @@ public class Album extends BaseEntity {
         this.releaseDate = releaseDate;
         this.musicVideo = musicVideo;
         this.artist = artist;
+        artist.addAlbum(this);
         this.albumVotes = new ArrayList<>();
     }
 
@@ -51,6 +52,9 @@ public class Album extends BaseEntity {
         this.releaseDate = releaseDate;
         this.musicVideo = musicVideo;
         this.artist = artist;
+        artist.getAlbums()
+                .remove(this);
+        artist.addAlbum(this);
     }
 
     public void increaseVoteCount(final Long userId, final Long count) {
