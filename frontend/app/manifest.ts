@@ -2,14 +2,19 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "hip_zip",
-    short_name: "hip_zip",
-    description: "Hip-Hop AlbumElement List",
+    name: "HIPZIP",
+    short_name: "HIPZIP",
+    description: "국내(외) 힙합 앨범들을 다루는 커뮤니티",
     start_url: "/",
     display: "fullscreen",
     background_color: "#fff",
     theme_color: "#fff",
     icons: [
+      {
+        src: "/icon-192x192.png",
+        sizes: "any",
+        type: "image/x-icon",
+      },
       {
         src: "/pwa/icon-48x48.png",
         sizes: "48x48",

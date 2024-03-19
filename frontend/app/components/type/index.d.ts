@@ -19,6 +19,7 @@ export interface IArtistDetail {
     name: string;
     image: string;
   }[];
+  albumResponses: IAlbum[];
   hashtag: string[];
 }
 
